@@ -1,5 +1,5 @@
 export const APP = {
-    NAME: "LM ITX",
+    NAME: "GM ITX",
     DESCRIPTION: "Локальный мониторинг",
     CSRF_COOKIE_NAME: "XSRF-TOKEN",
     CSRF_HEADER_NAME: "X-XSRF-TOKEN",

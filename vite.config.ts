@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       host: env.VITE_FRONTEND_HOST || '0.0.0.0',
-      port: Number(env.VITE_FRONTEND_PORT) || 5174,
+      port: Number(env.VITE_FRONTEND_PORT) || 5173,
       proxy: {
         [env.VITE_API_BASE_PATH]: {
           target: env.VITE_API_ORIGIN,
