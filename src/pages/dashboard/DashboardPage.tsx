@@ -31,7 +31,8 @@ export default function DashboardPage() {
     }
 
     const doToast = () => {
-        toast("Hello world!")
+        //toast("Hello world!")
+        toast.error("Hello world!")
     }
 
     return (
@@ -47,6 +48,7 @@ export default function DashboardPage() {
                     <Button onClick={doCameras} disabled={!hasPermission(PERMISSIONS.PERMISSION_CAMERAS)}>Cameras</Button>
                     <Button onClick={doMe400}>Me 400</Button>
                     <Button onClick={doToast} disabled={!hasPermissionAll([PERMISSIONS.PERMISSION_DOCUMENTS, PERMISSIONS.PERMISSION_DOCUMENTS_CREATE])}>Toast</Button>
+                    <Button onClick={doToast}>Show Toast</Button>
                 </p>
                 <p>
                     <Button onClick={doDashboard}>Dashboard</Button>

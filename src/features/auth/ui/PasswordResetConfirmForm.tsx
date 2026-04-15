@@ -12,6 +12,7 @@ import { InputGroup, InputGroupInput, InputGroupAddon, InputGroupButton } from "
 import { Spinner } from "@/shadcn/components/ui/spinner"
 import { Alert, AlertDescription } from "@/shadcn/components/ui/alert"
 import { AlertCircleIcon, Lock, EyeIcon, EyeOffIcon } from "lucide-react"
+import { toast } from "sonner"
 
 type PasswordResetConfirmFormProps = {
     token: string
@@ -25,7 +26,9 @@ export default function PasswordResetConfirmForm({token}: PasswordResetConfirmFo
 
     const handlePasswordResetConfirm = async (data: PasswordResetConfirmSchema) => {
         try {
-            await authApi.passwordResetConfirm(data)
+            const response = await authApi.passwordResetConfirm(data)
+console.log(response)
+            toast.success(response?.message || "Новый пароль установлен.")
             navigate("/login", { replace: true })
         } catch (error) {
             handlerError(error, { form })
