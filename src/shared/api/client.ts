@@ -95,7 +95,7 @@ api.interceptors.response.use(
             throw apiError
         }
 
-        const { logout } = useAuthStore.getState()
+        const { logout, mustSetup } = useAuthStore.getState()
 
         switch (apiError.code) {
 
@@ -181,6 +181,11 @@ api.interceptors.response.use(
 
             case API_ERROR_CODES.REFRESH_TOKEN_INVALID:
                 logout()
+                break
+
+            case API_ERROR_CODES.MUST_CHANGE_CREDENTIALS:
+                alert('MUST_CHANGE_CREDENTIALS');
+                mustSetup(true)
                 break
 
         }

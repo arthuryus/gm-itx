@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/shadcn/components/ui/card"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/shadcn/components/ui/card"
 import LoginForm from "@/features/auth/ui/LoginForm"
 
 export default function LoginPage() {
@@ -12,12 +11,6 @@ export default function LoginPage() {
             <CardContent>
                 <LoginForm />
             </CardContent>
-            <CardFooter className="flex flex-col space-y-4">
-                <p className="text-sm text-muted-foreground text-center">
-                    <span className="me-2">Нет аккаунта?</span>
-                    <Link to="/signup" className="underline underline-offset-4 hover:text-primary">Зарегистрироваться</Link>
-                </p>
-            </CardFooter>
         </Card>
     )
 }

@@ -8,6 +8,7 @@ type User = {
     lastName: string
     avatar: string
     active: boolean
+    mustChangeCredentials?: boolean
     companies: number[]
 }
 
@@ -30,7 +31,10 @@ type AuthState = {
     logout: () => void
 
     setUser: (user: User | null) => void
+    updateUser: (partial: Partial<User>) => void
     clearUser: () => void
+
+    mustSetup: (setup: boolean) => void
 
     setAuthorities: (authorities: Authorities | null) => void
     clearAuthorities: () => void
@@ -65,10 +69,31 @@ export const useAuthStore = create<AuthState>((set) => ({
             user,
         })
     },
+    updateUser: (partial: Partial<User>) => {
+        set((state) => ({
+            user: state.user
+                ? {
+                    ...state.user,
+                    ...partial,
+                }
+                : null,
+        }))
+    },
     clearUser: () => {
         set({
             user: null,
         })
+    },
+
+    mustSetup: (setup) => {
+        set((state) => ({
+            user: state.user
+                ? {
+                    ...state.user,
+                    mustChangeCredentials: setup,
+                }
+                : null,
+        }))
     },
 
     setAuthorities: (authorities) => {
@@ -93,3 +118,11 @@ export const useAuthStore = create<AuthState>((set) => ({
         })
     },
 }))
+
+//export const useGetSetup = () => useAuthStore((s) => s.user?.mustChangeCredentials ?? false)
+
+/*export const authSelectors = {
+    useIsAuthenticated: () => useAuthStore((s) => s.isAuthenticated),
+    useUser: () => useAuthStore((s) => s.user),
+    useMustSetup: () => useAuthStore((s) => s.user?.mustChangeCredentials ?? false),
+}*/

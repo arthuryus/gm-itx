@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { useAuthStore } from "@/features/auth/store/auth-store.ts"
 import { authApi } from "@/features/auth/api/auth-api.ts"
-//import {handlerError} from "@/shared/api/handler-error.ts";
+//import { handlerError } from "@/shared/api/error/handler-error.ts";
 
-export function useAuthInit(enabled: boolean = true) {
+export function useAuthInit(enabled: boolean = true, force: boolean = false) {
     const [isLoading, setIsLoading] = useState(true)
-    const isAuthenticated = useAuthStore(s => s.isAuthenticated)
-    const login = useAuthStore(s => s.login)
+    const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
+    const login = useAuthStore((s) => s.login)
 
     useEffect(() => {
         if (!enabled) {
@@ -16,8 +16,8 @@ export function useAuthInit(enabled: boolean = true) {
 
         let isMounted = true
 
-        const initializeAuth = async () => {
-            if (!isAuthenticated) {
+        const initializeAuth = async () => {console.log('initializeAuth: ');
+            if (!isAuthenticated || force) {
                 try {
                     const response = await authApi.me()
                     if (isMounted) {
@@ -42,7 +42,7 @@ export function useAuthInit(enabled: boolean = true) {
         return () => {
             isMounted = false
         }
-    }, [enabled, isAuthenticated, login])
+    }, [enabled, isAuthenticated, login, force])
 
     return { isLoading, isAuthenticated }
 }

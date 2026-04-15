@@ -1,14 +1,14 @@
 import { z } from "zod"
 
-export const passwordResetSchema = z.object({
+export const emailUpdateSchema = z.object({
     email: z
         .string()
         .min(1, "Email обязателен")
         .email("Неверный формат email"),
 })
 
-export type PasswordResetSchema = z.infer<typeof passwordResetSchema>
+export type EmailUpdateSchema = z.infer<typeof emailUpdateSchema>
 
-export const passwordResetDefaultValues = {
+export const emailUpdateDefaultValues = {
     email: "",
-} as const
+}

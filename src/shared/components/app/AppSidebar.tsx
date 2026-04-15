@@ -4,7 +4,7 @@ import { APP, SIDEBAR } from "@/shared/config/main.ts";
 import { authApi } from "@/features/auth/api/auth-api.ts"
 import { useAuthStore } from "@/features/auth/store/auth-store.ts";
 import { PERMISSIONS } from "@/shared/config/permissions.ts";
-import { PermissionGuard } from "@/features/access/ui/PermissionGuard.tsx";
+import { AccessGuard } from "@/features/access/ui/AccessGuard.tsx";
 import {
     Sidebar,
     SidebarContent,
@@ -33,23 +33,32 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/shadcn/components/ui/avatar.tsx"
 import { Separator } from "@/shadcn/components/ui/separator.tsx"
 import {
-    ChevronUp,
-    Home,
-    Settings,
-    HelpCircle,
+    LayoutDashboard,
+    Camera,
+    Video,
+    Bell,
+    Building2,
+    FileText,
+    Activity,
     Search,
+    ShieldCheck,
+    VolumeX,
+    //Settings,
+
+    Home,
+    //Building2,
+    //Camera,
+    HelpCircle,
+    //Search,
     MoreHorizontal,
     MoreVertical,
-    Calendar,
     Package,
-    Users,
-    BarChart3,
-    FolderOpen,
-    FileText,
-    MessageSquare,
+    //FileText,
+
     User,
-    LogOut,
-    Camera
+    Settings,
+    Shield,
+    LogOut
 } from "lucide-react"
 import {handlerError} from "@/shared/api/error/handler-error.ts";
 //import { toast } from "@/components/ui/use-toast"
@@ -72,6 +81,8 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
     const doMe = async () => {
         await authApi.me()
     }
+
+    const userFullName = [user?.firstName, user?.lastName].filter(Boolean).join(" ")
 
     return (
         <Sidebar {...props}>
@@ -96,49 +107,89 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
 
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel>Application</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             <SidebarMenuItem>
                                 <SidebarMenuButton isActive={["/", "/dashboard"].includes(location.pathname)} asChild>
-                                    <Link to="/dashboard"><Home /> Dashboard</Link>
+                                    <Link to="/dashboard"><LayoutDashboard /> Рабочий стол</Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
-                            <PermissionGuard permission={PERMISSIONS.PERMISSION_DOCUMENTS}>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton isActive={location.pathname.startsWith("/cameras")} asChild>
+                                    <Link to="/cameras"><Camera /> Камеры</Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton isActive={location.pathname.startsWith("/videos")} asChild>
+                                    <Link to="/videos"><Video /> Видеоархив</Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton isActive={location.pathname.startsWith("/events")} asChild>
+                                    <Link to="/events"><Bell /> События</Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton isActive={location.pathname.startsWith("/objects")} asChild>
+                                    <Link to="/objects"><Building2 /> Объект</Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton isActive={location.pathname.startsWith("/orders")} asChild>
+                                    <Link to="/orders"><FileText /> Заявки</Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton isActive={location.pathname.startsWith("/activities")} asChild>
+                                    <Link to="/activities"><Activity /> Мониторинг</Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton isActive={location.pathname.startsWith("/search")} asChild>
+                                    <Link to="/search"><Search /> Поиск</Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton isActive={location.pathname.startsWith("/control")} asChild>
+                                    <Link to="/control"><ShieldCheck /> Контроль</Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+
+
+                            <AccessGuard permission={PERMISSIONS.PERMISSION_DOCUMENTS}>
                                 <SidebarMenuItem>
                                     <SidebarMenuButton isActive={location.pathname === "/documents"} asChild>
                                         <Link to="/documents"><FileText /> Documents</Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
-                            </PermissionGuard>
-                            <PermissionGuard permission={PERMISSIONS.PERMISSION_CAMERAS}>
+                            </AccessGuard>
+                            <AccessGuard permission={PERMISSIONS.PERMISSION_CAMERAS}>
                                 <SidebarMenuItem>
                                     <SidebarMenuButton isActive={location.pathname === "/cameras"} asChild>
                                         <Link to="/cameras"><Camera /> Cameras</Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
-                            </PermissionGuard>
+                            </AccessGuard>
+                            <AccessGuard permission={PERMISSIONS.PERMISSION_COMPANIES}>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton isActive={location.pathname.startsWith("/companies")} asChild>
+                                        <Link to="/companies"><Building2 /> Companies</Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            </AccessGuard>
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
                 <SidebarGroup className="mt-auto">
                     <SidebarMenu>
                         <SidebarMenuItem>
-                            <SidebarMenuButton>
-                                <Search />
-                                Search
+                            <SidebarMenuButton isActive={location.pathname.startsWith("/sound")} asChild>
+                                <Link to="/sound"><VolumeX /> Звук выключен</Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
-                            <SidebarMenuButton>
-                                <HelpCircle />
-                                Get Help
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                            <SidebarMenuButton>
-                                <Settings />
-                                Settings
+                            <SidebarMenuButton isActive={location.pathname.startsWith("/settings")} asChild>
+                                <Link to="/settings"><Settings /> Настройки</Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                     </SidebarMenu>
@@ -147,21 +198,9 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
             <SidebarFooter>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton>
-                            <MoreHorizontal />
-                            More
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton onClick={handleLogout}>
-                            <LogOut />
-                            Logout
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <SidebarMenuButton size="lg">
+                                <SidebarMenuButton size="lg" className="cursor-pointer">
                                     <div className="flex items-center justify-center size-8 aspect-square rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                                         {user?.avatar
                                             ?
@@ -177,7 +216,7 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                                         }
                                     </div>
                                     <div className="grid flex-1 text-left text-sm leading-tight">
-                                        <span className="truncate font-medium">{user?.firstName} {user?.lastName}</span>
+                                        <span className="truncate font-medium">{userFullName}</span>
                                         <span className="truncate text-xs text-muted-foreground">{user?.email}</span>
                                     </div>
                                     <MoreVertical className="size-4" />
@@ -197,34 +236,25 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                                         </Avatar>
                                     </div>
                                     <div className="flex flex-col">
-                                        <span className="text-sm font-medium">{user?.fio}</span>
+                                        <span className="text-sm font-medium">{userFullName}</span>
                                         <span className="text-xs text-muted-foreground">{user?.email}</span>
                                     </div>
                                 </DropdownMenuLabel>
 
                                 <DropdownMenuSeparator />
 
-                                <DropdownMenuItem>
-                                    <Settings className="size-4" />
-                                    Settings
+                                <DropdownMenuItem asChild>
+                                    <Link to="/profile"><User className="size-4" /> Мой профиль</Link>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <Settings className="size-4" />
-                                    Update Account
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <Settings className="size-4" />
-                                    Update Profile
+                                <DropdownMenuItem asChild>
+                                    <Link to="/settings"><Settings className="size-4" /> Настройки</Link>
                                 </DropdownMenuItem>
 
                                 <DropdownMenuSeparator />
 
-                                <DropdownMenuItem
-                                    className="text-red-500 focus:text-red-500"
-                                    onClick={handleLogout}
-                                >
+                                <DropdownMenuItem className="text-red-500 focus:text-red-500" onClick={handleLogout}>
                                     <LogOut className="size-4" />
-                                    Logout
+                                    Выйти
                                 </DropdownMenuItem>
 
                             </DropdownMenuContent>

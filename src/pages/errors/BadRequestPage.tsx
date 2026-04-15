@@ -1,18 +1,20 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/shadcn/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shadcn/components/ui/card";
 
 export default function BadRequestPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const title = (location.state as { title?: string })?.title || "Bad Request";
+  const message = (location.state as { message?: string })?.message || "Unable to verify the transmitted data.";
 
   return (
     <Card className="w-full max-w-md mx-4">
       <CardHeader className="text-center">
         <div className="text-6xl font-bold text-gray-300 mb-4">400</div>
-        <CardTitle className="text-2xl">Bad Request</CardTitle>
-        <CardDescription>
-          Unable to verify the transmitted data.
-        </CardDescription>
+        <CardTitle className="text-2xl">{title}</CardTitle>
+        <CardDescription>{message}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <Button

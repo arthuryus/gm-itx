@@ -18,7 +18,7 @@ export default function SignupForm() {
             const response = await authApi.signup(data)
             login(response.data)
         } catch (error) {
-            handlerError(error, {form})
+            handlerError(error, { form })
         }
     }
 
@@ -28,12 +28,17 @@ export default function SignupForm() {
             fio: "",
             email: "",
             password: "",
-            passwordRepeat: "",
+            passwordConfirm: "",
         }
     })
 
     return (
         <form onSubmit={form.handleSubmit(doSignup)}>
+            {form.formState.errors.root?.message && (
+                <div className="text-red-500 text-sm mb-4">
+                    {form.formState.errors.root.message}
+                </div>
+            )}
             <FieldGroup>
                 <Controller
                     name="fio"
@@ -96,15 +101,15 @@ export default function SignupForm() {
                     )}
                 />
                 <Controller
-                    name="passwordRepeat"
+                    name="passwordConfirm"
                     control={form.control}
                     render={({ field, fieldState }) => (
                         <Field data-invalid={fieldState.invalid}>
-                            <FieldLabel htmlFor="passwordRepeat">Подтвердите пароль</FieldLabel>
+                            <FieldLabel htmlFor="passwordConfirm">Подтвердите пароль</FieldLabel>
                             <Input
                                 {...field}
                                 type="password"
-                                id="passwordRepeat"
+                                id="passwordConfirm"
                                 aria-invalid={fieldState.invalid}
                                 placeholder="Повторите пароль"
                                 autoComplete="off"

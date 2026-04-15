@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/shadcn/components/ui/card"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/shadcn/components/ui/card"
 import PasswordResetForm from "@/features/auth/ui/PasswordResetForm"
 
 export default function PasswordResetPage() {

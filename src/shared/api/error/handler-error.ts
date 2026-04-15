@@ -1,3 +1,4 @@
+import type { NavigateFunction } from "react-router-dom";
 import type { UseFormReturn, FieldValues } from "react-hook-form"
 import type { ApiError } from "@/shared/api/error/api-error.ts"
 import { errorNormalizer } from "@/shared/api/error/error-normalizer.ts"
@@ -7,8 +8,9 @@ import { handlerCriticalError } from "@/shared/api/error/handler-critical-error.
 import { toast } from "sonner"
 
 type ErrorHandlerOptions<T extends FieldValues = FieldValues> = {
-    form?: UseFormReturn<T>
     override?: (error: ApiError) => boolean | void
+    form?: UseFormReturn<T>
+    navigate?: NavigateFunction
 }
 
 export function handlerError<T extends FieldValues = FieldValues>(
@@ -29,14 +31,14 @@ export function handlerError<T extends FieldValues = FieldValues>(
     }
 
     // 3. form errors (если передали form)
-    if (options?.form && isFormError(e)) {
+    if (isFormError(e) && options?.form) {
         const handled = handlerFormError(e, options.form)
         if (handled) return
     }
 
     // 4. global errors
     if (isCriticalError(e)) {
-        const handled = handlerCriticalError(e)
+        const handled = handlerCriticalError(e, options?.navigate)
         if (handled) return
     }
 

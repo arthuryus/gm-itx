@@ -1,16 +1,16 @@
 import React from "react"
 import { useAccess, type AccessProps } from "@/features/access/hooks/use-access.ts"
 
-interface PermissionGuardProps extends AccessProps {
+interface AccessGuardProps extends AccessProps {
   children: React.ReactNode
   fallback?: React.ReactNode
 }
 
-export function PermissionGuard({
+export function AccessGuard({
   children,
   fallback = null,
   ...accessProps
-}: PermissionGuardProps) {
+}: AccessGuardProps) {
   const hasAccess = useAccess(accessProps)
 
   if (!hasAccess) {
@@ -21,15 +21,15 @@ export function PermissionGuard({
 }
 
 // HOC (опционально)
-export function withPermissionGuard<P extends object>(
+export function withAccessGuard<P extends object>(
     Component: React.ComponentType<P>,
     accessProps: AccessProps
 ) {
   return function WrappedComponent(props: P) {
     return (
-        <PermissionGuard {...accessProps}>
+        <AccessGuard {...accessProps}>
           <Component {...props} />
-        </PermissionGuard>
+        </AccessGuard>
     )
   }
 }

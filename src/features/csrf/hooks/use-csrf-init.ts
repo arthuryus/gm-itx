@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { APP } from "@/shared/config/main.ts";
 import Cookies from "js-cookie"
 import { csrfApi } from "@/features/csrf/api/csrf-api.ts"
-//import {handlerError} from "@/shared/api/handler-error.ts";
+//import { handlerError } from "@/shared/api/error/handler-error.ts";
 
 export function useCsrfInit(enabled: boolean = true) {
     const [isLoading, setIsLoading] = useState(true)
