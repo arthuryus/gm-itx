@@ -26,9 +26,9 @@ export default function PasswordResetConfirmForm({token}: PasswordResetConfirmFo
 
     const handlePasswordResetConfirm = async (data: PasswordResetConfirmSchema) => {
         try {
-            const response = await authApi.passwordResetConfirm(data)
-console.log(response)
-            toast.success(response?.message || "Новый пароль установлен.")
+            await authApi.passwordResetConfirm(data)
+
+            toast.success("Новый пароль установлен.")
             navigate("/login", { replace: true })
         } catch (error) {
             handlerError(error, { form })
