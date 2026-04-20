@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useCrudForm } from '@/shared/hooks/useCrudForm'
+import { useCrudForm } from '@/widgets/crud-form/hooks/useCrudForm.ts'
 import type { FieldValues } from 'react-hook-form'
 import type { CrudUpdateProps, UseCrudUpdateReturn } from '../types'
 
