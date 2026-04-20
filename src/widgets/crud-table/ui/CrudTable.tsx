@@ -323,7 +323,7 @@ export function CrudTable<T, TFilter>({
                               const item = row.original as T & { id: string | number }
                               onDeleteClick(item.id)
                             }}
-                            title="Удалить"
+                            title="Удалить2"
                             className="text-destructive hover:text-destructive"
                           >
                             <Trash2 className="h-4 w-4" />
