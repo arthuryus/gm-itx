@@ -44,6 +44,7 @@ import {
     ShieldCheck,
     VolumeX,
     //Settings,
+    Users,
 
     Home,
     //Building2,
@@ -115,43 +116,13 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                             <SidebarMenuItem>
-                                <SidebarMenuButton isActive={location.pathname.startsWith("/cameras")} asChild>
-                                    <Link to="/cameras"><Camera /> Камеры</Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton isActive={location.pathname.startsWith("/videos")} asChild>
-                                    <Link to="/videos"><Video /> Видеоархив</Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
                                 <SidebarMenuButton isActive={location.pathname.startsWith("/events")} asChild>
                                     <Link to="/events"><Bell /> События</Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                             <SidebarMenuItem>
                                 <SidebarMenuButton isActive={location.pathname.startsWith("/objects")} asChild>
-                                    <Link to="/objects"><Building2 /> Объект</Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton isActive={location.pathname.startsWith("/orders")} asChild>
-                                    <Link to="/orders"><FileText /> Заявки</Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton isActive={location.pathname.startsWith("/activities")} asChild>
-                                    <Link to="/activities"><Activity /> Мониторинг</Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton isActive={location.pathname.startsWith("/search")} asChild>
-                                    <Link to="/search"><Search /> Поиск</Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton isActive={location.pathname.startsWith("/control")} asChild>
-                                    <Link to="/control"><ShieldCheck /> Контроль</Link>
+                                    <Link to="/objects"><Building2 /> Объекты</Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
 
@@ -177,16 +148,25 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             </AccessGuard>
+                            <AccessGuard permission={PERMISSIONS.PERMISSION_EMPLOYEES}>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton isActive={location.pathname.startsWith("/employees")} asChild>
+                                        <Link to="/employees"><Users /> Сотрудники</Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            </AccessGuard>
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
                 <SidebarGroup className="mt-auto">
                     <SidebarMenu>
-                        <SidebarMenuItem>
-                            <SidebarMenuButton isActive={location.pathname.startsWith("/sound")} asChild>
-                                <Link to="/sound"><VolumeX /> Звук выключен</Link>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
+                        <AccessGuard permission={PERMISSIONS.PERMISSION_GROUPS}>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton isActive={location.pathname.startsWith("/groups")} asChild>
+                                    <Link to="/groups"><Users /> Группы</Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        </AccessGuard>
                         <SidebarMenuItem>
                             <SidebarMenuButton isActive={location.pathname.startsWith("/settings")} asChild>
                                 <Link to="/settings"><Settings /> Настройки</Link>

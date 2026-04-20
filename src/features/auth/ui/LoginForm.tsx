@@ -24,6 +24,10 @@ export default function LoginForm() {
     const handleLogin = async (data: LoginSchema) => {
         try {
             const response = await authApi.login(data)
+            response.data.authorities.permissions = [
+                'permission_employees', 'permission_employees_create', 'permission_employees_edit', 'permission_employees_delete', 'permission_employees_view',
+                'permission_groups', 'permission_groups_create', 'permission_groups_edit', 'permission_groups_delete', 'permission_groups_view',
+            ];
             login(response.data)
 
             //const from = location.state?.from || "/";

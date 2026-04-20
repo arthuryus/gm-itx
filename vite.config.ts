@@ -6,7 +6,6 @@ import { defineConfig, loadEnv } from "vite"
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd())
-  console.log(mode, env)
 
   return {
     plugins: [react(), tailwindcss()],
@@ -25,6 +24,9 @@ export default defineConfig(({ mode }) => {
           secure: false,
         }
       }
+    },
+    watch: {
+      usePolling: true,
     },
   }
 })

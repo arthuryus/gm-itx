@@ -12,6 +12,15 @@ export const METADATA: Record<string, Metadata> = {
     "/dashboard": {
         h1: "Dashboard",
     },
+    "/companies": {
+        h1: "Companies",
+    },
+    "/companies/create": {
+        h1: "Create Company",
+    },
+    "/companies/update/:id": {
+        h1: "Edit Company",
+    },
     "/documents": {
         h1: "Documents",
     },

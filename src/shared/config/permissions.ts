@@ -1,4 +1,25 @@
 export const PERMISSIONS = {
+    // Employee permissions
+    PERMISSION_EMPLOYEES: 'permission_employees',
+    PERMISSION_EMPLOYEES_CREATE: 'permission_employees_create',
+    PERMISSION_EMPLOYEES_EDIT: 'permission_employees_edit',
+    PERMISSION_EMPLOYEES_DELETE: 'permission_employees_delete',
+    PERMISSION_EMPLOYEES_VIEW: 'permission_employees_view',
+
+    // Group permissions
+    PERMISSION_GROUPS: 'permission_groups',
+    PERMISSION_GROUPS_CREATE: 'permission_groups_create',
+    PERMISSION_GROUPS_EDIT: 'permission_groups_edit',
+    PERMISSION_GROUPS_DELETE: 'permission_groups_delete',
+    PERMISSION_GROUPS_VIEW: 'permission_groups_view',
+
+    // Company permissions
+    PERMISSION_COMPANIES: 'permission_companies',
+    PERMISSION_COMPANIES_CREATE: 'permission_companies_create',
+    PERMISSION_COMPANIES_EDIT: 'permission_companies_edit',
+    PERMISSION_COMPANIES_DELETE: 'permission_companies_delete',
+    PERMISSION_COMPANIES_VIEW: 'permission_companies_view',
+
     // Document permissions
     PERMISSION_DOCUMENTS: 'permission_documents',
     PERMISSION_DOCUMENTS_CREATE: 'permission_documents_create',
