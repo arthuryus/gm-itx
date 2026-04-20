@@ -1,3 +1,5 @@
+name: Build & Push Frontend
+
 on:
   push:
     branches: [ main ]
@@ -11,7 +13,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: novikovns/gm/frontend  # упрощённое имя, как у backend
+  IMAGE_NAME: novikovns/gm/frontend
 
 jobs:
   build-and-push:
@@ -29,6 +31,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # В dev-режиме просто копируем файлы, сборка не нужна
       - name: Build & push
         uses: docker/build-push-action@v5
         with:
