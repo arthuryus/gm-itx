@@ -16,7 +16,7 @@ interface UseFiltersReturn<T> {
   setFilters: (filters: Filters<T>) => void
 }
 
-export function useFilters<T extends Record<string, FilterValue>>(
+export function useCrudFilters<T extends Record<string, FilterValue>>(
   options: UseFiltersOptions<T> = {}
 ): UseFiltersReturn<T> {
   const { initialFilters = {} as Filters<T>, debounceMs = 0 } = options

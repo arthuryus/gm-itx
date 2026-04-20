@@ -27,7 +27,7 @@ import {
 } from '@/shadcn/components/ui/pagination'
 import { FilterText, FilterNumber, FilterSelect, FilterDate } from '@/shared/components/filters'
 import type { FilterConfig } from '@/shared/components/filters'
-import { useFilters } from '@/shared/hooks/useFilters'
+import { useCrudFilters } from '@/widgets/crud-table/hooks/useCrudFilters.ts'
 import { useCrudTable } from '../hooks/useCrudTable'
 import type { CrudTableProps } from '../types'
 
@@ -49,7 +49,7 @@ export function CrudTable<T, TFilter>({
   showDeleteAction = true,
 }: CrudTableProps<T, TFilter>) {
   // Filters
-  const { filters, setFilter, resetFilters } = useFilters<TFilter>({
+  const { filters, setFilter, resetFilters } = useCrudFilters<TFilter>({
     debounceMs: 300,
   })
 
@@ -323,7 +323,7 @@ export function CrudTable<T, TFilter>({
                               const item = row.original as T & { id: string | number }
                               onDeleteClick(item.id)
                             }}
-                            title="Удалить2"
+                            title="Удалить"
                             className="text-destructive hover:text-destructive"
                           >
                             <Trash2 className="h-4 w-4" />

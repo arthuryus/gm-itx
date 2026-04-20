@@ -39,14 +39,14 @@ export interface CrudUpdateProps<TForm extends FieldValues, TId, TResult> {
 
 // Hook return types
 export interface UseCrudCreateReturn<TForm extends FieldValues, TResult> {
-  form: ReturnType<typeof import('@/shared/hooks/useCrudForm').useCrudForm<TForm>>['form']
+  form: ReturnType<typeof import('@/widgets/crud-form/hooks/useCrudForm.ts').useCrudForm<TForm>>['form']
   isSubmitting: boolean
   submitError: Error | null
   handleSubmit: (data: TForm) => void
 }
 
 export interface UseCrudUpdateReturn<TForm extends FieldValues, TResult> {
-  form: ReturnType<typeof import('@/shared/hooks/useCrudForm').useCrudForm<TForm>>['form']
+  form: ReturnType<typeof import('@/widgets/crud-form/hooks/useCrudForm.ts').useCrudForm<TForm>>['form']
   isLoading: boolean
   isSubmitting: boolean
   error: Error | null
