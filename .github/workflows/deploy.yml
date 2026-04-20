@@ -1,4 +1,4 @@
-name: Build & Push Frontend
+name: Build, Push & Deploy Frontend
 
 on:
   push:
@@ -7,16 +7,17 @@ on:
       - 'src/**'
       - 'public/**'
       - 'package*.json'
-      - 'vite.config.ts'
+      - 'vite.config.js'
       - 'Dockerfile'
       - '.github/workflows/deploy.yml'
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: novikovns/gm/frontend
+  VPS_PATH: /opt/dev-stand
 
 jobs:
-  build-and-push:
+  build-push-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -24,6 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 1. Авторизация в GHCR
       - name: Login to GHCR
         uses: docker/login-action@v3
         with:
@@ -31,8 +33,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # В dev-режиме просто копируем файлы, сборка не нужна
-      - name: Build & push
+      # 2. Сборка и пуш образа (для dev-режима, как у вас сейчас)
+      - name: Build & push frontend
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -40,3 +42,18 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      # 3. Деплой на VPS по SSH
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd ${{ env.VPS_PATH }}
+            # Pull только frontend, чтобы не трогать backend
+            docker compose pull frontend
+            docker compose up -d frontend
+            # Очистка старых образов
+            docker image prune -af
