@@ -1,18 +1,12 @@
-FROM node:20-alpine
-
+FROM node:20-alpine AS build
 WORKDIR /app
-
-# Копируем файлы зависимостей
 COPY package*.json ./
-
-# Устанавливаем зависимости (чистая установка)
 RUN npm ci
-
-# Копируем исходники (кроме того, что в .dockerignore)
 COPY . .
+RUN npm run build
 
-# Порт, который слушает Vite dev-сервер
-EXPOSE 5173
-
-# Запуск в режиме разработки
-CMD ["npm", "run", "dev"]
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
