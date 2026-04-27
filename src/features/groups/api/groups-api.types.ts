@@ -1,4 +1,4 @@
-import type { TGroup, TGroupsListResponse, TGroupsListParams, TCreateGroupRequest, TUpdateGroupRequest } from '@/features/groups/model/group.types.ts'
+import type { TGroup, TGroupsListResponse, TGroupsListParams, TCreateGroupRequest, TUpdateGroupRequest } from '../model/group.types.ts'
 
 // List groups
 //export interface GetGroupsRequest extends GroupsListParams {}

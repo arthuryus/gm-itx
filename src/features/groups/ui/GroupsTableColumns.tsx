@@ -1,6 +1,6 @@
 //import { Link } from 'react-router-dom'
 import type { ColumnDef } from '@tanstack/react-table'
-import type { TGroup } from '@/features/groups/model/group.types.ts'
+import type { TGroup } from '../model/group.types.ts'
 import { type TStatus, Main, STATUS_LABEL } from '@/shared/constants/main.ts'
 import { Button } from '@/shadcn/components/ui/button'
 import { Badge } from '@/shadcn/components/ui/badge'

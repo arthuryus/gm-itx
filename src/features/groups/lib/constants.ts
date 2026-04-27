@@ -1,4 +1,4 @@
-import type { TGroupsListParams } from '@/features/groups/model/group.types.ts'
+import type { TGroupsListParams } from '../model/group.types.ts'
 
 export const GROUPS_QUERY_KEYS = {
     all: ['groups'] as const,

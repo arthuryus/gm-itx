@@ -1,6 +1,6 @@
 import { useMemo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import type { TGroup, TGroupFilter, TGroupsListResponse } from '@/features/groups/model/group.types.ts'
+import type { TGroup, TGroupFilter, TGroupsListResponse } from '../model/group.types.ts'
 import { getGroupsTableColumns } from './GroupsTableColumns'
 import { GroupsTableFilters } from './GroupsTableFilters'
 import { PERMISSIONS } from '@/shared/config/permissions.ts'

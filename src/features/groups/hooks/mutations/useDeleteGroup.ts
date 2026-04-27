@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { groupsApi } from '@/features/groups/api/groups-api.ts'
-import { GROUPS_QUERY_KEYS } from '@/features/groups/lib/constants.ts'
-import type { DeleteGroupRequest } from '@/features/groups/api/groups-api.types.ts'
+import { groupsApi } from '../../api/groups-api.ts'
+import { GROUPS_QUERY_KEYS } from '../../lib/constants.ts'
+import type { DeleteGroupRequest } from '../../api/groups-api.types.ts'
 import { toast } from 'sonner'
 
 export function useDeleteGroup() {

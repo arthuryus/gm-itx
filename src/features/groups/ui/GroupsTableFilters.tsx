@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import type { TGroupFilter } from '@/features/groups/model/group.types.ts'
+import type { TGroupFilter } from '../model/group.types.ts'
 import { type TStatus, STATUS_SELECT } from '@/shared/constants/main.ts'
 import { InputGroup, InputGroupInput } from '@/shadcn/components/ui/input-group'
 import { Input } from '@/shadcn/components/ui/input'

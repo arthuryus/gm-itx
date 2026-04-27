@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
-import type { TGroup } from '@/features/groups/model/group.types.ts'
-import { groupsApi } from '@/features/groups/api/groups-api.ts'
-import { GROUPS_QUERY_KEYS } from '@/features/groups/lib/constants.ts'
+import type { TGroup } from '../../model/group.types.ts'
+import { groupsApi } from '../../api/groups-api.ts'
+import { GROUPS_QUERY_KEYS } from '../../lib/constants.ts'
 import { useQuery } from '@tanstack/react-query'
-import { handlerError } from "@/shared/api/error/handler-error.ts";
+import { handlerError } from "@/shared/api/error/handler-error.ts"
 
 export function useGetGroup(id: number | null) {
     const navigate = useNavigate()
