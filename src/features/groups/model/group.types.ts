@@ -1,35 +1,38 @@
-export type GroupStatus = 'ACTIVE' | 'INACTIVE'
+import { z } from 'zod'
+import { groupSchema } from './group.schema.ts'
+import { type TStatus } from "@/shared/constants/main.ts";
 
-export interface Group {
+
+export interface TGroup {
     id: number
     name: string
     description: string
-    status: GroupStatus
+    status: TStatus
     priority: number
 }
 
-export interface GroupFilter {
+export interface TGroupFilter {
     id?: number
     name?: string
     description?: string
-    status?: GroupStatus
+    status?: TStatus
     priority?: number
 }
 
-export interface GroupSort {
+export interface TGroupSort {
     field: string
     direction: 'asc' | 'desc'
 }
 
-export interface GroupsListParams {
+export interface TGroupsListParams {
     page?: number
     perPage?: number
     sort?: string[]
-    filter?: GroupFilter
+    filter?: TGroupFilter
 }
 
-export interface GroupsListResponse {
-    items: Group[]
+export interface TGroupsListResponse {
+    items: TGroup[]
     meta: {
         currentPage: number
         perPage: number
@@ -39,12 +42,13 @@ export interface GroupsListResponse {
     }
 }
 
-export interface GroupFormData {
+export type TGroupFormData = z.infer<typeof groupSchema>
+/*export interface TGroupFormData {
     name: string
     description: string
-    status: GroupStatus
+    status: TStatus
     priority: number
-}
+}*/
 
-export type CreateGroupRequest = Omit<Group, 'id'>
-export type UpdateGroupRequest = Omit<Group, 'id'>
+export type TCreateGroupRequest = Omit<TGroup, 'id'>
+export type TUpdateGroupRequest = Omit<TGroup, 'id'>

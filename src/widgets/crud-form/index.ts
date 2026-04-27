@@ -1,5 +1,0 @@
-export * from './types'
-export { useCrudCreate } from './hooks/useCrudCreate'
-export { useCrudUpdate } from './hooks/useCrudUpdate'
-export { CrudCreate } from './ui/CrudCreate'
-export { CrudUpdate } from './ui/CrudUpdate'

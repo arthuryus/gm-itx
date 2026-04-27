@@ -33,7 +33,11 @@ export function handlerCriticalError(
             return true
 
         case API_ERROR_CODES.NOT_FOUND:
-            toast.error(error.message || "Resource not found")
+            if (navigate) {
+                navigate("/404", { replace: true, state: { message: error.message } })
+            } else {
+                toast.error(error.message || "Resource not found")
+            }
             return true
 
         case API_ERROR_CODES.INTERNAL_ERROR:

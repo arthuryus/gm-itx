@@ -9,7 +9,7 @@ import type { SetupSchema } from "@/features/auth/schemas/setup-schema.ts"
 
 export const authApi = {
     refresh: () =>
-        apiRefresh.get("/auth/refresh"),
+        apiRefresh.post("/auth/refresh"),
     /*refresh: () =>
         axios.get("/api/client/auth/refresh", {
             withCredentials: true,

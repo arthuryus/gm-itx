@@ -1,29 +1,19 @@
 import { useEffect } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, useForm, type UseFormReturn } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { groupSchema, groupDefaultValues } from '@/features/groups/model/group.schema.ts'
+import type { TGroup, TGroupFormData } from '@/features/groups/model/group.types.ts'
+import { type TStatus, STATUS_SELECT } from '@/shared/constants/main.ts'
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/shadcn/components/ui/field'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shadcn/components/ui/select'
+import { InputGroup, InputGroupInput, InputGroupTextarea } from '@/shadcn/components/ui/input-group'
 import { Button } from '@/shadcn/components/ui/button'
 import { Spinner } from '@/shadcn/components/ui/spinner'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/shadcn/components/ui/select'
-import { InputGroup, InputGroupInput, InputGroupTextarea } from '@/shadcn/components/ui/input-group'
-import {
-    Field,
-    FieldError,
-    FieldGroup,
-    FieldLabel,
-} from '@/shadcn/components/ui/field'
-import { groupSchema, type GroupFormData } from '@/features/groups/model/group.schema.ts'
-import type { Group, GroupStatus } from '@/features/groups/model/group.types.ts'
 
 interface GroupFormProps {
     mode: 'create' | 'update'
-    initialData?: Group
-    onSubmit: (data: GroupFormData) => void
+    initialData?: TGroup
+    onSubmit: (data: TGroupFormData, form:  UseFormReturn<TGroupFormData>) => void
     isLoading: boolean
     onCancel: () => void
 }
@@ -35,34 +25,27 @@ export function GroupForm({
     isLoading,
     onCancel,
 }: GroupFormProps) {
-    const form = useForm<GroupFormData>({
+    const isModeCreate = mode === 'create'
+
+    const form = useForm<TGroupFormData>({
         resolver: zodResolver(groupSchema),
-        defaultValues: {
-            name: '',
-            description: '',
-            status: 'ACTIVE',
-            priority: 0,
-        },
+        defaultValues: groupDefaultValues,
+        mode: 'onBlur',
     })
 
     useEffect(() => {
-        if (initialData && mode === 'update') {
-            form.reset({
-                name: initialData.name,
-                description: initialData.description,
-                status: initialData.status,
-                priority: initialData.priority,
-            })
+        if (initialData && !isModeCreate) {
+            form.reset(initialData)
         }
-    }, [initialData, mode, form])
+    }, [form, initialData, isModeCreate])
 
     const handleSubmit = form.handleSubmit((data) => {
-        onSubmit(data)
+        onSubmit(data, form)
     })
 
     return (
         <form onSubmit={handleSubmit} noValidate>
-            <FieldGroup className="gap-6">
+            <FieldGroup>
                 <Controller
                     name="name"
                     control={form.control}
@@ -74,7 +57,7 @@ export function GroupForm({
                                     {...field}
                                     id="name"
                                     type="text"
-                                    placeholder="Введите название группы"
+                                    placeholder="Введите название"
                                     aria-invalid={fieldState.invalid}
                                     disabled={isLoading}
                                 />
@@ -96,7 +79,7 @@ export function GroupForm({
                                 <InputGroupTextarea
                                     {...field}
                                     id="description"
-                                    placeholder="Введите описание группы"
+                                    placeholder="Введите описание"
                                     aria-invalid={fieldState.invalid}
                                     disabled={isLoading}
                                     rows={4}
@@ -116,9 +99,10 @@ export function GroupForm({
                         <Field data-invalid={fieldState.invalid}>
                             <FieldLabel htmlFor="status">Статус</FieldLabel>
                             <Select
+                                key={String(field.value || 'empty')}
                                 value={field.value}
                                 onValueChange={(value) =>
-                                    field.onChange(value as GroupStatus)
+                                    field.onChange(value as TStatus)
                                 }
                                 disabled={isLoading}
                             >
@@ -130,8 +114,11 @@ export function GroupForm({
                                     <SelectValue placeholder="Выберите статус" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="ACTIVE">Активна</SelectItem>
-                                    <SelectItem value="INACTIVE">Неактивна</SelectItem>
+                                    {STATUS_SELECT.map((option) => (
+                                        <SelectItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </SelectItem>
+                                    ))}
                                 </SelectContent>
                             </Select>
                             {fieldState.invalid && (
@@ -147,7 +134,7 @@ export function GroupForm({
                     render={({ field, fieldState }) => (
                         <Field data-invalid={fieldState.invalid}>
                             <FieldLabel htmlFor="priority">Приоритет</FieldLabel>
-                            <InputGroup className="w-[150px]">
+                            <InputGroup>
                                 <InputGroupInput
                                     {...field}
                                     id="priority"
@@ -169,7 +156,7 @@ export function GroupForm({
                     )}
                 />
 
-                <div className="flex justify-end items-center gap-4 pt-4">
+                <div className="flex justify-end items-center gap-4">
                     <Button
                         type="button"
                         variant="outline"
@@ -181,10 +168,9 @@ export function GroupForm({
                     <Button
                         type="submit"
                         disabled={isLoading}
-                        //className="min-w-[120px]"
                     >
-                        {isLoading && <Spinner className="mr-2 size-4" />}
-                        {mode === 'create' ? 'Создать' : 'Сохранить'}
+                        {isLoading && <Spinner className="size-3" />}
+                        {isModeCreate ? 'Создать' : 'Сохранить'}
                     </Button>
                 </div>
             </FieldGroup>

@@ -1,15 +1,15 @@
 import { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { Plus } from 'lucide-react'
-import { Button } from '@/shadcn/components/ui/button'
-import { GroupsTable } from '@/features/groups/ui/GroupsTable'
-import { GroupDeleteDialog } from '@/features/groups/ui/GroupDeleteDialog'
-import { useGroups } from '@/features/groups/hooks/queries/useGroups'
+import type { TGroup, TGroupFilter } from '@/features/groups/model/group.types.ts'
+import { DEFAULT_PER_PAGE } from '@/shared/constants/main.ts'
+import { useGetGroups } from '@/features/groups/hooks/queries/useGetGroups.ts'
 import { useDeleteGroup } from '@/features/groups/hooks/mutations/useDeleteGroup'
-import type { Group, GroupFilter } from '@/features/groups/model/group.types.ts'
 import { PERMISSIONS } from '@/shared/config/permissions.ts'
 import { useAccess } from '@/features/access/hooks/use-access.ts'
-import { DEFAULT_PER_PAGE } from '@/features/groups/lib/constants.ts'
+import { GroupsTable } from '@/features/groups/ui/GroupsTable'
+import { DeleteDialogBase } from '@/shared/components/ui/base/DeleteDialogBase'
+import { Button } from '@/shadcn/components/ui/button'
+import { Plus } from 'lucide-react'
 
 export default function GroupsPage() {
     const canCreate = useAccess({ permission: PERMISSIONS.PERMISSION_GROUPS_CREATE }, true)
@@ -17,18 +17,13 @@ export default function GroupsPage() {
     const [page, setPage] = useState(1)
     const [perPage, setPerPage] = useState(DEFAULT_PER_PAGE)
     const [sort, setSort] = useState<string[]>([])
-    const [filters, setFilters] = useState<GroupFilter>({})
+    const [filters, setFilters] = useState<TGroupFilter>({})
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
-    const [groupToDelete, setGroupToDelete] = useState<Group | null>(null)
+    const [itemToDelete, setItemToDelete] = useState<TGroup | null>(null)
 
-    const { data, isLoading, error } = useGroups({
-        page,
-        perPage,
-        sort,
-        filter: filters,
-    })
+    const { data, isLoading } = useGetGroups({page, perPage, sort, filter: filters })
 
-    const deleteGroupMutation = useDeleteGroup()
+    const deleteMutation = useDeleteGroup()
 
     const handlePageChange = useCallback((newPage: number) => {
         setPage(newPage)
@@ -44,54 +39,44 @@ export default function GroupsPage() {
         setPage(1)
     }, [])
 
-    const handleFiltersChange = useCallback((newFilters: GroupFilter) => {
+    const handleFiltersChange = useCallback((newFilters: TGroupFilter) => {
         setFilters(newFilters)
         setPage(1)
     }, [])
 
-    const handleDeleteClick = useCallback((group: Group) => {
-        setGroupToDelete(group)
+    const handleDeleteClick = useCallback((group: TGroup) => {
+        setItemToDelete(group)
         setDeleteDialogOpen(true)
     }, [])
 
     const handleDeleteConfirm = useCallback(() => {
-        if (groupToDelete) {
-            deleteGroupMutation.mutate(
-                { id: groupToDelete.id },
+        if (itemToDelete) {
+            deleteMutation.mutate(
+                { id: itemToDelete.id },
                 {
                     onSuccess: () => {
                         setDeleteDialogOpen(false)
-                        setGroupToDelete(null)
+                        setItemToDelete(null)
                     },
                 }
             )
         }
-    }, [groupToDelete, deleteGroupMutation])
+    }, [itemToDelete, deleteMutation])
 
     const handleDeleteClose = useCallback(() => {
         setDeleteDialogOpen(false)
-        setGroupToDelete(null)
+        setItemToDelete(null)
     }, [])
 
-    if (error) {
-        return (
-            <div className="p-6">
-                <div className="rounded-lg border border-destructive bg-destructive/10 p-4 text-destructive">
-                    Ошибка загрузки: {error.message}
-                </div>
-            </div>
-        )
-    }
-
     return (
-        <div className="space-y-6 p-6">
+        <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <h1 className="text-2xl font-bold">Группы</h1>
                 {canCreate && (
                     <Button asChild>
                         <Link to="/groups/create">
-                            <Plus className="mr-2 h-4 w-4" />
-                            Создать
+                            <Plus className="h-4 w-4" />
+                            Добавить
                         </Link>
                     </Button>
                 )}
@@ -111,12 +96,11 @@ export default function GroupsPage() {
                 onDelete={handleDeleteClick}
             />
 
-            <GroupDeleteDialog
-                group={groupToDelete}
+            <DeleteDialogBase
                 isOpen={deleteDialogOpen}
                 onClose={handleDeleteClose}
                 onConfirm={handleDeleteConfirm}
-                isLoading={deleteGroupMutation.isPending}
+                isLoading={deleteMutation.isPending}
             />
         </div>
     )

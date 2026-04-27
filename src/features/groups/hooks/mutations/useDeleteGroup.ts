@@ -8,7 +8,7 @@ export function useDeleteGroup() {
     const queryClient = useQueryClient()
 
     return useMutation<void, Error, DeleteGroupRequest>({
-        mutationFn: ({ id }) => groupsApi.deleteGroup({ id }),
+        mutationFn: ({ id }) => groupsApi.delete({ id }),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: GROUPS_QUERY_KEYS.all })
             toast.success('Группа удалена')

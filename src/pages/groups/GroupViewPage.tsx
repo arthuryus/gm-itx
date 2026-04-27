@@ -4,8 +4,8 @@ import { Button } from '@/shadcn/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/components/ui/card'
 import { Badge } from '@/shadcn/components/ui/badge'
 import { Skeleton } from '@/shadcn/components/ui/skeleton'
-import { GroupDeleteDialog } from '@/features/groups/ui/GroupDeleteDialog'
-import { useGroup } from '@/features/groups/hooks/queries/useGroup'
+import { DeleteDialogBase } from '@/shared/components/ui/base/DeleteDialogBase'
+import { useGetGroup } from '@/features/groups/hooks/queries/useGetGroup.ts'
 import { useDeleteGroup } from '@/features/groups/hooks/mutations/useDeleteGroup'
 import { PERMISSIONS } from '@/shared/config/permissions.ts'
 import { useAccess } from '@/features/access/hooks/use-access.ts'
@@ -21,12 +21,12 @@ export default function GroupViewPage() {
 
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
 
-    const { data: group, isLoading, error } = useGroup(groupId)
-    const deleteGroupMutation = useDeleteGroup()
+    const { data: group, isLoading, error } = useGetGroup(groupId)
+    const deleteMutation = useDeleteGroup()
 
     const handleDelete = () => {
         if (group) {
-            deleteGroupMutation.mutate(
+            deleteMutation.mutate(
                 { id: group.id },
                 {
                     onSuccess: () => {
@@ -116,7 +116,7 @@ export default function GroupViewPage() {
                         <div>
                             <div className="text-sm text-muted-foreground">Статус</div>
                             <Badge variant={group.status === 'ACTIVE' ? 'default' : 'secondary'}>
-                                {group.status === 'ACTIVE' ? 'Активна' : 'Неактивна'}
+                                {group.status === 'ACTIVE' ? 'Активный' : 'Неактивный'}
                             </Badge>
                         </div>
                         <div>
@@ -131,12 +131,11 @@ export default function GroupViewPage() {
                 </CardContent>
             </Card>
 
-            <GroupDeleteDialog
-                group={group}
+            <DeleteDialogBase
                 isOpen={deleteDialogOpen}
                 onClose={() => setDeleteDialogOpen(false)}
                 onConfirm={handleDelete}
-                isLoading={deleteGroupMutation.isPending}
+                isLoading={deleteMutation.isPending}
             />
         </div>
     )

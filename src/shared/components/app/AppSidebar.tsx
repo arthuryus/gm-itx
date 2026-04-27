@@ -21,6 +21,7 @@ import {
     SidebarMenuSubItem,
     useSidebar
 } from "@/shadcn/components/ui/sidebar.tsx"
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/shadcn/components/ui/collapsible';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -59,7 +60,9 @@ import {
     User,
     Settings,
     Shield,
-    LogOut
+    LogOut,
+
+    ChevronRight
 } from "lucide-react"
 import {handlerError} from "@/shared/api/error/handler-error.ts";
 //import { toast } from "@/components/ui/use-toast"
@@ -115,7 +118,7 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                                     <Link to="/dashboard"><LayoutDashboard /> Рабочий стол</Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
-                            <SidebarMenuItem>
+                            {/*<SidebarMenuItem>
                                 <SidebarMenuButton isActive={location.pathname.startsWith("/events")} asChild>
                                     <Link to="/events"><Bell /> События</Link>
                                 </SidebarMenuButton>
@@ -124,10 +127,44 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                                 <SidebarMenuButton isActive={location.pathname.startsWith("/objects")} asChild>
                                     <Link to="/objects"><Building2 /> Объекты</Link>
                                 </SidebarMenuButton>
-                            </SidebarMenuItem>
+                            </SidebarMenuItem>*/}
+                            <AccessGuard permissions={[PERMISSIONS.PERMISSION_EMPLOYEES, PERMISSIONS.PERMISSION_GROUPS]}>
+                                <Collapsible
+                                    defaultOpen={location.pathname.startsWith("/employees") || location.pathname.startsWith("/groups")}
+                                    className="group/collapsible"
+                                    asChild
+                                >
+                                    <SidebarMenuItem>
+                                        <CollapsibleTrigger asChild>
+                                            <SidebarMenuButton isActive={location.pathname.startsWith("/employees") || location.pathname.startsWith("/groups")}>
+                                                <Users />
+                                                <span>Сотрудники</span>
+                                                <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                            </SidebarMenuButton>
+                                        </CollapsibleTrigger>
+                                        <CollapsibleContent>
+                                            <SidebarMenuSub>
+                                                <AccessGuard permission={PERMISSIONS.PERMISSION_EMPLOYEES}>
+                                                    <SidebarMenuSubItem>
+                                                        <SidebarMenuSubButton isActive={location.pathname.startsWith("/employees")} asChild>
+                                                            <Link to="/employees"><Users /> Сотрудники</Link>
+                                                        </SidebarMenuSubButton>
+                                                    </SidebarMenuSubItem>
+                                                </AccessGuard>
+                                                <AccessGuard permission={PERMISSIONS.PERMISSION_GROUPS}>
+                                                    <SidebarMenuSubItem>
+                                                        <SidebarMenuSubButton isActive={location.pathname.startsWith("/groups")} asChild>
+                                                            <Link to="/groups"><Users /> Группы</Link>
+                                                        </SidebarMenuSubButton>
+                                                    </SidebarMenuSubItem>
+                                                </AccessGuard>
+                                            </SidebarMenuSub>
+                                        </CollapsibleContent>
+                                    </SidebarMenuItem>
+                                </Collapsible>
+                            </AccessGuard>
 
-
-                            <AccessGuard permission={PERMISSIONS.PERMISSION_DOCUMENTS}>
+                            {/*<AccessGuard permission={PERMISSIONS.PERMISSION_DOCUMENTS}>
                                 <SidebarMenuItem>
                                     <SidebarMenuButton isActive={location.pathname === "/documents"} asChild>
                                         <Link to="/documents"><FileText /> Documents</Link>
@@ -147,26 +184,12 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                                         <Link to="/companies"><Building2 /> Companies</Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
-                            </AccessGuard>
-                            <AccessGuard permission={PERMISSIONS.PERMISSION_EMPLOYEES}>
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton isActive={location.pathname.startsWith("/employees")} asChild>
-                                        <Link to="/employees"><Users /> Сотрудники</Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            </AccessGuard>
+                            </AccessGuard>*/}
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
                 <SidebarGroup className="mt-auto">
                     <SidebarMenu>
-                        <AccessGuard permission={PERMISSIONS.PERMISSION_GROUPS}>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton isActive={location.pathname.startsWith("/groups")} asChild>
-                                    <Link to="/groups"><Users /> Группы</Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                        </AccessGuard>
                         <SidebarMenuItem>
                             <SidebarMenuButton isActive={location.pathname.startsWith("/settings")} asChild>
                                 <Link to="/settings"><Settings /> Настройки</Link>

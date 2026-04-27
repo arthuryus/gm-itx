@@ -1,14 +1,15 @@
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import type { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown, ArrowUp, ArrowDown, Eye, Pencil, Trash2 } from 'lucide-react'
+import type { TGroup } from '@/features/groups/model/group.types.ts'
+import { type TStatus, Main, STATUS_LABEL } from '@/shared/constants/main.ts'
 import { Button } from '@/shadcn/components/ui/button'
 import { Badge } from '@/shadcn/components/ui/badge'
-import type { Group, GroupStatus } from '@/features/groups/model/group.types.ts'
+import { ArrowUpDown, ArrowUp, ArrowDown, Eye, Pencil, Trash2 } from 'lucide-react'
 
 interface GroupsTableColumnsProps {
-    onView: (group: Group) => void
-    onEdit: (group: Group) => void
-    onDelete: (group: Group) => void
+    onView: (group: TGroup) => void
+    onEdit: (group: TGroup) => void
+    onDelete: (group: TGroup) => void
     canView: boolean
     canEdit: boolean
     canDelete: boolean
@@ -21,18 +22,22 @@ export function getGroupsTableColumns({
     canView,
     canEdit,
     canDelete,
-}: GroupsTableColumnsProps): ColumnDef<Group>[] {
+}: GroupsTableColumnsProps): ColumnDef<TGroup>[] {
     return [
         {
             accessorKey: 'id',
             header: ({ column }) => {
+                const isSorted = column.getIsSorted()
                 return (
                     <Button
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
                     >
                         ID
-                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                        {isSorted ?
+                            ((column.getIsSorted() === 'asc') ? <ArrowDown className="ml-2 h-4 w-4" /> : <ArrowUp className="ml-2 h-4 w-4" />) :
+                            <ArrowUpDown className="ml-2 h-4 w-4" />
+                        }
                     </Button>
                 )
             },
@@ -55,7 +60,8 @@ export function getGroupsTableColumns({
                     </Button>
                 )
             },
-            cell: ({ row }) => {
+            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('name')}</div>,
+            /*cell: ({ row }) => {
                 const group = row.original
                 return (
                     <Link
@@ -65,7 +71,7 @@ export function getGroupsTableColumns({
                         {group.name}
                     </Link>
                 )
-            },
+            },*/
         },
         {
             accessorKey: 'description',
@@ -82,21 +88,25 @@ export function getGroupsTableColumns({
         {
             accessorKey: 'status',
             header: ({ column }) => {
+                const isSorted = column.getIsSorted()
                 return (
                     <Button
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
                     >
                         Статус
-                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                        {isSorted ?
+                            ((column.getIsSorted() === 'asc') ? <ArrowDown className="ml-2 h-4 w-4" /> : <ArrowUp className="ml-2 h-4 w-4" />) :
+                            <ArrowUpDown className="ml-2 h-4 w-4" />
+                        }
                     </Button>
                 )
             },
             cell: ({ row }) => {
-                const status = row.getValue<GroupStatus>('status')
+                const status = row.getValue<TStatus>('status')
                 return (
-                    <Badge variant={status === 'ACTIVE' ? 'default' : 'secondary'}>
-                        {status === 'ACTIVE' ? 'Активна' : 'Неактивна'}
+                    <Badge variant={status === Main.ACTIVE ? 'default' : 'secondary'}>
+                        {status === Main.ACTIVE ? STATUS_LABEL.ACTIVE : STATUS_LABEL.INACTIVE}
                     </Badge>
                 )
             },
@@ -104,13 +114,17 @@ export function getGroupsTableColumns({
         {
             accessorKey: 'priority',
             header: ({ column }) => {
+                const isSorted = column.getIsSorted()
                 return (
                     <Button
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
                     >
                         Приоритет
-                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                        {isSorted ?
+                            ((column.getIsSorted() === 'asc') ? <ArrowDown className="ml-2 h-4 w-4" /> : <ArrowUp className="ml-2 h-4 w-4" />) :
+                            <ArrowUpDown className="ml-2 h-4 w-4" />
+                        }
                     </Button>
                 )
             },

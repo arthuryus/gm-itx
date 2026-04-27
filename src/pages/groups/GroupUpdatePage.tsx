@@ -1,103 +1,74 @@
-import { useNavigate, useParams, Link } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
-import { Button } from '@/shadcn/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/components/ui/card'
-import { Skeleton } from '@/shadcn/components/ui/skeleton'
-import { GroupForm } from '@/features/groups/ui/GroupForm'
-import { useGroup } from '@/features/groups/hooks/queries/useGroup'
+import { useNavigate, useParams } from 'react-router-dom'
+import { type UseFormReturn } from 'react-hook-form'
+import type { TGroupFormData } from '@/features/groups/model/group.types.ts'
 import { useUpdateGroup } from '@/features/groups/hooks/mutations/useUpdateGroup'
-import type { GroupFormData } from '@/features/groups/model/group.schema.ts'
+import { GroupForm } from '@/features/groups/ui/GroupForm'
+import { useGetGroup } from '@/features/groups/hooks/queries/useGetGroup.ts'
+import { handlerError } from "@/shared/api/error/handler-error.ts";
+import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/components/ui/card'
+import { FieldGroup } from '@/shadcn/components/ui/field'
+import { Skeleton } from '@/shadcn/components/ui/skeleton'
+import { toast } from 'sonner'
 
 export default function GroupUpdatePage() {
     const { id } = useParams<{ id: string }>()
     const navigate = useNavigate()
-    const groupId = id ? parseInt(id, 10) : null
+    const groupId = Number(id)
 
-    const { data: group, isLoading: isLoadingGroup, error } = useGroup(groupId)
+    const { data: group, isLoading: isLoadingGroup } = useGetGroup(groupId)
     const updateGroupMutation = useUpdateGroup()
 
-    const handleSubmit = (data: GroupFormData) => {
-        if (groupId) {
-            updateGroupMutation.mutate(
-                { id: groupId, data },
-                {
-                    onSuccess: () => {
-                        navigate(`/groups/${groupId}`)
-                    },
-                }
-            )
+    const handleSubmit = async (data: TGroupFormData, form: UseFormReturn<TGroupFormData>) => {
+        try {
+            await updateGroupMutation.mutateAsync({ id: groupId, data })
+
+            toast.success('Группа обновлена')
+            navigate(`/groups`)// /${groupId}
+        } catch (error) {
+            handlerError(error, { form })
         }
     }
 
     const handleCancel = () => {
-        if (groupId) {
-            navigate(`/groups/${groupId}`)
-        } else {
-            navigate('/groups')
-        }
+        navigate(`/groups`) // /${groupId}
     }
 
     if (isLoadingGroup) {
         return (
-            <div className="space-y-6 p-6">
-                <Skeleton className="h-8 w-48" />
-                <Card className="max-w-2xl">
-                    <CardHeader>
-                        <Skeleton className="h-6 w-32" />
-                    </CardHeader>
-                    <CardContent className="space-y-4">
+            <Card className="max-w-2xl">
+                <CardHeader>
+                    <Skeleton className="h-10 w-32" />
+                </CardHeader>
+                <CardContent>
+                    <FieldGroup>
                         <Skeleton className="h-10 w-full" />
-                        <Skeleton className="h-24 w-full" />
-                        <Skeleton className="h-10 w-[150px]" />
-                    </CardContent>
-                </Card>
-            </div>
-        )
-    }
-
-    if (error || !group) {
-        return (
-            <div className="p-6">
-                <div className="rounded-lg border border-destructive bg-destructive/10 p-4 text-destructive">
-                    {error ? `Ошибка: ${error.message}` : 'Группа не найдена'}
-                </div>
-                <Button asChild className="mt-4" variant="outline">
-                    <Link to="/groups">
-                        <ArrowLeft className="mr-2 h-4 w-4" />
-                        Назад к списку
-                    </Link>
-                </Button>
-            </div>
+                        <Skeleton className="h-10 w-full" />
+                        <Skeleton className="h-10 w-full" />
+                        <Skeleton className="h-10 w-full" />
+                        <div className="flex justify-end items-center gap-4">
+                            <Skeleton className="h-10 w-24"/>
+                            <Skeleton className="h-10 w-24"/>
+                        </div>
+                    </FieldGroup>
+                </CardContent>
+            </Card>
         )
     }
 
     return (
-        <div className="space-y-6 p-6">
-            <div className="flex items-center gap-4">
-                <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={handleCancel}
-                >
-                    <ArrowLeft className="h-4 w-4" />
-                </Button>
-                <h1 className="text-2xl font-bold">Редактирование группы</h1>
-            </div>
-
-            <Card className="max-w-2xl">
-                <CardHeader>
-                    <CardTitle>{group.name}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <GroupForm
-                        mode="update"
-                        initialData={group}
-                        onSubmit={handleSubmit}
-                        isLoading={updateGroupMutation.isPending}
-                        onCancel={handleCancel}
-                    />
-                </CardContent>
-            </Card>
-        </div>
+        <Card className="max-w-2xl">
+            <CardHeader>
+                <CardTitle>Редактирование группы</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <GroupForm
+                    mode="update"
+                    initialData={group}
+                    isLoading={updateGroupMutation.isPending}
+                    onSubmit={handleSubmit}
+                    onCancel={handleCancel}
+                />
+            </CardContent>
+        </Card>
     )
 }

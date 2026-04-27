@@ -23,7 +23,7 @@ export default function AppLayout() {
             <AppSidebar variant="inset" collapsible="icon" />
             <SidebarInset>
                 <AppHeader />
-                <div className="flex flex-1 flex-col p-4 pt-0">
+                <div className="f---lex flex---1 flex---col c---ontainer mx---auto p-4 pt-0">
                     <Outlet />
                 </div>
             </SidebarInset>

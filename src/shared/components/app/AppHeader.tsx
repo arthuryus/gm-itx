@@ -1,5 +1,5 @@
 //import { useMetadata } from "@/shared/hooks/use-metadata.ts"
-import { BreadcrumbBasic } from "@/shared/components/ui/breadcrumbs/BreadcrumbBasic.tsx"
+import { BreadcrumbBase } from "@/shared/components/ui/base/BreadcrumbBase.tsx"
 import { SidebarTrigger } from "@/shadcn/components/ui/sidebar.tsx"
 import { Separator } from "@/shadcn/components/ui/separator.tsx"
 
@@ -11,7 +11,7 @@ export default function AppHeader() {
         <header className="flex items-center p-4">
             <SidebarTrigger className="-ml-1" />
             <Separator className="mx-2 data-[orientation=vertical]:h-4" orientation="vertical" />
-            <BreadcrumbBasic />
+            <BreadcrumbBase />
         </header>
     )
 }

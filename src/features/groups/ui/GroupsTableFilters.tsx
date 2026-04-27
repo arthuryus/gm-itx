@@ -1,22 +1,17 @@
 import { useState, useEffect } from 'react'
+import type { TGroupFilter } from '@/features/groups/model/group.types.ts'
+import { type TStatus, STATUS_SELECT } from '@/shared/constants/main.ts'
 import { InputGroup, InputGroupInput } from '@/shadcn/components/ui/input-group'
 import { Input } from '@/shadcn/components/ui/input'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/shadcn/components/ui/select'
-import type { GroupFilter, GroupStatus } from '@/features/groups/model/group.types.ts'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shadcn/components/ui/select'
 
 interface GroupsTableFiltersProps {
-    filters: GroupFilter
-    onFiltersChange: (filters: GroupFilter) => void
+    filters: TGroupFilter
+    onFiltersChange: (filters: TGroupFilter) => void
 }
 
 export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFiltersProps) {
-    const [localFilters, setLocalFilters] = useState<GroupFilter>(filters)
+    const [localFilters, setLocalFilters] = useState<TGroupFilter>(filters)
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
@@ -39,11 +34,8 @@ export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFilt
         setLocalFilters((prev) => ({ ...prev, description: value || undefined }))
     }
 
-    const handleStatusChange = (value: GroupStatus | 'all') => {
-        setLocalFilters((prev) => ({
-            ...prev,
-            status: value === 'all' ? undefined : value,
-        }))
+    const handleStatusChange = (value: TStatus | 'all') => {
+        setLocalFilters((prev) => ({ ...prev, status: value === 'all' ? undefined : value, }))
     }
 
     const handlePriorityChange = (value: string) => {
@@ -51,44 +43,10 @@ export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFilt
         setLocalFilters((prev) => ({ ...prev, priority: numValue }))
     }
 
-
-/*
-    const handleChangeText = (name: string, value: string) => {
-        setLocalFilters((prev) => ({ ...prev, [name]: value || undefined }))
-    }
-
-    const handleChangeNumber = (name: string, value: string) => {
-        const numValue = value === '' ? undefined : parseInt(value, 10)
-        setLocalFilters((prev) => ({ ...prev, [name]: numValue }))
-    }
-
-    const handleChangeSelect = (name: string, value: GroupStatus | 'all') => {
-        setLocalFilters((prev) => ({
-            ...prev,
-            [name]: value === 'all' ? undefined : value,
-        }))
-    }
-
-    const handleChange = (type: 'text' | 'number' | 'select', name: string, value: string) => {
-        switch (type)
-        {
-            case "number":
-                handleChangeNumber(name, value)
-                break;
-            case "text":
-                handleChangeText(name, value)
-                break;
-            case "select":
-                handleChangeSelect(name, value)
-                break;
-        }
-    }
-*/
-
     return (
-        <div className="flex flex-wrap items-end gap-4 p-4">
+        <div className="flex flex-wrap items-end gap-4 p---4">
             <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">Название</label>
+                <label className="text-sm font-medium">ID</label>
                     <Input
                         type="number"
                         min={0}
@@ -96,7 +54,6 @@ export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFilt
                         value={localFilters.id || ''}
                         onChange={(e) => handleIdChange(e.target.value)}
                     />
-
             </div>
 
             <div className="flex flex-col gap-2">
@@ -125,15 +82,18 @@ export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFilt
                 <label className="text-sm font-medium">Статус</label>
                 <Select
                     value={localFilters.status || 'all'}
-                    onValueChange={(value) => handleStatusChange(value as GroupStatus | 'all')}
+                    onValueChange={(value) => handleStatusChange(value as TStatus | 'all')}
                 >
                     <SelectTrigger className="w-[150px]">
                         <SelectValue placeholder="Все статусы" />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="all">Все</SelectItem>
-                        <SelectItem value="ACTIVE">Активна</SelectItem>
-                        <SelectItem value="INACTIVE">Неактивна</SelectItem>
+                        {STATUS_SELECT.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                                {option.label}
+                            </SelectItem>
+                        ))}
                     </SelectContent>
                 </Select>
             </div>
@@ -153,15 +113,3 @@ export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFilt
         </div>
     )
 }
-
-/*const FilterNumber = (name: string) => { //localFilters[name] || ''
-    return (
-        <Input
-            type="number"
-            min={0}
-            placeholder="Поиск по ID"
-            value={localFilters[name] || ''}
-            onChange={(e) => handleChangeNumber(name, e.target.value)}//handleIdChange(e.target.value)}
-        />
-    )
-}*/
