@@ -44,8 +44,8 @@ export default function GroupsPage() {
         setPage(1)
     }, [])
 
-    const handleDeleteClick = useCallback((group: TGroup) => {
-        setItemToDelete(group)
+    const handleDeleteClick = useCallback((item: TGroup) => {
+        setItemToDelete(item)
         setDeleteDialogOpen(true)
     }, [])
 

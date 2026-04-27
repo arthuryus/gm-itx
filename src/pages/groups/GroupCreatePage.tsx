@@ -9,11 +9,11 @@ import { toast } from "sonner";
 
 export default function GroupCreatePage() {
     const navigate = useNavigate()
-    const createGroupMutation = useCreateGroup()
+    const createMutation = useCreateGroup()
 
     const handleSubmit = async (data: TGroupFormData, form: UseFormReturn<TGroupFormData>) => {
         try {
-            await createGroupMutation.mutateAsync(data)
+            await createMutation.mutateAsync(data)
 
             toast.success('Группа обновлена')
             navigate('/groups')
@@ -34,7 +34,7 @@ export default function GroupCreatePage() {
             <CardContent>
                 <GroupForm
                     mode="create"
-                    isLoading={createGroupMutation.isPending}
+                    isLoading={createMutation.isPending}
                     onSubmit={handleSubmit}
                     onCancel={handleCancel}
                 />

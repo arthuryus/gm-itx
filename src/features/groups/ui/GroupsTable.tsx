@@ -19,7 +19,7 @@ interface GroupsTableProps {
     onPerPageChange: (perPage: number) => void
     onSortChange: (sort: string[]) => void
     onFiltersChange: (filters: TGroupFilter) => void
-    onDelete: (group: TGroup) => void
+    onDelete: (item: TGroup) => void
 }
 
 export function GroupsTable({
@@ -41,16 +41,16 @@ export function GroupsTable({
     const canEdit = useAccess({ permission: PERMISSIONS.PERMISSION_GROUPS_EDIT }, true)
     const canDelete = useAccess({ permission: PERMISSIONS.PERMISSION_GROUPS_DELETE }, true)
 
-    const handleView = useCallback((group: TGroup) => {
-        navigate(`/groups/${group.id}`);
+    const handleView = useCallback((item: TGroup) => {
+        navigate(`/groups/${item.id}`);
     }, [navigate]);
 
-    const handleEdit = useCallback((group: TGroup) => {
-        navigate(`/groups/update/${group.id}`);
+    const handleEdit = useCallback((item: TGroup) => {
+        navigate(`/groups/update/${item.id}`);
     }, [navigate]);
 
-    const handleDelete = useCallback((group: TGroup) => {
-        onDelete(group);
+    const handleDelete = useCallback((item: TGroup) => {
+        onDelete(item);
     }, [onDelete]);
 
 

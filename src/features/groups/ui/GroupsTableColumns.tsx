@@ -7,9 +7,9 @@ import { Badge } from '@/shadcn/components/ui/badge'
 import { ArrowUpDown, ArrowUp, ArrowDown, Eye, Pencil, Trash2 } from 'lucide-react'
 
 interface GroupsTableColumnsProps {
-    onView: (group: TGroup) => void
-    onEdit: (group: TGroup) => void
-    onDelete: (group: TGroup) => void
+    onView: (item: TGroup) => void
+    onEdit: (item: TGroup) => void
+    onDelete: (item: TGroup) => void
     canView: boolean
     canEdit: boolean
     canDelete: boolean
@@ -62,13 +62,13 @@ export function getGroupsTableColumns({
             },
             cell: ({ row }) => <div className="font-medium">{row.getValue<string>('name')}</div>,
             /*cell: ({ row }) => {
-                const group = row.original
+                const item = row.original
                 return (
                     <Link
-                        to={`/groups/${group.id}`}
+                        to={`/groups/${item.id}`}
                         className="font-medium text-primary hover:underline"
                     >
-                        {group.name}
+                        {item.name}
                     </Link>
                 )
             },*/
@@ -134,14 +134,14 @@ export function getGroupsTableColumns({
             id: 'actions',
             header: 'Действия',
             cell: ({ row }) => {
-                const group = row.original
+                const item = row.original
                 return (
                     <div className="flex items-center gap-2">
                         {canView && (
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                onClick={() => onView(group)}
+                                onClick={() => onView(item)}
                                 title="Просмотр"
                             >
                                 <Eye className="h-4 w-4" />
@@ -151,7 +151,7 @@ export function getGroupsTableColumns({
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                onClick={() => onEdit(group)}
+                                onClick={() => onEdit(item)}
                                 title="Редактировать"
                             >
                                 <Pencil className="h-4 w-4" />
@@ -161,7 +161,7 @@ export function getGroupsTableColumns({
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                onClick={() => onDelete(group)}
+                                onClick={() => onDelete(item)}
                                 title="Удалить"
                                 className="text-destructive hover:text-destructive"
                             >

@@ -13,14 +13,14 @@ import { toast } from 'sonner'
 export default function GroupUpdatePage() {
     const { id } = useParams<{ id: string }>()
     const navigate = useNavigate()
-    const groupId = Number(id)
+    const itemId = Number(id)
 
-    const { data: group, isLoading: isLoadingGroup } = useGetGroup(groupId)
-    const updateGroupMutation = useUpdateGroup()
+    const { data: item, isLoading: isLoadingGroup } = useGetGroup(itemId)
+    const updateMutation = useUpdateGroup()
 
     const handleSubmit = async (data: TGroupFormData, form: UseFormReturn<TGroupFormData>) => {
         try {
-            await updateGroupMutation.mutateAsync({ id: groupId, data })
+            await updateMutation.mutateAsync({ id: itemId, data })
 
             toast.success('Группа обновлена')
             navigate(`/groups`)// /${groupId}
@@ -63,8 +63,8 @@ export default function GroupUpdatePage() {
             <CardContent>
                 <GroupForm
                     mode="update"
-                    initialData={group}
-                    isLoading={updateGroupMutation.isPending}
+                    initialData={item}
+                    isLoading={updateMutation.isPending}
                     onSubmit={handleSubmit}
                     onCancel={handleCancel}
                 />
