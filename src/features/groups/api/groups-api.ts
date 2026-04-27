@@ -1,18 +1,18 @@
 import { api } from '@/shared/api/client.ts'
 import type {
-    GetGroupsRequest,
-    GetGroupsResponse,
-    GetGroupRequest,
-    GetGroupResponse,
-    CreateGroupRequestWithoutId,
-    CreateGroupResponse,
-    UpdateGroupRequestWithId,
+    TGetGroupsRequest,
+    TGetGroupsResponse,
+    TGetGroupRequest,
+    TGetGroupResponse,
+    TCreateGroupRequestWithoutId,
+    TCreateGroupResponse,
+    TUpdateGroupRequestWithId,
     UpdateGroupResponse,
-    DeleteGroupRequest,
-    DeleteGroupResponse,
+    TDeleteGroupRequest,
+    TDeleteGroupResponse,
 } from './groups-api.types.ts'
 
-function buildQueryParams(params: GetGroupsRequest): string {
+function buildQueryParams(params: TGetGroupsRequest): string {
     const searchParams = new URLSearchParams()
 
     if (params.page !== undefined) {
@@ -40,30 +40,30 @@ function buildQueryParams(params: GetGroupsRequest): string {
 }
 
 export const groupsApi = {
-    getList: async (params: GetGroupsRequest = {}): Promise<GetGroupsResponse> => {
+    getList: async (params: TGetGroupsRequest = {}): Promise<TGetGroupsResponse> => {
         const queryString = buildQueryParams(params)
         const url = queryString ? `/employees/groups?${queryString}` : '/employees/groups'
-        const response = await api.get<GetGroupsResponse>(url)
+        const response = await api.get<TGetGroupsResponse>(url)
 
         return response.data
     },
 
-    getById: async ({ id }: GetGroupRequest): Promise<GetGroupResponse> => {
-        const response = await api.get<GetGroupResponse>(`/employees/groups/${id}`)
+    getById: async ({ id }: TGetGroupRequest): Promise<TGetGroupResponse> => {
+        const response = await api.get<TGetGroupResponse>(`/employees/groups/${id}`)
         return response.data
     },
 
-    create: async (data: CreateGroupRequestWithoutId): Promise<CreateGroupResponse> => {
-        const response = await api.post<CreateGroupResponse>('/employees/groups', data)
+    create: async (data: TCreateGroupRequestWithoutId): Promise<TCreateGroupResponse> => {
+        const response = await api.post<TCreateGroupResponse>('/employees/groups', data)
         return response.data
     },
 
-    update: async ({ id, data }: UpdateGroupRequestWithId): Promise<UpdateGroupResponse> => {
+    update: async ({ id, data }: TUpdateGroupRequestWithId): Promise<UpdateGroupResponse> => {
         const response = await api.put<UpdateGroupResponse>(`/employees/groups/${id}`, data)
         return response.data
     },
 
-    delete: async ({ id }: DeleteGroupRequest): Promise<DeleteGroupResponse> => {
+    delete: async ({ id }: TDeleteGroupRequest): Promise<TDeleteGroupResponse> => {
         await api.delete(`/employees/groups/${id}`)
     },
 }

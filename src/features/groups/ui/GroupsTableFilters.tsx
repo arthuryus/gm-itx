@@ -21,26 +21,17 @@ export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFilt
         return () => clearTimeout(timeoutId)
     }, [localFilters, onFiltersChange])
 
-    const handleIdChange = (value: string) => {
+    const handleStringChange = (name: string, value: string) => {
+        setLocalFilters((prev) => ({ ...prev, [name]: value || undefined }))
+    }
+
+    const handleNumberChange = (name: string, value: string) => {
         const numValue = value === '' ? undefined : parseInt(value, 10)
-        setLocalFilters((prev) => ({ ...prev, id: numValue }))
+        setLocalFilters((prev) => ({ ...prev, [name]: numValue }))
     }
 
-    const handleNameChange = (value: string) => {
-        setLocalFilters((prev) => ({ ...prev, name: value || undefined }))
-    }
-
-    const handleDescriptionChange = (value: string) => {
-        setLocalFilters((prev) => ({ ...prev, description: value || undefined }))
-    }
-
-    const handleStatusChange = (value: TStatus | 'all') => {
-        setLocalFilters((prev) => ({ ...prev, status: value === 'all' ? undefined : value, }))
-    }
-
-    const handlePriorityChange = (value: string) => {
-        const numValue = value === '' ? undefined : parseInt(value, 10)
-        setLocalFilters((prev) => ({ ...prev, priority: numValue }))
+    const handleStatusChange = (name: string, value: TStatus | 'all') => {
+        setLocalFilters((prev) => ({ ...prev, [name]: value === 'all' ? undefined : value, }))
     }
 
     return (
@@ -52,7 +43,7 @@ export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFilt
                         min={0}
                         placeholder="Поиск по ID"
                         value={localFilters.id || ''}
-                        onChange={(e) => handleIdChange(e.target.value)}
+                        onChange={(e) => handleNumberChange('id', e.target.value)}
                     />
             </div>
 
@@ -62,7 +53,7 @@ export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFilt
                     <InputGroupInput
                         placeholder="Поиск по названию..."
                         value={localFilters.name || ''}
-                        onChange={(e) => handleNameChange(e.target.value)}
+                        onChange={(e) => handleStringChange('name', e.target.value)}
                     />
                 </InputGroup>
             </div>
@@ -73,7 +64,7 @@ export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFilt
                     <InputGroupInput
                         placeholder="Поиск по описанию..."
                         value={localFilters.description || ''}
-                        onChange={(e) => handleDescriptionChange(e.target.value)}
+                        onChange={(e) => handleStringChange('description', e.target.value)}
                     />
                 </InputGroup>
             </div>
@@ -82,7 +73,7 @@ export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFilt
                 <label className="text-sm font-medium">Статус</label>
                 <Select
                     value={localFilters.status || 'all'}
-                    onValueChange={(value) => handleStatusChange(value as TStatus | 'all')}
+                    onValueChange={(value) => handleStatusChange('status', value as TStatus | 'all')}
                 >
                     <SelectTrigger className="w-[150px]">
                         <SelectValue placeholder="Все статусы" />
@@ -106,7 +97,7 @@ export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFilt
                         min={0}
                         placeholder="Приоритет"
                         value={localFilters.priority?.toString() || ''}
-                        onChange={(e) => handlePriorityChange(e.target.value)}
+                        onChange={(e) => handleNumberChange('priority', e.target.value)}
                     />
                 </InputGroup>
             </div>

@@ -2,28 +2,28 @@ import type { TGroup, TGroupsListResponse, TGroupsListParams, TCreateGroupReques
 
 // List groups
 //export interface GetGroupsRequest extends GroupsListParams {}
-export type GetGroupsRequest = TGroupsListParams
-export type GetGroupsResponse = TGroupsListResponse
+export type TGetGroupsRequest = TGroupsListParams
+export type TGetGroupsResponse = TGroupsListResponse
 
 // Get single group
-export interface GetGroupRequest {
+export interface TGetGroupRequest {
     id: number
 }
-export type GetGroupResponse = TGroup
+export type TGetGroupResponse = TGroup
 
 // Create group
-export type CreateGroupRequestWithoutId = TCreateGroupRequest
-export type CreateGroupResponse = TGroup
+export type TCreateGroupRequestWithoutId = TCreateGroupRequest
+export type TCreateGroupResponse = TGroup
 
 // Update group
-export interface UpdateGroupRequestWithId {
+export interface TUpdateGroupRequestWithId {
     id: number
     data: TUpdateGroupRequest
 }
 export type UpdateGroupResponse = TGroup
 
 // Delete group
-export interface DeleteGroupRequest {
+export interface TDeleteGroupRequest {
     id: number
 }
-export type DeleteGroupResponse = void
+export type TDeleteGroupResponse = void
