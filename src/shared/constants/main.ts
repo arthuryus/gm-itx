@@ -1,6 +1,6 @@
 //export type TStatus = 'ACTIVE' | 'INACTIVE'
-export type TStatus = (typeof Main)[keyof typeof Main]
-export const Main = {
+export type TStatus = (typeof STATUS)[keyof typeof STATUS]
+export const STATUS = {
     ACTIVE: 'ACTIVE',
     INACTIVE: 'INACTIVE',
 } as const
@@ -9,8 +9,8 @@ export const STATUS_LABEL = {
     INACTIVE: 'Неактивный',
 } as const
 export const STATUS_SELECT = [
-    {value: Main.ACTIVE, label: STATUS_LABEL.ACTIVE},
-    {value: Main.INACTIVE, label: STATUS_LABEL.INACTIVE}
+    {value: STATUS.ACTIVE, label: STATUS_LABEL.ACTIVE},
+    {value: STATUS.INACTIVE, label: STATUS_LABEL.INACTIVE}
 ] as const
 
 

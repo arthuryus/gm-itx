@@ -1,7 +1,7 @@
 //import { Link } from 'react-router-dom'
 import type { ColumnDef } from '@tanstack/react-table'
 import type { TGroup } from '../model/group.types.ts'
-import { type TStatus, Main, STATUS_LABEL } from '@/shared/constants/main.ts'
+import { type TStatus, STATUS, STATUS_LABEL } from '@/shared/constants/main.ts'
 import { Button } from '@/shadcn/components/ui/button'
 import { Badge } from '@/shadcn/components/ui/badge'
 import { ArrowUpDown, ArrowUp, ArrowDown, Eye, Pencil, Trash2 } from 'lucide-react'
@@ -105,8 +105,8 @@ export function getGroupsTableColumns({
             cell: ({ row }) => {
                 const status = row.getValue<TStatus>('status')
                 return (
-                    <Badge variant={status === Main.ACTIVE ? 'default' : 'secondary'}>
-                        {status === Main.ACTIVE ? STATUS_LABEL.ACTIVE : STATUS_LABEL.INACTIVE}
+                    <Badge variant={status === STATUS.ACTIVE ? 'default' : 'secondary'}>
+                        {status === STATUS.ACTIVE ? STATUS_LABEL.ACTIVE : STATUS_LABEL.INACTIVE}
                     </Badge>
                 )
             },
