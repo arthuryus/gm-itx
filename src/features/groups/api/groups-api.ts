@@ -1,4 +1,5 @@
 import { api } from '@/shared/api/client.ts'
+import { buildTableFilterQueryParams } from '@/shared/helpers/table.helper.ts'
 import type {
     TGetGroupsRequest,
     TGetGroupsResponse,
@@ -12,36 +13,9 @@ import type {
     TDeleteGroupResponse,
 } from './groups-api.types.ts'
 
-function buildQueryParams(params: TGetGroupsRequest): string {
-    const searchParams = new URLSearchParams()
-
-    if (params.page !== undefined) {
-        searchParams.append('page', String(params.page))
-    }
-    if (params.perPage !== undefined) {
-        searchParams.append('perPage', String(params.perPage))
-    }
-
-    if (params.sort && params.sort.length > 0) {
-        params.sort.forEach((sortItem) => {
-            searchParams.append('sort[]', sortItem)
-        })
-    }
-
-    if (params.filter) {
-        Object.entries(params.filter).forEach(([key, value]) => {
-            if (value !== undefined && value !== '') {
-                searchParams.append(`${key}`, String(value))//(`filter[${key}]`, String(value))
-            }
-        })
-    }
-
-    return searchParams.toString()
-}
-
 export const groupsApi = {
     getList: async (params: TGetGroupsRequest = {}): Promise<TGetGroupsResponse> => {
-        const queryString = buildQueryParams(params)
+        const queryString = buildTableFilterQueryParams(params)
         const url = queryString ? `/employees/groups?${queryString}` : '/employees/groups'
         const response = await api.get<TGetGroupsResponse>(url)
 

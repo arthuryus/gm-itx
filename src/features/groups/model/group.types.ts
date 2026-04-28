@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { groupSchema } from './group.schema.ts'
 import { type TStatus } from "@/shared/constants/main.ts";
+import type {TTableListParams} from "@/shared/helpers/table.helper.ts";
 
 
 export interface TGroup {
@@ -24,12 +25,13 @@ export interface TGroupSort {
     direction: 'asc' | 'desc'
 }
 
-export interface TGroupsListParams {
+export type TGroupsListParams = TTableListParams<TGroupFilter>
+/*export interface TGroupsListParams {
     page?: number
     perPage?: number
     sort?: string[]
     filter?: TGroupFilter
-}
+}*/
 
 export interface TGroupsListResponse {
     items: TGroup[]
