@@ -5,7 +5,7 @@ import { employeeSchema, employeeDefaultValues } from '../model/employee.schema.
 import type { TEmployee, TEmployeeFormData } from '../model/employee.types.ts'
 import { type TStatus, STATUS_SELECT } from '@/shared/constants/main.ts'
 import { mapEmployeeApiToForm } from '../model/employee.mapper.ts'
-import { EmployeeMembershipsForm } from './EmployeeFormMemberships.tsx'
+import { EmployeeFormMemberships } from './EmployeeFormMemberships.tsx'
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/shadcn/components/ui/field'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shadcn/components/ui/select'
 import { InputGroup, InputGroupInput } from '@/shadcn/components/ui/input-group'
@@ -204,7 +204,7 @@ export function EmployeeForm({
                     )}
                 />
 
-                <EmployeeMembershipsForm
+                <EmployeeFormMemberships
                     form={form}
                     isSubmitting={isLoading}
                 />

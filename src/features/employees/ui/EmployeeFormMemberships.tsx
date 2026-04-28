@@ -10,7 +10,7 @@ import {Trash2} from 'lucide-react'
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/shadcn/components/ui/select.tsx";
 import {SelectMulti} from '@/shared/components/ui/selects/SelectMulti.tsx'
 
-export function EmployeeMembershipsForm({
+export function EmployeeFormMemberships({
     form,
     isSubmitting,
 }:{
