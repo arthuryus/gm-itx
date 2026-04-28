@@ -1,6 +1,6 @@
 import {useMemo} from 'react'
 import {Controller, useFieldArray, type UseFormReturn} from 'react-hook-form'
-import type {TEmployeeFormData} from '@/features/employees/model/employee.types.ts'
+import type {TEmployeeFormData} from '../model/employee.types.ts'
 import {useGetGroups} from '@/features/groups/hooks/queries/useGetGroups.ts'
 import {useGetRoles} from '@/features/roles/hooks/queries/useGetRoles.ts'
 import {Field, FieldError, FieldGroup, FieldLabel} from '@/shadcn/components/ui/field.tsx'
