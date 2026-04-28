@@ -8,7 +8,7 @@ import type {
     TCreateGroupRequestWithoutId,
     TCreateGroupResponse,
     TUpdateGroupRequestWithId,
-    UpdateGroupResponse,
+    TUpdateGroupResponse,
     TDeleteGroupRequest,
     TDeleteGroupResponse,
 } from './groups-api.types.ts'
@@ -32,8 +32,8 @@ export const groupsApi = {
         return response.data
     },
 
-    update: async ({ id, data }: TUpdateGroupRequestWithId): Promise<UpdateGroupResponse> => {
-        const response = await api.put<UpdateGroupResponse>(`/employees/groups/${id}`, data)
+    update: async ({ id, data }: TUpdateGroupRequestWithId): Promise<TUpdateGroupResponse> => {
+        const response = await api.put<TUpdateGroupResponse>(`/employees/groups/${id}`, data)
         return response.data
     },
 

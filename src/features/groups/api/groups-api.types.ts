@@ -20,7 +20,7 @@ export interface TUpdateGroupRequestWithId {
     id: number
     data: TUpdateGroupRequest
 }
-export type UpdateGroupResponse = TGroup
+export type TUpdateGroupResponse = TGroup
 
 // Delete group
 export interface TDeleteGroupRequest {
