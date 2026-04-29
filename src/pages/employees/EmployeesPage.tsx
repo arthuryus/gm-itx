@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import type { TEmployee, TEmployeeFilter } from '@/features/employees/model/employee.types.ts'
 import { DEFAULT_PER_PAGE } from '@/shared/constants/main.ts'
+import { PAGE_URLS } from '@/shared/config/page-routes'
 import { useGetEmployees } from '@/features/employees/hooks/queries/useGetEmployees.ts'
 import { useDeleteEmployee } from '@/features/employees/hooks/mutations/useDeleteEmployee'
 import { PERMISSIONS } from '@/shared/config/permissions.ts'
@@ -74,7 +75,7 @@ export default function EmployeesPage() {
                 <h1 className="text-2xl font-bold">Сотрудники</h1>
                 {canCreate && (
                     <Button asChild>
-                        <Link to="/employees/create">
+                        <Link to={PAGE_URLS.employees.create()}>
                             <Plus className="h-4 w-4" />
                             Добавить
                         </Link>

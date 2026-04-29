@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import type { TRole, TRoleFilter } from '@/features/roles/model/role.types.ts'
 import { DEFAULT_PER_PAGE } from '@/shared/constants/main.ts'
+import { PAGE_URLS } from '@/shared/config/page-routes'
 import { useGetRoles } from '@/features/roles/hooks/queries/useGetRoles.ts'
 import { useDeleteRole } from '@/features/roles/hooks/mutations/useDeleteRole'
 import { PERMISSIONS } from '@/shared/config/permissions.ts'
@@ -74,7 +75,7 @@ export default function RolesPage() {
                 <h1 className="text-2xl font-bold">Роли</h1>
                 {canCreate && (
                     <Button asChild>
-                        <Link to="/roles/create">
+                        <Link to={PAGE_URLS.employeeRoles.create()}>
                             <Plus className="h-4 w-4" />
                             Добавить
                         </Link>

@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import type { TGroup, TGroupFilter } from '@/features/groups/model/group.types.ts'
 import { DEFAULT_PER_PAGE } from '@/shared/constants/main.ts'
+import { PAGE_URLS } from '@/shared/config/page-routes'
 import { useGetGroups } from '@/features/groups/hooks/queries/useGetGroups.ts'
 import { useDeleteGroup } from '@/features/groups/hooks/mutations/useDeleteGroup'
 import { PERMISSIONS } from '@/shared/config/permissions.ts'
@@ -74,7 +75,7 @@ export default function GroupsPage() {
                 <h1 className="text-2xl font-bold">Группы</h1>
                 {canCreate && (
                     <Button asChild>
-                        <Link to="/groups/create">
+                        <Link to={PAGE_URLS.employeeGroups.create()}>
                             <Plus className="h-4 w-4" />
                             Добавить
                         </Link>
