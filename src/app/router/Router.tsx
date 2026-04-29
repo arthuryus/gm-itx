@@ -38,7 +38,7 @@ export function Router() {
                     </AccessRoute>
                 }
             >
-                <Route path="/setup" element={<SetupPage />} />
+                <Route path={PAGE_PATHS.setup} element={<SetupPage />} />
             </Route>
             <Route
                 element={
@@ -47,9 +47,9 @@ export function Router() {
                     </AccessRoute>
                 }
             >
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/password-reset" element={<PasswordResetPage />} />
-                <Route path="/password-reset-confirm" element={<PasswordResetConfirmPage />} />
+                <Route path={PAGE_PATHS.login} element={<LoginPage />} />
+                <Route path={PAGE_PATHS.passwordReset} element={<PasswordResetPage />} />
+                <Route path={PAGE_PATHS.passwordResetConfirm} element={<PasswordResetConfirmPage />} />
                 <Route path="/signup" element={<SignupPage />} />
             </Route>
             <Route
@@ -60,8 +60,8 @@ export function Router() {
                 }
             >
                 <Route index element={<DashboardPage />} />
-                <Route path="/dashboard" element={<DashboardPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
+                <Route path={PAGE_PATHS.dashboard} element={<DashboardPage />} />
+                <Route path={PAGE_PATHS.profile} element={<ProfilePage />} />
 
                 {/* Employees */}
                 <Route
@@ -102,7 +102,7 @@ export function Router() {
                     path={PAGE_PATHS.employeeGroups.create}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_GROUPS_CREATE}>
-                        <GroupCreatePage />
+                            <GroupCreatePage />
                         </AccessRoute>
                     }
                 />
@@ -159,9 +159,10 @@ export function Router() {
                 <Route path="/info" element={<InfoPage />} />
             </Route>
             <Route element={<EmptyLayout />}>
-                <Route path="/404" element={<NotFoundPage />} />
-                <Route path="/403" element={<ForbiddenPage />} />
-                <Route path="/400" element={<BadRequestPage />} />
+                <Route path={PAGE_PATHS.badRequest} element={<BadRequestPage />} />
+                <Route path={PAGE_PATHS.forbidden} element={<ForbiddenPage />} />
+                <Route path={PAGE_PATHS.notFound} element={<NotFoundPage />} />
+                <Route path="*" element={<NotFoundPage />} />
             </Route>
 
         </Routes>

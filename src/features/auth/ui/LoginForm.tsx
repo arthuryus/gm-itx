@@ -5,6 +5,7 @@ import { handlerError } from "@/shared/api/error/handler-error.ts"
 import { loginSchema, type LoginSchema, loginDefaultValues } from "@/features/auth/schemas/login-schema.ts"
 import { authApi } from "@/features/auth/api/auth-api.ts"
 import { useAuthStore } from "@/features/auth/store/auth-store.ts"
+import {PAGE_URLS} from "@/shared/config/page-routes.ts";
 
 //import { useNavigate, useLocation } from "react-router-dom"
 import { Link } from "react-router-dom"
@@ -93,7 +94,7 @@ export default function LoginForm() {
                             <div className="flex items-center">
                                 <FieldLabel htmlFor="password">Пароль</FieldLabel>
                                 <Link
-                                    to="/password-reset"
+                                    to={PAGE_URLS.passwordReset()}
                                     className="ml-auto text-primary text-sm underline-offset-4 hover:underline"
                                 >
                                     Забыл пароль?

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import {PAGE_URLS} from "@/shared/config/page-routes.ts";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/shadcn/components/ui/card"
 import PasswordResetForm from "@/features/auth/ui/PasswordResetForm"
 
@@ -15,7 +16,7 @@ export default function PasswordResetPage() {
             <CardFooter className="flex flex-col space-y-4">
                 <p className="text-sm text-muted-foreground text-center">
                     <span className="me-2">Помните пароль?</span>
-                    <Link to="/login" className="underline underline-offset-4 hover:text-primary">Войти</Link>
+                    <Link to={PAGE_URLS.login()} className="underline underline-offset-4 hover:text-primary">Войти</Link>
                 </p>
             </CardFooter>
         </Card>

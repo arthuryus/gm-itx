@@ -1,3 +1,5 @@
+import {PAGE_PATHS} from "@/shared/config/page-routes.ts";
+
 type Metadata = {
     h1: string
     title?: string
@@ -6,27 +8,26 @@ type Metadata = {
 }
 
 export const METADATA: Record<string, Metadata> = {
-    "/": {
-        h1: "Dashboard",
+    [PAGE_PATHS.home]: {
+        h1: "Рабочий стол",
     },
-    "/dashboard": {
-        h1: "Dashboard",
+    [PAGE_PATHS.dashboard]: {
+        h1: "Рабочий стол",
     },
-    "/companies": {
+
+    "/employees": {
         h1: "Companies",
     },
-    "/companies/create": {
+    "/employees/create": {
         h1: "Create Company",
     },
-    "/companies/update/:id": {
+    "/employees/update/:id": {
         h1: "Edit Company",
     },
-    "/documents": {
-        h1: "Documents",
+    "/employees/view/:id": {
+        h1: "Edit Company",
     },
-    "/cameras": {
-        h1: "Cameras",
-    },
+
     "/info": {
         h1: "Info",
     },

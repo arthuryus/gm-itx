@@ -4,6 +4,7 @@ import { useAuthInit } from "@/features/auth/hooks/use-auth-init.ts"
 import { useSetupInit } from "@/features/auth/hooks/use-setup-init.ts"
 import { useAccess, type AccessProps } from "@/features/access/hooks/use-access.ts"
 import { Loader } from "@/shared/components/ui/loaders/Loader.tsx"
+import {PAGE_URLS} from "@/shared/config/page-routes.ts";
 
 export const AUTH_MODES = {
     REQUIRED: "required",
@@ -58,22 +59,22 @@ export function AccessRoute({
 
     // 1. CSRF
     if (csrf && !hasCsrfToken) {
-        return <Navigate to="/400" replace />
+        return <Navigate to={PAGE_URLS.badRequest()} replace />
     }
 
     // SETUP LOGIC (other pages: /login, /password-reset, /password-reset-confirm, + internal pages)
     if (setup === SETUP_MODES.REQUIRED && mustSetup) { //console.log('SETUP_MODES.REQUIRED: /setup', mustSetup, location.pathname);
-        return <Navigate to="/setup" replace />
+        return <Navigate to={PAGE_URLS.setup()} replace />
     }
 
     // SETUP LOGIC (page: /setup)
     if (setup === SETUP_MODES.GUEST && !mustSetup) { //console.log('SETUP_MODES.GUEST: /login', mustSetup, location.pathname);
-        return <Navigate to="/login" replace />
+        return <Navigate to={PAGE_URLS.login()} replace />
     }
 
     // AUTH LOGIC (internal pages)
     if (auth === AUTH_MODES.REQUIRED && !isAuthenticated) { //console.log('AUTH_MODES.REQUIRED: /setup', isAuthenticated, location.pathname);
-        return <Navigate to="/login" replace state={{ from: location.pathname }} />
+        return <Navigate to={PAGE_URLS.login()} replace state={{ from: location.pathname }} />
     }
 
     // AUTH LOGIC (external pages)
@@ -83,7 +84,7 @@ export function AccessRoute({
 
     // ACCESS LOGIC (permissions/roles)
     if (!hasAccess) {
-        return <Navigate to="/403" replace state={{ from: location.pathname }} />
+        return <Navigate to={PAGE_URLS.forbidden()} replace state={{ from: location.pathname }} />
     }
 
     return children

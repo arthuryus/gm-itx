@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { passwordResetConfirmSchema, type PasswordResetConfirmSchema } from "@/features/auth/schemas/password-reset-confirm-schema.ts"
 import { authApi } from "@/features/auth/api/auth-api.ts"
 import { handlerError } from "@/shared/api/error/handler-error.ts";
+import {PAGE_URLS} from "@/shared/config/page-routes.ts";
 
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/shadcn/components/ui/field"
 import { Button } from "@/shadcn/components/ui/button"
@@ -29,7 +30,7 @@ export default function PasswordResetConfirmForm({token}: PasswordResetConfirmFo
             await authApi.passwordResetConfirm(data)
 
             toast.success("Новый пароль установлен.")
-            navigate("/login", { replace: true })
+            navigate(PAGE_URLS.login(), { replace: true })
         } catch (error) {
             handlerError(error, { form })
         }
