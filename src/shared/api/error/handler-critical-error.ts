@@ -29,7 +29,11 @@ export function handlerCriticalError(
             return true
 
         case API_ERROR_CODES.FORBIDDEN:
-            toast.error(error.message || "Access denied")
+            if (navigate) {
+                navigate("/403", { replace: true, state: { message: error.message } })
+            } else {
+                toast.error(error.message || "Access denied")
+            }
             return true
 
         case API_ERROR_CODES.NOT_FOUND:
