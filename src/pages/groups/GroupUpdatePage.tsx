@@ -22,7 +22,7 @@ export default function GroupUpdatePage() {
         try {
             await updateMutation.mutateAsync({ id: itemId, data })
 
-            toast.success('Группа обновлена')
+            toast.success('Запись обновлена')
             navigate(`/groups`)// /${groupId}
         } catch (error) {
             handlerError(error, { form })

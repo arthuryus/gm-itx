@@ -4,7 +4,7 @@ import type { TRoleFormData } from '@/features/roles/model/role.types.ts'
 import { useUpdateRole } from '@/features/roles/hooks/mutations/useUpdateRole'
 import { RoleForm } from '@/features/roles/ui/RoleForm'
 import { useGetRole } from '@/features/roles/hooks/queries/useGetRole.ts'
-import { handlerError } from "@/shared/api/error/handler-error.ts";
+import { handlerError } from "@/shared/api/error/handler-error.ts"
 import { mapRoleFormToApi } from '@/features/roles/model/role.mapper.ts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/components/ui/card'
 import { toast } from 'sonner'
@@ -21,7 +21,7 @@ export default function RoleUpdatePage() {
         try {
             await updateMutation.mutateAsync({ id: itemId, data: mapRoleFormToApi(data) })
 
-            toast.success('Роль обновлена')
+            toast.success('Запись обновлена')
             navigate(`/roles`)
         } catch (error) {
             handlerError(error, { form })

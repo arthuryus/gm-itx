@@ -21,7 +21,7 @@ export default function RoleCreatePage() {
         try {
             await createMutation.mutateAsync(mapRoleFormToApi(data))
 
-            toast.success('Группа обновлена')
+            toast.success('Запись создана')
             navigate('/roles')
         } catch (error) {
             handlerError(error, { form })

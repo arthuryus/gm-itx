@@ -26,7 +26,7 @@ export default function EmployeeUpdatePage() {
         try {
             await updateMutation.mutateAsync({ id: itemId, data })
 
-            toast.success('Группа обновлена')
+            toast.success('Запись обновлена')
             navigate(`/employees`)// /${groupId}
         } catch (error) {
             handlerError(error, { form })

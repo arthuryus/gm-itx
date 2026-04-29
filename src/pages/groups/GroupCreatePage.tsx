@@ -15,7 +15,7 @@ export default function GroupCreatePage() {
         try {
             await createMutation.mutateAsync(data)
 
-            toast.success('Группа обновлена')
+            toast.success('Запись создана')
             navigate('/groups')
         } catch (error) {
             handlerError(error, { form })

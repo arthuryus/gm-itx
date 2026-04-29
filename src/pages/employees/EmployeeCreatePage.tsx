@@ -15,7 +15,7 @@ export default function EmployeeCreatePage() {
         try {
             await createMutation.mutateAsync(data)
 
-            toast.success('Группа обновлена')
+            toast.success('Запись создана')
             navigate('/employees')
         } catch (error) {
             handlerError(error, { form })
