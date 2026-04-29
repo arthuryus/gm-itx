@@ -34,7 +34,7 @@ export default function EmployeeCreatePage() {
             <CardContent>
                 <EmployeeForm
                     mode="create"
-                    isLoading={createMutation.isPending}
+                    isSubmitting={createMutation.isPending}
                     onSubmit={handleSubmit}
                     onCancel={handleCancel}
                 />

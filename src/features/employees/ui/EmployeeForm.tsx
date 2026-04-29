@@ -16,21 +16,23 @@ import { Spinner } from '@/shadcn/components/ui/spinner'
 interface EmployeeFormProps {
     mode: 'create' | 'update'
     initialData?: TEmployee
-    isLoading: boolean
+    isSubmitting: boolean
     onSubmit: (data: TEmployeeFormData, form:  UseFormReturn<TEmployeeFormData>) => void
     onCancel: () => void
-    onCloseSession: () => void
-    onSendAccess: () => void
+    onCloseSession?: () => void
+    onSendAccess?: () => void
+    disabled?: boolean
 }
 
 export function EmployeeForm({
     mode,
     initialData,
-    isLoading,
+    isSubmitting,
     onSubmit,
     onCancel,
     onCloseSession,
     onSendAccess,
+    disabled = false,
 }: EmployeeFormProps) {
     const isModeCreate = mode === 'create'
 
@@ -66,7 +68,7 @@ export function EmployeeForm({
                                     type="text"
                                     placeholder="Введите имя"
                                     aria-invalid={fieldState.invalid}
-                                    disabled={isLoading}
+                                    disabled={isSubmitting || disabled}
                                 />
                             </InputGroup>
                             {fieldState.invalid && (
@@ -89,7 +91,7 @@ export function EmployeeForm({
                                     type="text"
                                     placeholder="Введите фамилию"
                                     aria-invalid={fieldState.invalid}
-                                    disabled={isLoading}
+                                    disabled={isSubmitting || disabled}
                                 />
                             </InputGroup>
                             {fieldState.invalid && (
@@ -112,7 +114,7 @@ export function EmployeeForm({
                                     type="text"
                                     placeholder="Введите отчество"
                                     aria-invalid={fieldState.invalid}
-                                    disabled={isLoading}
+                                    disabled={isSubmitting || disabled}
                                 />
                             </InputGroup>
                             {fieldState.invalid && (
@@ -135,7 +137,7 @@ export function EmployeeForm({
                                     type="text"
                                     placeholder="Введите email"
                                     aria-invalid={fieldState.invalid}
-                                    disabled={isLoading}
+                                    disabled={isSubmitting || disabled}
                                 />
                             </InputGroup>
                             {fieldState.invalid && (
@@ -158,7 +160,7 @@ export function EmployeeForm({
                                     type="text"
                                     placeholder="Введите номер телефона"
                                     aria-invalid={fieldState.invalid}
-                                    disabled={isLoading}
+                                    disabled={isSubmitting || disabled}
                                 />
                             </InputGroup>
                             {fieldState.invalid && (
@@ -180,7 +182,7 @@ export function EmployeeForm({
                                 onValueChange={(value) =>
                                     field.onChange(value as TStatus)
                                 }
-                                disabled={isLoading}
+                                disabled={isSubmitting || disabled}
                             >
                                 <SelectTrigger
                                     id="status"
@@ -206,18 +208,19 @@ export function EmployeeForm({
 
                 <EmployeeFormMemberships
                     form={form}
-                    isSubmitting={isLoading}
+                    isSubmitting={isSubmitting}
+                    disabled={disabled}
                 />
 
                 <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-2">
-                        {!isModeCreate && (
+                        {!isModeCreate && !disabled && onCloseSession && onSendAccess && (
                             <>
                                 <Button
                                     type="button"
                                     variant="destructive"
                                     onClick={onCloseSession}
-                                    disabled={isLoading}
+                                    disabled={isSubmitting}
                                 >
                                     Закрыть сессии
                                 </Button>
@@ -225,7 +228,7 @@ export function EmployeeForm({
                                     type="button"
                                     variant="secondary"
                                     onClick={onSendAccess}
-                                    disabled={isLoading}
+                                    disabled={isSubmitting}
                                 >
                                     Отправить доступ
                                 </Button>
@@ -237,17 +240,19 @@ export function EmployeeForm({
                             type="button"
                             variant="outline"
                             onClick={onCancel}
-                            disabled={isLoading}
+                            disabled={isSubmitting}
                         >
                             Отмена
                         </Button>
-                        <Button
-                            type="submit"
-                            disabled={isLoading}
-                        >
-                            {isLoading && <Spinner className="size-3" />}
-                            {isModeCreate ? 'Создать' : 'Сохранить'}
-                        </Button>
+                        {!disabled && (
+                            <Button
+                                type="submit"
+                                disabled={isSubmitting}
+                            >
+                                {isSubmitting && <Spinner className="size-3" />}
+                                {isModeCreate ? 'Создать' : 'Сохранить'}
+                            </Button>
+                        )}
                     </div>
 
                 </div>

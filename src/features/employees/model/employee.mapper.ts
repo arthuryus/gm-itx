@@ -7,7 +7,7 @@ export function mapEmployeeApiToForm(
         ...data,
         memberships: data.memberships.map((membership) => ({
             groupId: String(membership.groupId),
-            roleIds: membership.roles.map((role) => role.id),
+            roleIds: membership.roles.map((role) => String(role.id)),
         }))
     }
 }

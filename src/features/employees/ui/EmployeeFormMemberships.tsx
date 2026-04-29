@@ -6,17 +6,21 @@ import {useGetRoles} from '@/features/roles/hooks/queries/useGetRoles.ts'
 import {Field, FieldError, FieldGroup, FieldLabel} from '@/shadcn/components/ui/field.tsx'
 import {Skeleton} from '@/shadcn/components/ui/skeleton.tsx'
 import {Button} from '@/shadcn/components/ui/button.tsx'
-import {Trash2} from 'lucide-react'
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/shadcn/components/ui/select.tsx";
 import {SelectMulti} from '@/shared/components/ui/selects/SelectMulti.tsx'
+import {Trash2} from 'lucide-react'
+
+interface EmployeeFormMembershipsProps {
+    form: UseFormReturn<TEmployeeFormData>
+    isSubmitting: boolean
+    disabled?: boolean
+}
 
 export function EmployeeFormMemberships({
     form,
     isSubmitting,
-}:{
-    form: UseFormReturn<TEmployeeFormData>
-    isSubmitting: boolean
-}) {
+    disabled,
+}: EmployeeFormMembershipsProps) {
 
     /**
      * Получение списка групп
@@ -58,7 +62,7 @@ export function EmployeeFormMemberships({
         if (!dataRoles) return []
 
         return dataRoles.items.map((role) => ({
-            value: role.id,
+            value: String(role.id),
             label: role.title,
         }))
     }, [dataRoles])
@@ -72,7 +76,7 @@ export function EmployeeFormMemberships({
         append({groupId: '', roleIds: []})
     }
 
-    if (isLoadingGroups || isLoadingRoles) {//isLoading ||
+    if (isLoadingGroups || isLoadingRoles) {
         return <Skeleton className="h-10 w-full"/>
     }
 
@@ -92,10 +96,8 @@ export function EmployeeFormMemberships({
                                     <Select
                                         key={String(field.value || 'empty')}
                                         value={field.value ?? ''}
-                                        onValueChange={(value) =>
-                                            field.onChange(value)
-                                        }
-                                        disabled={isSubmitting}
+                                        onValueChange={field.onChange}
+                                        disabled={isSubmitting || disabled}
                                     >
                                         <SelectTrigger
                                             id={`memberships.${index}.groupId`}
@@ -132,6 +134,7 @@ export function EmployeeFormMemberships({
                                         name={field.name}
                                         value={field.value ?? []}
                                         onValueChange={field.onChange}
+                                        disabled={isSubmitting || disabled}
                                         options={optionsRoles}
                                         placeholder={'Выберите роли'}
                                         searchable={true}
@@ -147,24 +150,33 @@ export function EmployeeFormMemberships({
                             )}
                         />
 
-                        <div>
-                            {(index === 0 && <div className="h-8"/>)}
-                            <Button
-                                type="button"
-                                variant="ghost"
-                                size="icon"
-                                disabled={isSubmitting || !(fields.length > 1)}
-                                onClick={() => remove(index)}
-                            >
-                                <Trash2/>
-                            </Button>
-                        </div>
+                        {!disabled && (
+                            <div>
+                                {(index === 0 && <div className="h-8"/>)}
+                                <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size="icon"
+                                    disabled={isSubmitting || !(fields.length > 1)}
+                                    onClick={() => remove(index)}
+                                >
+                                    <Trash2/>
+                                </Button>
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>
-            <Button type="button" variant="outline" disabled={isSubmitting} onClick={handleAdd}>
-                Добавить
-            </Button>
+            {!disabled && (
+                <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleAdd}
+                    disabled={isSubmitting}
+                >
+                    Добавить
+                </Button>
+            )}
         </FieldGroup>
     )
 }

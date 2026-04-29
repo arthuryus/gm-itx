@@ -22,7 +22,7 @@ export interface TEmployee {
     phone?: string
     status: TStatus
     //mustChangeCredentials: boolean,
-    //immutable: boolean,
+    immutable: boolean,
     memberships: TEmployeeMembership[]
 }
 
@@ -61,7 +61,7 @@ export interface TEmployeeMembershipFormData {
 
 //export type TEmployeeFormData = Omit<z.infer<typeof employeeSchema>, 'id'>
 export interface TEmployeeFormData {
-    id?: number
+    //id?: number
     firstName: string
     lastName: string
     middleName?: string

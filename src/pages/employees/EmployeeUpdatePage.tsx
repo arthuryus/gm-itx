@@ -88,11 +88,12 @@ export default function EmployeeUpdatePage() {
                 <EmployeeForm
                     mode="update"
                     initialData={item}
-                    isLoading={updateMutation.isPending}
+                    isSubmitting={updateMutation.isPending || closeSessionMutation.isPending || sendAccessMutation.isPending}
                     onSubmit={handleSubmit}
                     onCancel={handleCancel}
                     onCloseSession={handleCloseSession}
                     onSendAccess={handleSendAccess}
+                    disabled={!!item?.immutable}
                 />
             </CardContent>
         </Card>
