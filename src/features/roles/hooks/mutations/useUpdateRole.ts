@@ -3,7 +3,6 @@ import { ROLES_QUERY_KEYS } from '../../lib/constants.ts'
 import { rolesApi } from '../../api/roles-api.ts'
 import type { TUpdateRoleRequestWithId } from '../../api/roles-api.types.ts'
 import type { TRole } from '../../model/role.types.ts'
-//import type { TRoleDetail } from '../../model/role.types.ts'
 
 export function useUpdateRole() {
     const queryClient = useQueryClient()

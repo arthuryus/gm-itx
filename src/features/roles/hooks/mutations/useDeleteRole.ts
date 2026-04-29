@@ -13,10 +13,8 @@ export function useDeleteRole() {
             queryClient.invalidateQueries({ queryKey: ROLES_QUERY_KEYS.all })
             toast.success('Группа удалена')
         },
-        onError: (error) => {
-            toast.error('Ошибка при удалении группы', {
-                description: error.message,
-            })
+        onError: () => {//error
+            toast.error('Ошибка при удалении группы')
         },
     })
 }

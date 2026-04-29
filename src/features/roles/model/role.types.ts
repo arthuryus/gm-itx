@@ -21,7 +21,7 @@ export interface TRolePermissionGroups {
 }
 
 export interface TRole {
-    id?: number // ??????
+    id: number
     title: string
     code: string
     description: string
