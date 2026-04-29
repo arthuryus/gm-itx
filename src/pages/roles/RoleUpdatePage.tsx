@@ -1,6 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { type UseFormReturn } from 'react-hook-form'
 import type { TRoleFormData } from '@/features/roles/model/role.types.ts'
+import { ROLES_MUTATION_MESSAGES } from '@/features/roles/lib/constants'
+import { PAGE_URLS } from '@/shared/config/page-routes'
 import { useUpdateRole } from '@/features/roles/hooks/mutations/useUpdateRole'
 import { RoleForm } from '@/features/roles/ui/RoleForm'
 import { useGetRole } from '@/features/roles/hooks/queries/useGetRole.ts'
@@ -21,15 +23,15 @@ export default function RoleUpdatePage() {
         try {
             await updateMutation.mutateAsync({ id: itemId, data: mapRoleFormToApi(data) })
 
-            toast.success('Запись обновлена')
-            navigate(`/roles`)
+            toast.success(ROLES_MUTATION_MESSAGES.update)
+            navigate(PAGE_URLS.employeeRoles.list())
         } catch (error) {
             handlerError(error, { form })
         }
     }
 
     const handleCancel = () => {
-        navigate(`/roles`)
+        navigate(PAGE_URLS.employeeRoles.list())
     }
 
     return (

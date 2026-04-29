@@ -1,8 +1,5 @@
-import { Routes, Route } from "react-router-dom";//createBrowserRouter, createRoutesFromElements,
-//import CsrfRoute from "@/app/router/CsrfRoute"
-//import AuthRoute from "@/app/router/AuthRoute"
-//import ProtectedRoute from "@/app/router/ProtectedRoute"
-//import { withPermissionRoute } from "@/app/router/PermissionRoute"
+import { Routes, Route } from "react-router-dom";
+import { PAGE_PATHS } from '@/shared/config/page-routes'
 import { AccessRoute, AUTH_MODES, SETUP_MODES } from "@/app/router/AccessRoute.tsx"
 import { PERMISSIONS } from "@/shared/config/permissions.ts"
 import EmptyLayout from "@/shared/components/layouts/EmptyLayout.tsx"
@@ -14,12 +11,9 @@ import SetupPage from "@/pages/auth/SetupPage.tsx"
 import SignupPage from "@/pages/auth/SignupPage.tsx"
 import DashboardPage from "@/pages/dashboard/DashboardPage.tsx"
 import ProfilePage from "@/pages/account/ProfilePage.tsx";
-//import DocumentsPage from "@/pages/documents/DocumentsPage.tsx";
-//import CamerasPage from "@/pages/cameras/CamerasPage.tsx";
 import EmployeesPage from "@/pages/employees/EmployeesPage.tsx";
 import EmployeeCreatePage from "@/pages/employees/EmployeeCreatePage.tsx";
 import EmployeeUpdatePage from "@/pages/employees/EmployeeUpdatePage.tsx";
-//import EmployeeViewPage from "@/pages/employees/EmployeeViewPage.tsx";
 import GroupsPage from "@/pages/groups/GroupsPage.tsx";
 import GroupCreatePage from "@/pages/groups/GroupCreatePage.tsx";
 import GroupUpdatePage from "@/pages/groups/GroupUpdatePage.tsx";
@@ -27,12 +21,6 @@ import GroupViewPage from "@/pages/groups/GroupViewPage.tsx";
 import RolesPage from "@/pages/roles/RolesPage.tsx";
 import RoleCreatePage from "@/pages/roles/RoleCreatePage.tsx";
 import RoleUpdatePage from "@/pages/roles/RoleUpdatePage.tsx";
-//import RoleViewPage from "@/pages/roles/RoleViewPage.tsx";
-
-//import CompaniesPage from "@/pages/companies/CompaniesPage.tsx";
-//import CompanyViewPage from "@/pages/companies/CompanyViewPage.tsx";
-//import CompanyCreatePage from "@/pages/companies/CompanyCreatePage.tsx";
-//import CompanyUpdatePage from "@/pages/companies/CompanyUpdatePage.tsx";
 import InfoPage from "@/pages/info/InfoPage.tsx";
 import NotFoundPage from "@/pages/errors/NotFoundPage.tsx"
 import ForbiddenPage from "@/pages/errors/ForbiddenPage.tsx"
@@ -75,9 +63,9 @@ export function Router() {
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
 
-                {/* Employees Routes */}
+                {/* Employees */}
                 <Route
-                    path="/employees"
+                    path={PAGE_PATHS.employees.list}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_EMPLOYEES}>
                             <EmployeesPage />
@@ -85,7 +73,7 @@ export function Router() {
                     }
                 />
                 <Route
-                    path="/employees/create"
+                    path={PAGE_PATHS.employees.create}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_EMPLOYEES_CREATE}>
                             <EmployeeCreatePage />
@@ -93,25 +81,17 @@ export function Router() {
                     }
                 />
                 <Route
-                    path="/employees/update/:id"
+                    path={PAGE_PATHS.employees.update}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_EMPLOYEES_EDIT}>
                             <EmployeeUpdatePage />
                         </AccessRoute>
                     }
                 />
-                {/*<Route
-                    path="/employees/:id"
-                    element={
-                        <AccessRoute permission={PERMISSIONS.PERMISSION_EMPLOYEES_VIEW}>
-                            <EmployeeViewPage />
-                        </AccessRoute>
-                    }
-                />*/}
 
-                {/* Groups Routes */}
+                {/* Employee Groups */}
                 <Route
-                    path="/groups"
+                    path={PAGE_PATHS.employeeGroups.list}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_GROUPS}>
                             <GroupsPage />
@@ -119,7 +99,7 @@ export function Router() {
                     }
                 />
                 <Route
-                    path="/groups/create"
+                    path={PAGE_PATHS.employeeGroups.create}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_GROUPS_CREATE}>
                         <GroupCreatePage />
@@ -127,7 +107,7 @@ export function Router() {
                     }
                 />
                 <Route
-                    path="/groups/update/:id"
+                    path={PAGE_PATHS.employeeGroups.update}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_GROUPS_EDIT}>
                             <GroupUpdatePage />
@@ -135,7 +115,7 @@ export function Router() {
                     }
                 />
                 <Route
-                    path="/groups/:id"
+                    path={PAGE_PATHS.employeeGroups.view}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_GROUPS_VIEW}>
                             <GroupViewPage />
@@ -143,9 +123,9 @@ export function Router() {
                     }
                 />
 
-                {/* Roles Routes */}
+                {/* Employee Roles */}
                 <Route
-                    path="/roles"
+                    path={PAGE_PATHS.employeeRoles.list}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_ROLES}>
                             <RolesPage />
@@ -153,7 +133,7 @@ export function Router() {
                     }
                 />
                 <Route
-                    path="/roles/create"
+                    path={PAGE_PATHS.employeeRoles.create}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_ROLES_CREATE}>
                             <RoleCreatePage />
@@ -161,74 +141,13 @@ export function Router() {
                     }
                 />
                 <Route
-                    path="/roles/update/:id"
+                    path={PAGE_PATHS.employeeRoles.update}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_ROLES_EDIT}>
                             <RoleUpdatePage />
                         </AccessRoute>
                     }
                 />
-                {/*<Route
-                    path="/roles/:id"
-                    element={
-                        <AccessRoute permission={PERMISSIONS.PERMISSION_ROLES_VIEW}>
-                            <RoleViewPage />
-                        </AccessRoute>
-                    }
-                />*/}
-
-
-                {/* Companies Routes
-                <Route
-                    path="/companies"
-                    element={
-                        <AccessRoute permission={PERMISSIONS.PERMISSION_COMPANIES}>
-                            <CompaniesPage />
-                        </AccessRoute>
-                    }
-                />
-                <Route
-                    path="/companies/create"
-                    element={
-                        <AccessRoute permission={PERMISSIONS.PERMISSION_COMPANIES_CREATE}>
-                            <CompanyCreatePage />
-                        </AccessRoute>
-                    }
-                />
-                <Route
-                    path="/companies/:id"
-                    element={
-                        <AccessRoute permission={PERMISSIONS.PERMISSION_COMPANIES_VIEW}>
-                            <CompanyViewPage />
-                        </AccessRoute>
-                    }
-                />
-                <Route
-                    path="/companies/update/:id"
-                    element={
-                        <AccessRoute permission={PERMISSIONS.PERMISSION_COMPANIES_EDIT}>
-                            <CompanyUpdatePage />
-                        </AccessRoute>
-                    }
-                /> */}
-
-                {/* Documents and Cameras Routes
-                <Route
-                    path="/documents"
-                    element={
-                        <AccessRoute permission={PERMISSIONS.PERMISSION_DOCUMENTS}>
-                            <DocumentsPage />
-                        </AccessRoute>
-                    }
-                />
-                <Route
-                    path="/cameras"
-                    element={
-                        <AccessRoute permission={PERMISSIONS.PERMISSION_CAMERAS}>
-                            <CamerasPage />
-                        </AccessRoute>
-                    }
-                /> */}
             </Route>
             <Route
                 element={

@@ -6,3 +6,9 @@ export const ROLES_QUERY_KEYS = {
     detail: (id: number) => ['roles', 'detail', id] as const,
     permissions: () => ['roles', 'permissions'] as const,
 }
+
+export const ROLES_MUTATION_MESSAGES = {
+    create: 'Запись создана',
+    update: 'Запись обновлена',
+    delete: 'Запись удалена',
+}

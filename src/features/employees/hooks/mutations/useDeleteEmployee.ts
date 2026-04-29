@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { employeesApi } from '../../api/employees-api.ts'
-import { EMPLOYEES_QUERY_KEYS } from '../../lib/constants.ts'
+import { EMPLOYEES_QUERY_KEYS, EMPLOYEES_MUTATION_MESSAGES } from '../../lib/constants.ts'
 import type { TDeleteEmployeeRequest } from '../../api/employees-api.types.ts'
 import { handlerError } from "@/shared/api/error/handler-error.ts"
 import { toast } from 'sonner'
@@ -14,7 +14,7 @@ export function useDeleteEmployee() {
         mutationFn: ({ id }) => employeesApi.delete({ id }),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: EMPLOYEES_QUERY_KEYS.all })
-            toast.success('Запись удалена')
+            toast.success(EMPLOYEES_MUTATION_MESSAGES.delete)
         },
         onError: (error) => {
             //toast.error('Ошибка при удалении группы')

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import type { TGroup, TGroupFilter, TGroupsListResponse } from '../model/group.types.ts'
 import { getGroupsTableColumns } from './GroupsTableColumns'
 import { GroupsTableFilters } from './GroupsTableFilters'
+import { PAGE_URLS } from '@/shared/config/page-routes'
 import { PERMISSIONS } from '@/shared/config/permissions.ts'
 import { useAccess } from '@/features/access/hooks/use-access.ts'
 import { TableBase } from '@/shared/components/ui/base/TableBase.tsx'
@@ -42,11 +43,11 @@ export function GroupsTable({
     const canDelete = useAccess({ permission: PERMISSIONS.PERMISSION_GROUPS_DELETE }, true)
 
     const handleView = useCallback((item: TGroup) => {
-        navigate(`/groups/${item.id}`);
+        navigate(PAGE_URLS.employeeGroups.view(item.id))
     }, [navigate]);
 
     const handleEdit = useCallback((item: TGroup) => {
-        navigate(`/groups/update/${item.id}`);
+        navigate(PAGE_URLS.employeeGroups.update(item.id))
     }, [navigate]);
 
     const handleDelete = useCallback((item: TGroup) => {

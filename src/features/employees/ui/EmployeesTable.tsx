@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import type { TEmployee, TEmployeeFilter, TEmployeesListResponse } from '../model/employee.types.ts'
 import { getEmployeesTableColumns } from './EmployeesTableColumns'
 import { EmployeesTableFilters } from './EmployeesTableFilters'
+import { PAGE_URLS } from '@/shared/config/page-routes'
 import { PERMISSIONS } from '@/shared/config/permissions.ts'
 import { useAccess } from '@/features/access/hooks/use-access.ts'
 import { TableBase } from '@/shared/components/ui/base/TableBase.tsx'
@@ -42,11 +43,11 @@ export function EmployeesTable({
     const canDelete = useAccess({ permission: PERMISSIONS.PERMISSION_EMPLOYEES_DELETE }, true)
 
     const handleView = useCallback((item: TEmployee) => {
-        navigate(`/employees/${item.id}`);
+        navigate(PAGE_URLS.employees.view(item.id))
     }, [navigate]);
 
     const handleEdit = useCallback((item: TEmployee) => {
-        navigate(`/employees/update/${item.id}`);
+        navigate(PAGE_URLS.employees.update(item.id))
     }, [navigate]);
 
     const handleDelete = useCallback((item: TEmployee) => {

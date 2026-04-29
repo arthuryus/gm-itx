@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import type { TRole, TRoleFilter, TRolesListResponse } from '../model/role.types.ts'
 import { getRolesTableColumns } from './RolesTableColumns'
 import { RolesTableFilters } from './RolesTableFilters'
+import { PAGE_URLS } from '@/shared/config/page-routes'
 import { PERMISSIONS } from '@/shared/config/permissions.ts'
 import { useAccess } from '@/features/access/hooks/use-access.ts'
 import { TableBase } from '@/shared/components/ui/base/TableBase.tsx'
@@ -42,11 +43,11 @@ export function RolesTable({
     const canDelete = useAccess({ permission: PERMISSIONS.PERMISSION_ROLES_DELETE }, true)
 
     const handleView = useCallback((item: TRole) => {
-        navigate(`/roles/${item.id}`);
+        navigate(PAGE_URLS.employeeRoles.view(item.id))
     }, [navigate]);
 
     const handleEdit = useCallback((item: TRole) => {
-        navigate(`/roles/update/${item.id}`);
+        navigate(PAGE_URLS.employeeRoles.update(item.id))
     }, [navigate]);
 
     const handleDelete = useCallback((item: TRole) => {

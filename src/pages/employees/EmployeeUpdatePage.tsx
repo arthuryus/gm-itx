@@ -1,6 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { type UseFormReturn } from 'react-hook-form'
 import type { TEmployeeFormData } from '@/features/employees/model/employee.types.ts'
+import { EMPLOYEES_MUTATION_MESSAGES } from '@/features/employees/lib/constants'
+import { PAGE_URLS } from '@/shared/config/page-routes'
 import { useUpdateEmployee } from '@/features/employees/hooks/mutations/useUpdateEmployee'
 import { useCloseSessionEmployee } from '@/features/employees/hooks/mutations/useCloseSessionEmployee'
 import { useSendAccessEmployee } from '@/features/employees/hooks/mutations/useSendAccessEmployee'
@@ -26,15 +28,15 @@ export default function EmployeeUpdatePage() {
         try {
             await updateMutation.mutateAsync({ id: itemId, data })
 
-            toast.success('Запись обновлена')
-            navigate(`/employees`)// /${groupId}
+            toast.success(EMPLOYEES_MUTATION_MESSAGES.update)
+            navigate(PAGE_URLS.employees.list())
         } catch (error) {
             handlerError(error, { form })
         }
     }
 
     const handleCancel = () => {
-        navigate(`/employees`) // /${groupId}
+        navigate(PAGE_URLS.employees.list())
     }
 
     const handleCloseSession = async () => {

@@ -5,3 +5,9 @@ export const GROUPS_QUERY_KEYS = {
     list: (params: TGroupsListParams) => ['groups', 'list', params] as const,
     detail: (id: number) => ['groups', 'detail', id] as const,
 }
+
+export const GROUPS_MUTATION_MESSAGES = {
+    create: 'Запись создана',
+    update: 'Запись обновлена',
+    delete: 'Запись удалена',
+}

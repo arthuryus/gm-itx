@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom'
 import type { UseFormReturn } from "react-hook-form";
 import type { TGroupFormData } from '@/features/groups/model/group.types.ts'
+import { GROUPS_MUTATION_MESSAGES } from '@/features/groups/lib/constants'
+import { PAGE_URLS } from '@/shared/config/page-routes'
 import { GroupForm } from '@/features/groups/ui/GroupForm'
 import { useCreateGroup } from '@/features/groups/hooks/mutations/useCreateGroup'
 import { handlerError } from "@/shared/api/error/handler-error.ts";
 import { Card, CardHeader, CardTitle, CardContent } from '@/shadcn/components/ui/card'
-import { toast } from "sonner";
+import { toast } from "sonner"
 
 export default function GroupCreatePage() {
     const navigate = useNavigate()
@@ -15,15 +17,15 @@ export default function GroupCreatePage() {
         try {
             await createMutation.mutateAsync(data)
 
-            toast.success('Запись создана')
-            navigate('/groups')
+            toast.success(GROUPS_MUTATION_MESSAGES.create)
+            navigate(PAGE_URLS.employeeGroups.list())
         } catch (error) {
             handlerError(error, { form })
         }
     }
 
     const handleCancel = () => {
-        navigate('/groups')
+        navigate(PAGE_URLS.employeeGroups.list())
     }
 
     return (
