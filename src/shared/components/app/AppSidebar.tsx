@@ -130,13 +130,13 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                             </SidebarMenuItem>*/}
                             <AccessGuard permissions={[PERMISSIONS.PERMISSION_EMPLOYEES, PERMISSIONS.PERMISSION_GROUPS]}>
                                 <Collapsible
-                                    defaultOpen={location.pathname.startsWith("/employees") || location.pathname.startsWith("/groups")}
+                                    defaultOpen={['/employees', '/groups', '/roles'].some(p => location.pathname.startsWith(p))}
                                     className="group/collapsible"
                                     asChild
                                 >
                                     <SidebarMenuItem>
                                         <CollapsibleTrigger asChild>
-                                            <SidebarMenuButton isActive={location.pathname.startsWith("/employees") || location.pathname.startsWith("/groups")}>
+                                            <SidebarMenuButton isActive={['/employees', '/groups', '/roles'].some(p => location.pathname.startsWith(p))}>
                                                 <Users />
                                                 <span>Сотрудники</span>
                                                 <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -155,6 +155,13 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                                                     <SidebarMenuSubItem>
                                                         <SidebarMenuSubButton isActive={location.pathname.startsWith("/groups")} asChild>
                                                             <Link to="/groups"><Users /> Группы</Link>
+                                                        </SidebarMenuSubButton>
+                                                    </SidebarMenuSubItem>
+                                                </AccessGuard>
+                                                <AccessGuard permission={PERMISSIONS.PERMISSION_ROLES}>
+                                                    <SidebarMenuSubItem>
+                                                        <SidebarMenuSubButton isActive={location.pathname.startsWith("/roles")} asChild>
+                                                            <Link to="/roles"><Users /> Роли</Link>
                                                         </SidebarMenuSubButton>
                                                     </SidebarMenuSubItem>
                                                 </AccessGuard>

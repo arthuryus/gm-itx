@@ -18,12 +18,17 @@ import ProfilePage from "@/pages/account/ProfilePage.tsx";
 //import CamerasPage from "@/pages/cameras/CamerasPage.tsx";
 import EmployeesPage from "@/pages/employees/EmployeesPage.tsx";
 import EmployeeCreatePage from "@/pages/employees/EmployeeCreatePage.tsx";
-//import EmployeeViewPage from "@/pages/employees/EmployeeViewPage.tsx";
 import EmployeeUpdatePage from "@/pages/employees/EmployeeUpdatePage.tsx";
+//import EmployeeViewPage from "@/pages/employees/EmployeeViewPage.tsx";
 import GroupsPage from "@/pages/groups/GroupsPage.tsx";
-import GroupViewPage from "@/pages/groups/GroupViewPage.tsx";
 import GroupCreatePage from "@/pages/groups/GroupCreatePage.tsx";
 import GroupUpdatePage from "@/pages/groups/GroupUpdatePage.tsx";
+import GroupViewPage from "@/pages/groups/GroupViewPage.tsx";
+import RolesPage from "@/pages/roles/RolesPage.tsx";
+import RoleCreatePage from "@/pages/roles/RoleCreatePage.tsx";
+import RoleUpdatePage from "@/pages/roles/RoleUpdatePage.tsx";
+//import RoleViewPage from "@/pages/roles/RoleViewPage.tsx";
+
 //import CompaniesPage from "@/pages/companies/CompaniesPage.tsx";
 //import CompanyViewPage from "@/pages/companies/CompanyViewPage.tsx";
 //import CompanyCreatePage from "@/pages/companies/CompanyCreatePage.tsx";
@@ -137,6 +142,40 @@ export function Router() {
                         </AccessRoute>
                     }
                 />
+
+                {/* Roles Routes */}
+                <Route
+                    path="/roles"
+                    element={
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_ROLES}>
+                            <RolesPage />
+                        </AccessRoute>
+                    }
+                />
+                <Route
+                    path="/roles/create"
+                    element={
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_ROLES_CREATE}>
+                            <RoleCreatePage />
+                        </AccessRoute>
+                    }
+                />
+                <Route
+                    path="/roles/update/:id"
+                    element={
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_ROLES_EDIT}>
+                            <RoleUpdatePage />
+                        </AccessRoute>
+                    }
+                />
+                {/*<Route
+                    path="/roles/:id"
+                    element={
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_ROLES_VIEW}>
+                            <RoleViewPage />
+                        </AccessRoute>
+                    }
+                />*/}
 
 
                 {/* Companies Routes

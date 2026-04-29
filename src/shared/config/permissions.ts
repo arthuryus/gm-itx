@@ -13,6 +13,13 @@ export const PERMISSIONS = {
     PERMISSION_GROUPS_DELETE: 'permission_groups_delete',
     PERMISSION_GROUPS_VIEW: 'permission_groups_view',
 
+    // Role permissions
+    PERMISSION_ROLES: 'permission_roles',
+    PERMISSION_ROLES_CREATE: 'permission_roles_create',
+    PERMISSION_ROLES_EDIT: 'permission_roles_edit',
+    PERMISSION_ROLES_DELETE: 'permission_roles_delete',
+    PERMISSION_ROLES_VIEW: 'permission_roles_view',
+
     // Company permissions
     PERMISSION_COMPANIES: 'permission_companies',
     PERMISSION_COMPANIES_CREATE: 'permission_companies_create',

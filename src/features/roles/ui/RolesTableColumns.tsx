@@ -1,0 +1,150 @@
+import type { ColumnDef } from '@tanstack/react-table'
+import type { TRole } from '../model/role.types.ts'
+import { Button } from '@/shadcn/components/ui/button'
+import { ArrowUpDown, ArrowUp, ArrowDown, Eye, Pencil, Trash2 } from 'lucide-react'
+
+interface RolesTableColumnsProps {
+    onView: (item: TRole) => void
+    onEdit: (item: TRole) => void
+    onDelete: (item: TRole) => void
+    canView: boolean
+    canEdit: boolean
+    canDelete: boolean
+}
+
+export function getRolesTableColumns({
+    onView,
+    onEdit,
+    onDelete,
+    canView,
+    canEdit,
+    canDelete,
+}: RolesTableColumnsProps): ColumnDef<TRole>[] {
+    return [
+        {
+            accessorKey: 'id',
+            header: ({ column }) => {
+                const isSorted = column.getIsSorted()
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                    >
+                        ID
+                        {isSorted ?
+                            ((column.getIsSorted() === 'asc') ? <ArrowDown className="ml-2 h-4 w-4" /> : <ArrowUp className="ml-2 h-4 w-4" />) :
+                            <ArrowUpDown className="ml-2 h-4 w-4" />
+                        }
+                    </Button>
+                )
+            },
+            cell: ({ row }) => <div className="font-medium">{row.getValue('id')}</div>,
+        },
+        {
+            accessorKey: 'title',
+            header: ({ column }) => {
+                const isSorted = column.getIsSorted()
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                    >
+                        Название
+                        {isSorted ?
+                            ((column.getIsSorted() === 'asc') ? <ArrowDown className="ml-2 h-4 w-4" /> : <ArrowUp className="ml-2 h-4 w-4" />) :
+                            <ArrowUpDown className="ml-2 h-4 w-4" />
+                        }
+                    </Button>
+                )
+            },
+            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('title')}</div>,
+        },
+        {
+            accessorKey: 'code',
+            header: ({ column }) => {
+                const isSorted = column.getIsSorted()
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                    >
+                        Идентификатор
+                        {isSorted ?
+                            ((column.getIsSorted() === 'asc') ? <ArrowDown className="ml-2 h-4 w-4" /> : <ArrowUp className="ml-2 h-4 w-4" />) :
+                            <ArrowUpDown className="ml-2 h-4 w-4" />
+                        }
+                    </Button>
+                )
+            },
+            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('code')}</div>,
+        },
+        {
+            accessorKey: 'description',
+            header: ({ column }) => {
+                const isSorted = column.getIsSorted()
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                    >
+                        Описание
+                        {isSorted ?
+                            ((column.getIsSorted() === 'asc') ? <ArrowDown className="ml-2 h-4 w-4" /> : <ArrowUp className="ml-2 h-4 w-4" />) :
+                            <ArrowUpDown className="ml-2 h-4 w-4" />
+                        }
+                    </Button>
+                )
+            },
+            cell: ({ row }) => {
+                const description = row.getValue<string>('description')
+                return (
+                    <div className="max-w-[300px] truncate" title={description}>
+                        {description}
+                    </div>
+                )
+            },
+        },
+        {
+            id: 'actions',
+            header: 'Действия',
+            cell: ({ row }) => {
+                const item = row.original
+                return (
+                    <div className="flex items-center gap-2">
+                        {canView && (
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => onView(item)}
+                                title="Просмотр"
+                            >
+                                <Eye className="h-4 w-4" />
+                            </Button>
+                        )}
+                        {canEdit && (
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => onEdit(item)}
+                                title="Редактировать"
+                            >
+                                <Pencil className="h-4 w-4" />
+                            </Button>
+                        )}
+                        {canDelete && (
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => onDelete(item)}
+                                title="Удалить"
+                                className="text-destructive hover:text-destructive"
+                            >
+                                <Trash2 className="h-4 w-4" />
+                            </Button>
+                        )}
+                    </div>
+                )
+            },
+        },
+    ]
+}
