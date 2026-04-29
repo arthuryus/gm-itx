@@ -43,7 +43,7 @@ export default function EmployeeUpdatePage() {
         try {
             await closeSessionMutation.mutateAsync({ id: itemId })
 
-            toast.success('Сессия закрыта')
+            toast.success(EMPLOYEES_MUTATION_MESSAGES.closeSession)
         } catch (error) {
             handlerError(error, {navigate})
         }
@@ -53,7 +53,7 @@ export default function EmployeeUpdatePage() {
         try {
             await sendAccessMutation.mutateAsync({ id: itemId })
 
-            toast.success('Доступ отправлен')
+            toast.success(EMPLOYEES_MUTATION_MESSAGES.sendAccess)
         } catch (error) {
             handlerError(error, {navigate})
         }
@@ -84,7 +84,7 @@ export default function EmployeeUpdatePage() {
     return (
         <Card className="max-w-2xl">
             <CardHeader>
-                <CardTitle>Редактирование группы</CardTitle>
+                <CardTitle>Редактировать сотрудника</CardTitle>
             </CardHeader>
             <CardContent>
                 <EmployeeForm

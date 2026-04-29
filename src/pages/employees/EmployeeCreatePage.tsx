@@ -31,7 +31,7 @@ export default function EmployeeCreatePage() {
     return (
         <Card className="max-w-2xl">
             <CardHeader>
-                <CardTitle>Создание группы</CardTitle>
+                <CardTitle>Создать сотрудника</CardTitle>
             </CardHeader>
             <CardContent>
                 <EmployeeForm

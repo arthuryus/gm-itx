@@ -60,7 +60,7 @@ export default function GroupUpdatePage() {
     return (
         <Card className="max-w-2xl">
             <CardHeader>
-                <CardTitle>Редактирование группы</CardTitle>
+                <CardTitle>Редактировать группу</CardTitle>
             </CardHeader>
             <CardContent>
                 <GroupForm

@@ -31,7 +31,7 @@ export default function GroupCreatePage() {
     return (
         <Card className="max-w-2xl">
             <CardHeader>
-                <CardTitle>Создание группы</CardTitle>
+                <CardTitle>Создать группу</CardTitle>
             </CardHeader>
             <CardContent>
                 <GroupForm

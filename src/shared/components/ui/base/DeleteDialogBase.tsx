@@ -17,9 +17,9 @@ export function DeleteDialogBase({
         <AlertDialog open={isOpen} onOpenChange={onClose}>
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Удалить?</AlertDialogTitle>
+                    <AlertDialogTitle>Удалить запись?</AlertDialogTitle>
                     <AlertDialogDescription>
-                        Вы уверены, что хотите удалить?
+                        Вы уверены, что хотите удалить запись?
                         <br />
                         Это действие нельзя отменить.
                     </AlertDialogDescription>

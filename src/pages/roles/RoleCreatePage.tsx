@@ -37,7 +37,7 @@ export default function RoleCreatePage() {
     return (
         <Card className="max---w-2xl w-full">
             <CardHeader>
-                <CardTitle>Создание роли  {item?.role?.immutable ? 'true' : 'false'}</CardTitle>
+                <CardTitle>Создать роль</CardTitle>
             </CardHeader>
             <CardContent>
                 <RoleForm

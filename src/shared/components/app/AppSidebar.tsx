@@ -33,10 +33,21 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/shadcn/components/ui/avat
 import { Separator } from "@/shadcn/components/ui/separator.tsx"
 import {
     LayoutDashboard,
-    Users,
+    //Users,
     MoreVertical,
     Package,
     User,
+
+    UserCheck,
+    //User,
+    UsersRound,
+    //Shield,
+
+    UserLock,
+    //User,
+    //UsersRound,
+    ShieldCheck,
+
     //Settings,
     LogOut,
     ChevronRight
@@ -57,7 +68,7 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
         }
     }
 
-    const doMe = async () => {
+    const handleMe = async () => {
         await authApi.me()
     }
 
@@ -103,7 +114,7 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                                     <SidebarMenuItem>
                                         <CollapsibleTrigger asChild>
                                             <SidebarMenuButton isActive={[PAGE_URLS.employees.list(), PAGE_URLS.employeeGroups.list(), PAGE_URLS.employeeRoles.list()].some(p => location.pathname.startsWith(p))}>
-                                                <Users />
+                                                <UserLock />
                                                 <span>Сотрудники</span>
                                                 <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                                             </SidebarMenuButton>
@@ -113,21 +124,64 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                                                 <AccessGuard permission={PERMISSIONS.PERMISSION_EMPLOYEES}>
                                                     <SidebarMenuSubItem>
                                                         <SidebarMenuSubButton isActive={location.pathname.startsWith(PAGE_URLS.employees.list())} asChild>
-                                                            <Link to={PAGE_URLS.employees.list()}><Users /> Сотрудники</Link>
+                                                            <Link to={PAGE_URLS.employees.list()}><User /> Сотрудники</Link>
                                                         </SidebarMenuSubButton>
                                                     </SidebarMenuSubItem>
                                                 </AccessGuard>
                                                 <AccessGuard permission={PERMISSIONS.PERMISSION_GROUPS}>
                                                     <SidebarMenuSubItem>
                                                         <SidebarMenuSubButton isActive={location.pathname.startsWith(PAGE_URLS.employeeGroups.list())} asChild>
-                                                            <Link to={PAGE_URLS.employeeGroups.list()}><Users /> Группы</Link>
+                                                            <Link to={PAGE_URLS.employeeGroups.list()}><UsersRound /> Группы</Link>
                                                         </SidebarMenuSubButton>
                                                     </SidebarMenuSubItem>
                                                 </AccessGuard>
                                                 <AccessGuard permission={PERMISSIONS.PERMISSION_ROLES}>
                                                     <SidebarMenuSubItem>
                                                         <SidebarMenuSubButton isActive={location.pathname.startsWith(PAGE_URLS.employeeRoles.list())} asChild>
-                                                            <Link to={PAGE_URLS.employeeRoles.list()}><Users /> Роли</Link>
+                                                            <Link to={PAGE_URLS.employeeRoles.list()}><ShieldCheck /> Роли</Link>
+                                                        </SidebarMenuSubButton>
+                                                    </SidebarMenuSubItem>
+                                                </AccessGuard>
+                                            </SidebarMenuSub>
+                                        </CollapsibleContent>
+                                    </SidebarMenuItem>
+                                </Collapsible>
+                            </AccessGuard>
+
+                            <AccessGuard permissions={[PERMISSIONS.PERMISSION_EMPLOYEES, PERMISSIONS.PERMISSION_GROUPS]}>
+                                <Collapsible
+                                    defaultOpen={[PAGE_URLS.employees.list(), PAGE_URLS.employeeGroups.list(), PAGE_URLS.employeeRoles.list()].some(p => location.pathname.startsWith(p))}
+                                    className="group/collapsible"
+                                    asChild
+                                >
+                                    <SidebarMenuItem>
+                                        <CollapsibleTrigger asChild>
+                                            <SidebarMenuButton isActive={[PAGE_URLS.employees.list(), PAGE_URLS.employeeGroups.list(), PAGE_URLS.employeeRoles.list()].some(p => location.pathname.startsWith(p))}>
+                                                <UserCheck />
+                                                <span>Пользователи</span>
+                                                <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                            </SidebarMenuButton>
+                                        </CollapsibleTrigger>
+                                        <CollapsibleContent>
+                                            <SidebarMenuSub>
+                                                <AccessGuard permission={PERMISSIONS.PERMISSION_EMPLOYEES}>
+                                                    <SidebarMenuSubItem>
+                                                        <SidebarMenuSubButton isActive={location.pathname.startsWith(PAGE_URLS.employees.list())} asChild>
+                                                            <Link to={PAGE_URLS.employees.list()}><User /> Пользователи</Link>
+                                                        </SidebarMenuSubButton>
+                                                    </SidebarMenuSubItem>
+                                                </AccessGuard>
+                                                <AccessGuard permission={PERMISSIONS.PERMISSION_GROUPS}>
+                                                    <SidebarMenuSubItem>
+                                                        <SidebarMenuSubButton isActive={location.pathname.startsWith(PAGE_URLS.employeeGroups.list())} asChild>
+                                                            <Link to={PAGE_URLS.employeeGroups.list()}><UsersRound /> Группы</Link>
+                                                        </SidebarMenuSubButton>
+                                                    </SidebarMenuSubItem>
+                                                </AccessGuard>
+                                                <AccessGuard permission={PERMISSIONS.PERMISSION_ROLES}>
+                                                    <SidebarMenuSubItem>
+                                                        <SidebarMenuSubButton isActive={location.pathname.startsWith(PAGE_URLS.employeeRoles.list())} asChild>
+                                                            <Link to={PAGE_URLS.employeeRoles.list()}><ShieldCheck /> Роли</Link>
                                                         </SidebarMenuSubButton>
                                                     </SidebarMenuSubItem>
                                                 </AccessGuard>
@@ -181,7 +235,7 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
 
                                 <DropdownMenuLabel className="flex items-center gap-2">
                                     <div className="flex items-center justify-center size-8 aspect-square rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                                        <Avatar className="rounded-lg" onClick={doMe}>
+                                        <Avatar className="rounded-lg" onClick={handleMe}>
                                             <AvatarImage
                                                 src={user?.avatar}
                                                 alt="User"

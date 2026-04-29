@@ -37,7 +37,7 @@ export default function RoleUpdatePage() {
     return (
         <Card className="max---w-2xl w-full">
             <CardHeader>
-                <CardTitle>Редактирование роли {item?.role?.immutable ? 'true' : 'false'}</CardTitle>
+                <CardTitle>Редактировать роль</CardTitle>
             </CardHeader>
             <CardContent>
                 <RoleForm
