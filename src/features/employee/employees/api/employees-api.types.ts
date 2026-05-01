@@ -1,7 +1,7 @@
 import type { TEmployee, TEmployeesListResponse, TEmployeesListParams, TCreateEmployeeRequest, TUpdateEmployeeRequest } from '../model/employee.types.ts'
 
 // List groups
-//export interface TGetEmployeesRequest extends EmployeesListParams {}
+//export interface TGetEmployeesRequest extends TEmployeesListParams {}
 export type TGetEmployeesRequest = TEmployeesListParams
 export type TGetEmployeesResponse = TEmployeesListResponse
 

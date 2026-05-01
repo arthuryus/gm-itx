@@ -74,4 +74,3 @@ export interface TEmployeeFormData {
 
 export type TCreateEmployeeRequest = Omit<TEmployeeFormData, 'id'>//Omit<TEmployee, 'id' | 'mustChangeCredentials' | 'immutable'>
 export type TUpdateEmployeeRequest = Omit<TEmployeeFormData, 'id'>//Omit<TEmployee, 'id' | 'mustChangeCredentials' | 'immutable'>
-export type TEmployeeRequest = TCreateEmployeeRequest | TUpdateEmployeeRequest
