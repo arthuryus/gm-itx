@@ -1,3 +1,5 @@
+import type {SortingState} from "@tanstack/react-table";
+
 export interface TTableListParams<TFilter = unknown> {
     page?: number
     perPage?: number
@@ -30,4 +32,21 @@ export function buildTableFilterQueryParams(params: TTableListParams): string {
     }
 
     return searchParams.toString()
+}
+
+export function mapTableSortApiToSortingState(sort?: string[]): SortingState {
+    return (sort ?? []).map((field) => {
+        const desc = field.startsWith('-')
+
+        return {
+            id: desc ? field.slice(1) : field,
+            desc,
+        }
+    })
+}
+
+export function mapTableSortSortingStateToApi(sorting: SortingState): string[] {
+    return sorting.map((item) =>
+        item.desc ? `-${item.id}` : item.id
+    )
 }

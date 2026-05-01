@@ -21,6 +21,7 @@ export interface TEmployee {
     email: string
     phone?: string
     status: TStatus
+    createdDate: string
     //mustChangeCredentials: boolean,
     immutable: boolean,
     memberships: TEmployeeMembership[]

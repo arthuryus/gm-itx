@@ -6,8 +6,8 @@ import { RolesTableFilters } from './RolesTableFilters'
 import { PAGE_URLS } from '@/shared/config/page-routes'
 import { PERMISSIONS } from '@/shared/config/permissions.ts'
 import { useAccess } from '@/features/access/hooks/use-access.ts'
-import { TableBase } from '@/shared/components/ui/base/TableBase.tsx'
-import { PaginationBase } from '@/shared/components/ui/base/PaginationBase.tsx'
+import { TableBase } from '@/shared/components/ui/base/table/TableBase.tsx'
+import { TablePaginationBase } from '@/shared/components/ui/base/table/TablePaginationBase.tsx'
 
 interface RolesTableProps {
     data?: TRolesListResponse
@@ -28,7 +28,7 @@ export function RolesTable({
     isLoading,
     page,
     perPage,
-    //sort,
+    sort,
     filters,
     onPageChange,
     onPerPageChange,
@@ -86,10 +86,11 @@ export function RolesTable({
                 page={page}
                 perPage={perPage}
                 totalPages={totalPages}
+                sort={sort}
                 onSortChange={onSortChange}
             />
 
-            <PaginationBase
+            <TablePaginationBase
                 page={page}
                 perPage={perPage}
                 totalItems={totalItems}

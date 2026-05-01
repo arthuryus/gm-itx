@@ -19,14 +19,15 @@ export default function EmployeesPage() {
 
     const [page, setPage] = useState(1)
     const [perPage, setPerPage] = useState(DEFAULT_PER_PAGE)
-    const [sort, setSort] = useState<string[]>([])
+    const [sort, setSort] = useState<string[] | undefined>(undefined)
     const [filters, setFilters] = useState<TEmployeeFilter>({})
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
     const [itemToDelete, setItemToDelete] = useState<TEmployee | null>(null)
 
     const { data, isLoading } = useGetEmployees({page, perPage, sort, filter: filters })
-
     const deleteMutation = useDeleteEmployee()
+
+    const effectiveSort = sort ?? data?.meta.sort ?? []
 
     const handlePageChange = useCallback((newPage: number) => {
         setPage(newPage)
@@ -90,7 +91,7 @@ export default function EmployeesPage() {
                 isLoading={isLoading}
                 page={page}
                 perPage={perPage}
-                sort={sort}
+                sort={effectiveSort}
                 filters={filters}
                 onPageChange={handlePageChange}
                 onPerPageChange={handlePerPageChange}

@@ -19,14 +19,15 @@ export default function GroupsPage() {
 
     const [page, setPage] = useState(1)
     const [perPage, setPerPage] = useState(DEFAULT_PER_PAGE)
-    const [sort, setSort] = useState<string[]>([])
+    const [sort, setSort] = useState<string[] | undefined>(undefined)
     const [filters, setFilters] = useState<TGroupFilter>({})
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
     const [itemToDelete, setItemToDelete] = useState<TGroup | null>(null)
 
     const { data, isLoading } = useGetGroups({page, perPage, sort, filter: filters })
-
     const deleteMutation = useDeleteGroup()
+
+    const effectiveSort = sort ?? data?.meta.sort ?? []
 
     const handlePageChange = useCallback((newPage: number) => {
         setPage(newPage)
@@ -90,7 +91,7 @@ export default function GroupsPage() {
                 isLoading={isLoading}
                 page={page}
                 perPage={perPage}
-                sort={sort}
+                sort={effectiveSort}
                 filters={filters}
                 onPageChange={handlePageChange}
                 onPerPageChange={handlePerPageChange}

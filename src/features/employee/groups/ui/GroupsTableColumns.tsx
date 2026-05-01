@@ -1,10 +1,8 @@
-//import { Link } from 'react-router-dom'
 import type { ColumnDef } from '@tanstack/react-table'
 import type { TGroup } from '../model/group.types.ts'
 import { type TStatus, STATUS, STATUS_LABEL } from '@/shared/constants/main.ts'
-import { Button } from '@/shadcn/components/ui/button'
+import {TableColumnHeaderSortBase, TableColumnCellActionsBase} from "@/shared/components/ui/base/table/TableColumnsBase.tsx";
 import { Badge } from '@/shadcn/components/ui/badge'
-import { ArrowUpDown, ArrowUp, ArrowDown, Eye, Pencil, Trash2 } from 'lucide-react'
 
 interface GroupsTableColumnsProps {
     onView: (item: TGroup) => void
@@ -26,40 +24,16 @@ export function getGroupsTableColumns({
     return [
         {
             accessorKey: 'id',
-            header: ({ column }) => {
-                const isSorted = column.getIsSorted()
-                return (
-                    <Button
-                        variant="ghost"
-                        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-                    >
-                        ID
-                        {isSorted ?
-                            ((column.getIsSorted() === 'asc') ? <ArrowDown className="ml-2 h-4 w-4" /> : <ArrowUp className="ml-2 h-4 w-4" />) :
-                            <ArrowUpDown className="ml-2 h-4 w-4" />
-                        }
-                    </Button>
-                )
-            },
+            header: ({ column }) => (
+                <TableColumnHeaderSortBase column={column} label="ID" />
+            ),
             cell: ({ row }) => <div className="font-medium">{row.getValue('id')}</div>,
         },
         {
             accessorKey: 'name',
-            header: ({ column }) => {
-                const isSorted = column.getIsSorted()
-                return (
-                    <Button
-                        variant="ghost"
-                        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-                    >
-                        Название
-                        {isSorted ?
-                            ((column.getIsSorted() === 'asc') ? <ArrowDown className="ml-2 h-4 w-4" /> : <ArrowUp className="ml-2 h-4 w-4" />) :
-                            <ArrowUpDown className="ml-2 h-4 w-4" />
-                        }
-                    </Button>
-                )
-            },
+            header: ({ column }) => (
+                <TableColumnHeaderSortBase column={column} label="Название" />
+            ),
             cell: ({ row }) => <div className="font-medium">{row.getValue<string>('name')}</div>,
             /*cell: ({ row }) => {
                 const item = row.original
@@ -87,21 +61,9 @@ export function getGroupsTableColumns({
         },
         {
             accessorKey: 'status',
-            header: ({ column }) => {
-                const isSorted = column.getIsSorted()
-                return (
-                    <Button
-                        variant="ghost"
-                        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-                    >
-                        Статус
-                        {isSorted ?
-                            ((column.getIsSorted() === 'asc') ? <ArrowDown className="ml-2 h-4 w-4" /> : <ArrowUp className="ml-2 h-4 w-4" />) :
-                            <ArrowUpDown className="ml-2 h-4 w-4" />
-                        }
-                    </Button>
-                )
-            },
+            header: ({ column }) => (
+                <TableColumnHeaderSortBase column={column} label="Статус" />
+            ),
             cell: ({ row }) => {
                 const status = row.getValue<TStatus>('status')
                 return (
@@ -113,64 +75,32 @@ export function getGroupsTableColumns({
         },
         {
             accessorKey: 'priority',
-            header: ({ column }) => {
-                const isSorted = column.getIsSorted()
-                return (
-                    <Button
-                        variant="ghost"
-                        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-                    >
-                        Приоритет
-                        {isSorted ?
-                            ((column.getIsSorted() === 'asc') ? <ArrowDown className="ml-2 h-4 w-4" /> : <ArrowUp className="ml-2 h-4 w-4" />) :
-                            <ArrowUpDown className="ml-2 h-4 w-4" />
-                        }
-                    </Button>
-                )
-            },
+            header: ({ column }) => (
+                <TableColumnHeaderSortBase column={column} label="Приоритет" />
+            ),
             cell: ({ row }) => <div>{row.getValue('priority')}</div>,
+        },
+        {
+            accessorKey: 'createdDate',
+            header: ({ column }) => (
+                <TableColumnHeaderSortBase column={column} label="Дата создания" />
+            ),
+            cell: ({ row }) => new Date(row.original.createdDate).toLocaleString('ru-RU'),
         },
         {
             id: 'actions',
             header: 'Действия',
-            cell: ({ row }) => {
-                const item = row.original
-                return (
-                    <div className="flex items-center gap-2">
-                        {canView && (
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => onView(item)}
-                                title="Просмотр"
-                            >
-                                <Eye className="h-4 w-4" />
-                            </Button>
-                        )}
-                        {canEdit && (
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => onEdit(item)}
-                                title="Редактировать"
-                            >
-                                <Pencil className="h-4 w-4" />
-                            </Button>
-                        )}
-                        {canDelete && (
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => onDelete(item)}
-                                title="Удалить"
-                                className="text-destructive hover:text-destructive"
-                            >
-                                <Trash2 className="h-4 w-4" />
-                            </Button>
-                        )}
-                    </div>
-                )
-            },
+            cell: ({ row }) => (
+                <TableColumnCellActionsBase
+                    item={row.original}
+                    onView={onView}
+                    onEdit={onEdit}
+                    onDelete={onDelete}
+                    canView={canView}
+                    canEdit={canEdit}
+                    canDelete={canDelete}
+                />
+            ),
         },
     ]
 }

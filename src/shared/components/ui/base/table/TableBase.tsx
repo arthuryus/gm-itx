@@ -1,44 +1,34 @@
-import { useState } from "react";
-import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, getFilteredRowModel, flexRender, type SortingState } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
+import { mapTableSortApiToSortingState, mapTableSortSortingStateToApi } from '@/shared/helpers/table.helper.ts'
+import { useReactTable, getCoreRowModel, getPaginationRowModel, getFilteredRowModel, flexRender } from '@tanstack/react-table'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shadcn/components/ui/table.tsx'
 import { Skeleton } from '@/shadcn/components/ui/skeleton.tsx'
 
 
-export function TableBase({
+export function TableBase<TData>({
     isLoading,
     tableData,
     columns,
     page,
     perPage,
     totalPages,
+    sort,
     onSortChange,
 }: {
     isLoading: boolean
-    tableData: any[]
-    columns: any[]
+    tableData: TData[]
+    columns: ColumnDef<TData, any>[]
     page: number
     perPage: number
     totalPages: number,
+    sort: string[]
     onSortChange: (sort: string[]) => void
 }) {
-    const [sorting, setSorting] = useState<SortingState>([])
+    const sorting = mapTableSortApiToSortingState(sort)
 
     const table = useReactTable({
         data: tableData,
         columns: columns,
-        getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
-        getSortedRowModel: getSortedRowModel(),
-        getFilteredRowModel: getFilteredRowModel(),
-        onSortingChange: (updater) => {
-            const newSorting = typeof updater === 'function' ? updater(sorting) : updater
-            setSorting(newSorting)
-
-            const newSort: string[] = newSorting.map((s) =>
-                s.desc ? `-${s.id}` : s.id
-            )
-            onSortChange(newSort)
-        },
         state: {
             sorting,
             pagination: {
@@ -46,9 +36,17 @@ export function TableBase({
                 pageSize: perPage,
             },
         },
+        onSortingChange: (updater) => {
+            const newSorting = typeof updater === 'function' ? updater(sorting) : updater
+
+            onSortChange(mapTableSortSortingStateToApi(newSorting))
+        },
         manualSorting: true,
         manualPagination: true,
         pageCount: totalPages,
+        getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
     })
 
     return (

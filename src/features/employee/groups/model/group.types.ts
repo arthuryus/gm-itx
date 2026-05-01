@@ -8,8 +8,9 @@ export interface TGroup {
     id: number
     name: string
     description: string
-    status: TStatus
     priority: number
+    status: TStatus
+    createdDate: string
 }
 
 export interface TGroupFilter {

@@ -19,14 +19,15 @@ export default function RolesPage() {
 
     const [page, setPage] = useState(1)
     const [perPage, setPerPage] = useState(DEFAULT_PER_PAGE)
-    const [sort, setSort] = useState<string[]>([])
+    const [sort, setSort] = useState<string[] | undefined>(undefined)
     const [filters, setFilters] = useState<TRoleFilter>({})
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
     const [itemToDelete, setItemToDelete] = useState<TRole | null>(null)
 
     const { data, isLoading } = useGetRoles({page, perPage, sort, filter: filters })
-
     const deleteMutation = useDeleteRole()
+
+    const effectiveSort = sort ?? data?.meta.sort ?? []
 
     const handlePageChange = useCallback((newPage: number) => {
         setPage(newPage)
@@ -90,7 +91,7 @@ export default function RolesPage() {
                 isLoading={isLoading}
                 page={page}
                 perPage={perPage}
-                sort={sort}
+                sort={effectiveSort}
                 filters={filters}
                 onPageChange={handlePageChange}
                 onPerPageChange={handlePerPageChange}
