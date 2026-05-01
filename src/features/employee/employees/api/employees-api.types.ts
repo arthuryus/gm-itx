@@ -29,13 +29,13 @@ export interface TDeleteEmployeeRequest {
 export type TDeleteEmployeeResponse = void
 
 // Close session
-export interface TCloseSessionRequest {
+export interface TCloseSessionEmployeeRequest {
     id: number
 }
-export type TCloseSessionResponse = void
+export type TCloseSessionEmployeeResponse = void
 
 // Send access
-export interface TSendAccessRequest {
+export interface TSendAccessEmployeeRequest {
     id: number
 }
-export type TSendAccessResponse = void
+export type TSendAccessEmployeeResponse = void

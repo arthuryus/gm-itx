@@ -11,10 +11,10 @@ import type {
     TUpdateEmployeeResponse,
     TDeleteEmployeeRequest,
     TDeleteEmployeeResponse,
-    TCloseSessionRequest,
-    TCloseSessionResponse,
-    TSendAccessRequest,
-    TSendAccessResponse,
+    TCloseSessionEmployeeRequest,
+    TCloseSessionEmployeeResponse,
+    TSendAccessEmployeeRequest,
+    TSendAccessEmployeeResponse,
 } from './employees-api.types.ts'
 
 export const employeesApi = {
@@ -45,11 +45,11 @@ export const employeesApi = {
         await api.delete(`/employees/${id}`)
     },
 
-    closeSession: async ({ id }: TCloseSessionRequest): Promise<TCloseSessionResponse> => {
+    closeSession: async ({ id }: TCloseSessionEmployeeRequest): Promise<TCloseSessionEmployeeResponse> => {
         await api.put(`/employees/${id}/sessions/close`)
     },
 
-    sendAccess: async ({ id }: TSendAccessRequest): Promise<TSendAccessResponse> => {
+    sendAccess: async ({ id }: TSendAccessEmployeeRequest): Promise<TSendAccessEmployeeResponse> => {
         await api.put(`/employees/${id}/password`)
     },
 }
