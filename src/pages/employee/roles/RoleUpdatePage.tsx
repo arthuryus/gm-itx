@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import { useMetadata } from "@/shared/config/metadata.ts"
+import { useMetadata } from "@/shared/hooks/use-metadata.ts"
 import { type UseFormReturn } from 'react-hook-form'
 import type { TRoleFormData } from '@/features/employee/roles/model/role.types.ts'
 import { ROLES_MUTATION_MESSAGES } from '@/features/employee/roles/lib/constants.ts'

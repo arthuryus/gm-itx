@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { useMetadata } from "@/shared/config/metadata.ts"
+import { useMetadata } from "@/shared/hooks/use-metadata.ts"
 import type { TRole, TRoleFilter } from '@/features/employee/roles/model/role.types.ts'
 import { DEFAULT_PER_PAGE } from '@/shared/constants/main.ts'
 import { PAGE_URLS } from '@/shared/config/page-routes.ts'

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useMetadata } from "@/shared/config/metadata.ts"
+import { useMetadata } from "@/shared/hooks/use-metadata.ts"
 import type { UseFormReturn } from "react-hook-form"
 import type { TEmployeeFormData } from '@/features/employee/employees/model/employee.types.ts'
 import { EMPLOYEES_MUTATION_MESSAGES } from '@/features/employee/employees/lib/constants.ts'

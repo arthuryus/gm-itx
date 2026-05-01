@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom"
 import {PAGE_PATHS, type TPagePath} from "@/shared/config/page-routes.ts";
 
 type Metadata = {
@@ -148,17 +147,3 @@ export function getMetadata(pathname: string): Metadata {
 
     return match ? METADATA[match] : defaultMetadata
 }
-
-
-export function useMetadata() {
-    const location = useLocation()
-    return getMetadata(location.pathname)
-}
-
-/*<Route
-    path="/employees"
-    element={<EmployeesPage />}
-    handle={{ h1: "Сотрудники" }}
-/>
-useMatches()
-*/

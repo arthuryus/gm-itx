@@ -1,4 +1,4 @@
-import { useMetadata } from "@/shared/config/metadata.ts"
+import { useMetadata } from "@/shared/hooks/use-metadata.ts"
 //import { PERMISSIONS } from "@/shared/config/permissions.ts";
 //import { usePermissions } from "@/features/access/hooks/use-permissions.ts";
 //import { useAccess, type AccessProps } from "@/features/access/hooks/use-access.ts"
