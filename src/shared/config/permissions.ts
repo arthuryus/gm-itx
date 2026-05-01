@@ -76,11 +76,11 @@ export const ROLES = {
     DEVELOPER: 'EMP_ROLE_DEVELOPER',
     TESTER: 'EMP_ROLE_TESTER',
 
-    ADMIN: 'Admin',
+    /*ADMIN: 'Admin',
     MANAGER: 'Manager',
     OPERATOR: 'Operator',
     USER: 'User',
-    VIEWER: 'Viewer',
+    VIEWER: 'Viewer',*/
 } as const
 
 export type Role = typeof ROLES[keyof typeof ROLES]
