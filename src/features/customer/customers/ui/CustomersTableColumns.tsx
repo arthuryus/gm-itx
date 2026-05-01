@@ -1,0 +1,104 @@
+import type { ColumnDef } from '@tanstack/react-table'
+import type { TCustomer } from '../model/customer.types.ts'
+import { type TStatus, STATUS, STATUS_LABEL } from '@/shared/constants/main.ts'
+import {TableColumnHeaderSortBase, TableColumnCellActionsBase} from "@/shared/components/ui/base/table/TableColumnsBase.tsx";
+import { Badge } from '@/shadcn/components/ui/badge'
+
+interface CustomersTableColumnsProps {
+    onView: (item: TCustomer) => void
+    onEdit: (item: TCustomer) => void
+    onDelete: (item: TCustomer) => void
+    canView: boolean
+    canEdit: boolean
+    canDelete: boolean
+}
+
+export function getCustomersTableColumns({
+    onView,
+    onEdit,
+    onDelete,
+    canView,
+    canEdit,
+    canDelete,
+}: CustomersTableColumnsProps): ColumnDef<TCustomer>[] {
+    return [
+        {
+            accessorKey: 'id',
+            header: ({ column }) => (
+                <TableColumnHeaderSortBase column={column} label="ID" />
+            ),
+            cell: ({ row }) => <div className="font-medium">{row.getValue('id')}</div>,
+        },
+        {
+            accessorKey: 'firstName',
+            header: ({ column }) => (
+                <TableColumnHeaderSortBase column={column} label="Имя" />
+            ),
+            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('firstName')}</div>,
+        },
+        {
+            accessorKey: 'lastName',
+            header: ({ column }) => (
+                <TableColumnHeaderSortBase column={column} label="Фамилия" />
+            ),
+            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('lastName')}</div>,
+        },
+        {
+            accessorKey: 'middleName',
+            header: ({ column }) => (
+                <TableColumnHeaderSortBase column={column} label="Отчество" />
+            ),
+            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('middleName')}</div>,
+        },
+        {
+            accessorKey: 'email',
+            header: ({ column }) => (
+                <TableColumnHeaderSortBase column={column} label="Email" />
+            ),
+            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('email')}</div>,
+        },
+        {
+            accessorKey: 'phone',
+            header: ({ column }) => (
+                <TableColumnHeaderSortBase column={column} label="Телефон" />
+            ),
+            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('phone')}</div>,
+        },
+        {
+            accessorKey: 'status',
+            header: ({ column }) => (
+                <TableColumnHeaderSortBase column={column} label="Статус" />
+            ),
+            cell: ({ row }) => {
+                const status = row.getValue<TStatus>('status')
+                return (
+                    <Badge variant={status === STATUS.ACTIVE ? 'default' : 'secondary'}>
+                        {status === STATUS.ACTIVE ? STATUS_LABEL.ACTIVE : STATUS_LABEL.INACTIVE}
+                    </Badge>
+                )
+            },
+        },
+        {
+            accessorKey: 'createdDate',
+            header: ({ column }) => (
+                <TableColumnHeaderSortBase column={column} label="Дата создания" />
+            ),
+            cell: ({ row }) => new Date(row.original.createdDate).toLocaleString('ru-RU'),
+        },
+        {
+            id: 'actions',
+            header: 'Действия',
+            cell: ({ row }) => (
+                <TableColumnCellActionsBase
+                    item={row.original}
+                    onView={onView}
+                    onEdit={onEdit}
+                    onDelete={onDelete}
+                    canView={canView}
+                    canEdit={canEdit}
+                    canDelete={canDelete}
+                />
+            ),
+        },
+    ]
+}

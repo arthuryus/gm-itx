@@ -21,6 +21,16 @@ import EmployeeGroupViewPage from "@/pages/employee/groups/GroupViewPage.tsx";
 import EmployeeRolesPage from "@/pages/employee/roles/RolesPage.tsx";
 import EmployeeRoleCreatePage from "@/pages/employee/roles/RoleCreatePage.tsx";
 import EmployeeRoleUpdatePage from "@/pages/employee/roles/RoleUpdatePage.tsx";
+import CustomersPage from "@/pages/customer/customers/CustomersPage.tsx";
+import CustomerCreatePage from "@/pages/customer/customers/CustomerCreatePage.tsx";
+import CustomerUpdatePage from "@/pages/customer/customers/CustomerUpdatePage.tsx";
+import CustomerGroupsPage from "@/pages/customer/groups/GroupsPage.tsx";
+import CustomerGroupCreatePage from "@/pages/customer/groups/GroupCreatePage.tsx";
+import CustomerGroupUpdatePage from "@/pages/customer/groups/GroupUpdatePage.tsx";
+import CustomerGroupViewPage from "@/pages/customer/groups/GroupViewPage.tsx";
+import CustomerRolesPage from "@/pages/customer/roles/RolesPage.tsx";
+import CustomerRoleCreatePage from "@/pages/customer/roles/RoleCreatePage.tsx";
+import CustomerRoleUpdatePage from "@/pages/customer/roles/RoleUpdatePage.tsx";
 import InfoPage from "@/pages/info/InfoPage.tsx";
 import NotFoundPage from "@/pages/errors/NotFoundPage.tsx"
 import ForbiddenPage from "@/pages/errors/ForbiddenPage.tsx"
@@ -145,6 +155,92 @@ export function Router() {
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_EDIT}>
                             <EmployeeRoleUpdatePage />
+                        </AccessRoute>
+                    }
+                />
+
+                {/* Customers */}
+                <Route
+                    path={PAGE_PATHS.customers.list}
+                    element={
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_CUSTOMERS}>
+                            <CustomersPage />
+                        </AccessRoute>
+                    }
+                />
+                <Route
+                    path={PAGE_PATHS.customers.create}
+                    element={
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_CUSTOMERS_CREATE}>
+                            <CustomerCreatePage />
+                        </AccessRoute>
+                    }
+                />
+                <Route
+                    path={PAGE_PATHS.customers.update}
+                    element={
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_CUSTOMERS_EDIT}>
+                            <CustomerUpdatePage />
+                        </AccessRoute>
+                    }
+                />
+
+                {/* Customer Groups */}
+                <Route
+                    path={PAGE_PATHS.customerGroups.list}
+                    element={
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_CUSTOMER_GROUPS}>
+                            <CustomerGroupsPage />
+                        </AccessRoute>
+                    }
+                />
+                <Route
+                    path={PAGE_PATHS.customerGroups.create}
+                    element={
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_CUSTOMER_GROUPS_CREATE}>
+                            <CustomerGroupCreatePage />
+                        </AccessRoute>
+                    }
+                />
+                <Route
+                    path={PAGE_PATHS.customerGroups.update}
+                    element={
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_CUSTOMER_GROUPS_EDIT}>
+                            <CustomerGroupUpdatePage />
+                        </AccessRoute>
+                    }
+                />
+                <Route
+                    path={PAGE_PATHS.customerGroups.view}
+                    element={
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_CUSTOMER_GROUPS_VIEW}>
+                            <CustomerGroupViewPage />
+                        </AccessRoute>
+                    }
+                />
+
+                {/* Customer Roles */}
+                <Route
+                    path={PAGE_PATHS.customerRoles.list}
+                    element={
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_CUSTOMER_ROLES}>
+                            <CustomerRolesPage />
+                        </AccessRoute>
+                    }
+                />
+                <Route
+                    path={PAGE_PATHS.customerRoles.create}
+                    element={
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_CUSTOMER_ROLES_CREATE}>
+                            <CustomerRoleCreatePage />
+                        </AccessRoute>
+                    }
+                />
+                <Route
+                    path={PAGE_PATHS.customerRoles.update}
+                    element={
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_CUSTOMER_ROLES_EDIT}>
+                            <CustomerRoleUpdatePage />
                         </AccessRoute>
                     }
                 />
