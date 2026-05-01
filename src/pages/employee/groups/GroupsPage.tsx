@@ -15,7 +15,7 @@ import { Plus } from 'lucide-react'
 
 export default function GroupsPage() {
     const { h1 } = useMetadata()
-    const canCreate = useAccess({ permission: PERMISSIONS.PERMISSION_GROUPS_CREATE }, true)
+    const canCreate = useAccess({ permission: PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_CREATE }, true)
 
     const [page, setPage] = useState(1)
     const [perPage, setPerPage] = useState(DEFAULT_PER_PAGE)

@@ -39,8 +39,8 @@ export function RolesTable({
     const navigate = useNavigate()
 
     const canView = false//useAccess({ permission: PERMISSIONS.PERMISSION_ROLES_VIEW }, true)
-    const canEdit = useAccess({ permission: PERMISSIONS.PERMISSION_ROLES_EDIT }, true)
-    const canDelete = useAccess({ permission: PERMISSIONS.PERMISSION_ROLES_DELETE }, true)
+    const canEdit = useAccess({ permission: PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_EDIT }, true)
+    const canDelete = useAccess({ permission: PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_DELETE }, true)
 
     const handleView = useCallback((item: TRole) => {
         navigate(PAGE_URLS.employeeRoles.view(item.id))

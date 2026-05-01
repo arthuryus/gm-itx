@@ -6,6 +6,7 @@ import { loginSchema, type LoginSchema, loginDefaultValues } from "@/features/au
 import { authApi } from "@/features/auth/api/auth-api.ts"
 import { useAuthStore } from "@/features/auth/store/auth-store.ts"
 import {PAGE_URLS} from "@/shared/config/page-routes.ts";
+import { PERMISSIONS } from "@/shared/config/permissions.ts"
 
 //import { useNavigate, useLocation } from "react-router-dom"
 import { Link } from "react-router-dom"
@@ -26,10 +27,15 @@ export default function LoginForm() {
         try {
             const response = await authApi.login(data)
             response.data.authorities.permissions = [
-                'permission_employees', 'permission_employees_create', 'permission_employees_edit', 'permission_employees_delete', 'permission_employees_view',
-                'permission_groups', 'permission_groups_create', 'permission_groups_edit', 'permission_groups_delete', 'permission_groups_view',
-                'permission_roles', 'permission_roles_create', 'permission_roles_edit', 'permission_roles_delete', 'permission_roles_view'
-            ];
+                PERMISSIONS.PERMISSION_EMPLOYEES, PERMISSIONS.PERMISSION_EMPLOYEES_CREATE, PERMISSIONS.PERMISSION_EMPLOYEES_EDIT, PERMISSIONS.PERMISSION_EMPLOYEES_DELETE, PERMISSIONS.PERMISSION_EMPLOYEES_VIEW,
+                PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS, PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_CREATE, PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_EDIT, PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_DELETE, PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_VIEW,
+                PERMISSIONS.PERMISSION_EMPLOYEE_ROLES, PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_CREATE, PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_EDIT, PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_DELETE, PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_VIEW,
+
+                PERMISSIONS.PERMISSION_CUSTOMERS, PERMISSIONS.PERMISSION_CUSTOMERS_CREATE, PERMISSIONS.PERMISSION_CUSTOMERS_EDIT, PERMISSIONS.PERMISSION_CUSTOMERS_DELETE, PERMISSIONS.PERMISSION_CUSTOMERS_VIEW,
+                PERMISSIONS.PERMISSION_CUSTOMER_GROUPS, PERMISSIONS.PERMISSION_CUSTOMER_GROUPS_CREATE, PERMISSIONS.PERMISSION_CUSTOMER_GROUPS_EDIT, PERMISSIONS.PERMISSION_CUSTOMER_GROUPS_DELETE, PERMISSIONS.PERMISSION_CUSTOMER_GROUPS_VIEW,
+                PERMISSIONS.PERMISSION_CUSTOMER_ROLES, PERMISSIONS.PERMISSION_CUSTOMER_ROLES_CREATE, PERMISSIONS.PERMISSION_CUSTOMER_ROLES_EDIT, PERMISSIONS.PERMISSION_CUSTOMER_ROLES_DELETE, PERMISSIONS.PERMISSION_CUSTOMER_ROLES_VIEW,
+            ]
+
             login(response.data)
 
             //const from = location.state?.from || "/";

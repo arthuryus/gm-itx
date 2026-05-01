@@ -15,7 +15,7 @@ import { Plus } from 'lucide-react'
 
 export default function RolesPage() {
     const { h1 } = useMetadata()
-    const canCreate = useAccess({ permission: PERMISSIONS.PERMISSION_ROLES_CREATE }, true)
+    const canCreate = useAccess({ permission: PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_CREATE }, true)
 
     const [page, setPage] = useState(1)
     const [perPage, setPerPage] = useState(DEFAULT_PER_PAGE)

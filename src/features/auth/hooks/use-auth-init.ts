@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useAuthStore } from "@/features/auth/store/auth-store.ts"
 import { authApi } from "@/features/auth/api/auth-api.ts"
+import { PERMISSIONS } from "@/shared/config/permissions.ts"
 //import { handlerError } from "@/shared/api/error/handler-error.ts";
 
 export function useAuthInit(enabled: boolean = true, force: boolean = false) {
@@ -22,10 +23,15 @@ export function useAuthInit(enabled: boolean = true, force: boolean = false) {
                     const response = await authApi.me()
                     if (isMounted) {
                         response.data.authorities.permissions = [
-                            'permission_employees', 'permission_employees_create', 'permission_employees_edit', 'permission_employees_delete', 'permission_employees_view',
-                            'permission_groups', 'permission_groups_create', 'permission_groups_edit', 'permission_groups_delete', 'permission_groups_view',
-                            'permission_roles', 'permission_roles_create', 'permission_roles_edit', 'permission_roles_delete', 'permission_roles_view'
-                        ];
+                            PERMISSIONS.PERMISSION_EMPLOYEES, PERMISSIONS.PERMISSION_EMPLOYEES_CREATE, PERMISSIONS.PERMISSION_EMPLOYEES_EDIT, PERMISSIONS.PERMISSION_EMPLOYEES_DELETE, PERMISSIONS.PERMISSION_EMPLOYEES_VIEW,
+                            PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS, PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_CREATE, PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_EDIT, PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_DELETE, PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_VIEW,
+                            PERMISSIONS.PERMISSION_EMPLOYEE_ROLES, PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_CREATE, PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_EDIT, PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_DELETE, PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_VIEW,
+
+                            PERMISSIONS.PERMISSION_CUSTOMERS, PERMISSIONS.PERMISSION_CUSTOMERS_CREATE, PERMISSIONS.PERMISSION_CUSTOMERS_EDIT, PERMISSIONS.PERMISSION_CUSTOMERS_DELETE, PERMISSIONS.PERMISSION_CUSTOMERS_VIEW,
+                            PERMISSIONS.PERMISSION_CUSTOMER_GROUPS, PERMISSIONS.PERMISSION_CUSTOMER_GROUPS_CREATE, PERMISSIONS.PERMISSION_CUSTOMER_GROUPS_EDIT, PERMISSIONS.PERMISSION_CUSTOMER_GROUPS_DELETE, PERMISSIONS.PERMISSION_CUSTOMER_GROUPS_VIEW,
+                            PERMISSIONS.PERMISSION_CUSTOMER_ROLES, PERMISSIONS.PERMISSION_CUSTOMER_ROLES_CREATE, PERMISSIONS.PERMISSION_CUSTOMER_ROLES_EDIT, PERMISSIONS.PERMISSION_CUSTOMER_ROLES_DELETE, PERMISSIONS.PERMISSION_CUSTOMER_ROLES_VIEW,
+                        ]
+
                         login(response.data)
                     }
                 //} catch (error) {

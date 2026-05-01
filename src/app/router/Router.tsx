@@ -93,7 +93,7 @@ export function Router() {
                 <Route
                     path={PAGE_PATHS.employeeGroups.list}
                     element={
-                        <AccessRoute permission={PERMISSIONS.PERMISSION_GROUPS}>
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS}>
                             <EmployeeGroupsPage />
                         </AccessRoute>
                     }
@@ -101,7 +101,7 @@ export function Router() {
                 <Route
                     path={PAGE_PATHS.employeeGroups.create}
                     element={
-                        <AccessRoute permission={PERMISSIONS.PERMISSION_GROUPS_CREATE}>
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_CREATE}>
                             <EmployeeGroupCreatePage />
                         </AccessRoute>
                     }
@@ -109,7 +109,7 @@ export function Router() {
                 <Route
                     path={PAGE_PATHS.employeeGroups.update}
                     element={
-                        <AccessRoute permission={PERMISSIONS.PERMISSION_GROUPS_EDIT}>
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_EDIT}>
                             <EmployeeGroupUpdatePage />
                         </AccessRoute>
                     }
@@ -117,7 +117,7 @@ export function Router() {
                 <Route
                     path={PAGE_PATHS.employeeGroups.view}
                     element={
-                        <AccessRoute permission={PERMISSIONS.PERMISSION_GROUPS_VIEW}>
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_VIEW}>
                             <EmployeeGroupViewPage />
                         </AccessRoute>
                     }
@@ -127,7 +127,7 @@ export function Router() {
                 <Route
                     path={PAGE_PATHS.employeeRoles.list}
                     element={
-                        <AccessRoute permission={PERMISSIONS.PERMISSION_ROLES}>
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_EMPLOYEE_ROLES}>
                             <EmployeeRolesPage />
                         </AccessRoute>
                     }
@@ -135,7 +135,7 @@ export function Router() {
                 <Route
                     path={PAGE_PATHS.employeeRoles.create}
                     element={
-                        <AccessRoute permission={PERMISSIONS.PERMISSION_ROLES_CREATE}>
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_CREATE}>
                             <EmployeeRoleCreatePage />
                         </AccessRoute>
                     }
@@ -143,7 +143,7 @@ export function Router() {
                 <Route
                     path={PAGE_PATHS.employeeRoles.update}
                     element={
-                        <AccessRoute permission={PERMISSIONS.PERMISSION_ROLES_EDIT}>
+                        <AccessRoute permission={PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_EDIT}>
                             <EmployeeRoleUpdatePage />
                         </AccessRoute>
                     }

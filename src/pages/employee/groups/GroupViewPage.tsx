@@ -16,8 +16,8 @@ export default function GroupViewPage() {
     const navigate = useNavigate()
     const groupId = id ? parseInt(id, 10) : null
 
-    const canEdit = useAccess({ permission: PERMISSIONS.PERMISSION_GROUPS_EDIT }, false)
-    const canDelete = useAccess({ permission: PERMISSIONS.PERMISSION_GROUPS_DELETE }, false)
+    const canEdit = useAccess({ permission: PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_EDIT }, false)
+    const canDelete = useAccess({ permission: PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_DELETE }, false)
 
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
 

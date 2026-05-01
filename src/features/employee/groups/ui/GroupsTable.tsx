@@ -39,8 +39,8 @@ export function GroupsTable({
     const navigate = useNavigate()
 
     const canView = false//useAccess({ permission: PERMISSIONS.PERMISSION_GROUPS_VIEW }, true)
-    const canEdit = useAccess({ permission: PERMISSIONS.PERMISSION_GROUPS_EDIT }, true)
-    const canDelete = useAccess({ permission: PERMISSIONS.PERMISSION_GROUPS_DELETE }, true)
+    const canEdit = useAccess({ permission: PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_EDIT }, true)
+    const canDelete = useAccess({ permission: PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_DELETE }, true)
 
     const handleView = useCallback((item: TGroup) => {
         navigate(PAGE_URLS.employeeGroups.view(item.id))

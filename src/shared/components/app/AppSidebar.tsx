@@ -105,7 +105,7 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
 
-                            <AccessGuard permissions={[PERMISSIONS.PERMISSION_EMPLOYEES, PERMISSIONS.PERMISSION_GROUPS]}>
+                            <AccessGuard permissions={[PERMISSIONS.PERMISSION_EMPLOYEES, PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS]}>
                                 <Collapsible
                                     defaultOpen={[PAGE_URLS.employees.list(), PAGE_URLS.employeeGroups.list(), PAGE_URLS.employeeRoles.list()].some(p => location.pathname.startsWith(p))}
                                     className="group/collapsible"
@@ -128,14 +128,14 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                                                         </SidebarMenuSubButton>
                                                     </SidebarMenuSubItem>
                                                 </AccessGuard>
-                                                <AccessGuard permission={PERMISSIONS.PERMISSION_GROUPS}>
+                                                <AccessGuard permission={PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS}>
                                                     <SidebarMenuSubItem>
                                                         <SidebarMenuSubButton isActive={location.pathname.startsWith(PAGE_URLS.employeeGroups.list())} asChild>
                                                             <Link to={PAGE_URLS.employeeGroups.list()}><UsersRound /> Группы</Link>
                                                         </SidebarMenuSubButton>
                                                     </SidebarMenuSubItem>
                                                 </AccessGuard>
-                                                <AccessGuard permission={PERMISSIONS.PERMISSION_ROLES}>
+                                                <AccessGuard permission={PERMISSIONS.PERMISSION_EMPLOYEE_ROLES}>
                                                     <SidebarMenuSubItem>
                                                         <SidebarMenuSubButton isActive={location.pathname.startsWith(PAGE_URLS.employeeRoles.list())} asChild>
                                                             <Link to={PAGE_URLS.employeeRoles.list()}><ShieldCheck /> Роли</Link>
@@ -148,7 +148,7 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                                 </Collapsible>
                             </AccessGuard>
 
-                            <AccessGuard permissions={[PERMISSIONS.PERMISSION_EMPLOYEES, PERMISSIONS.PERMISSION_GROUPS]}>
+                            <AccessGuard permissions={[PERMISSIONS.PERMISSION_EMPLOYEES, PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS]}>
                                 <Collapsible
                                     defaultOpen={[PAGE_URLS.customers.list(), PAGE_URLS.customerGroups.list(), PAGE_URLS.customerRoles.list()].some(p => location.pathname.startsWith(p))}
                                     className="group/collapsible"
@@ -171,14 +171,14 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                                                         </SidebarMenuSubButton>
                                                     </SidebarMenuSubItem>
                                                 </AccessGuard>
-                                                <AccessGuard permission={PERMISSIONS.PERMISSION_GROUPS}>
+                                                <AccessGuard permission={PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS}>
                                                     <SidebarMenuSubItem>
                                                         <SidebarMenuSubButton isActive={location.pathname.startsWith(PAGE_URLS.customerGroups.list())} asChild>
                                                             <Link to={PAGE_URLS.customerGroups.list()}><UsersRound /> Группы</Link>
                                                         </SidebarMenuSubButton>
                                                     </SidebarMenuSubItem>
                                                 </AccessGuard>
-                                                <AccessGuard permission={PERMISSIONS.PERMISSION_ROLES}>
+                                                <AccessGuard permission={PERMISSIONS.PERMISSION_EMPLOYEE_ROLES}>
                                                     <SidebarMenuSubItem>
                                                         <SidebarMenuSubButton isActive={location.pathname.startsWith(PAGE_URLS.customerRoles.list())} asChild>
                                                             <Link to={PAGE_URLS.customerRoles.list()}><ShieldCheck /> Роли</Link>

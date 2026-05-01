@@ -6,42 +6,43 @@ export const PERMISSIONS = {
     PERMISSION_EMPLOYEES_DELETE: 'permission_employees_delete',
     PERMISSION_EMPLOYEES_VIEW: 'permission_employees_view',
 
-    // Group permissions
-    PERMISSION_GROUPS: 'permission_groups',
-    PERMISSION_GROUPS_CREATE: 'permission_groups_create',
-    PERMISSION_GROUPS_EDIT: 'permission_groups_edit',
-    PERMISSION_GROUPS_DELETE: 'permission_groups_delete',
-    PERMISSION_GROUPS_VIEW: 'permission_groups_view',
+    // Employee Group permissions
+    PERMISSION_EMPLOYEE_GROUPS: 'permission_employee_groups',
+    PERMISSION_EMPLOYEE_GROUPS_CREATE: 'permission_employee_groups_create',
+    PERMISSION_EMPLOYEE_GROUPS_EDIT: 'permission_employee_groups_edit',
+    PERMISSION_EMPLOYEE_GROUPS_DELETE: 'permission_employee_groups_delete',
+    PERMISSION_EMPLOYEE_GROUPS_VIEW: 'permission_employee_groups_view',
 
-    // Role permissions
-    PERMISSION_ROLES: 'permission_roles',
-    PERMISSION_ROLES_CREATE: 'permission_roles_create',
-    PERMISSION_ROLES_EDIT: 'permission_roles_edit',
-    PERMISSION_ROLES_DELETE: 'permission_roles_delete',
-    PERMISSION_ROLES_VIEW: 'permission_roles_view',
+    // Employee Role permissions
+    PERMISSION_EMPLOYEE_ROLES: 'permission_employee_roles',
+    PERMISSION_EMPLOYEE_ROLES_CREATE: 'permission_employee_roles_create',
+    PERMISSION_EMPLOYEE_ROLES_EDIT: 'permission_employee_roles_edit',
+    PERMISSION_EMPLOYEE_ROLES_DELETE: 'permission_employee_roles_delete',
+    PERMISSION_EMPLOYEE_ROLES_VIEW: 'permission_employee_roles_view',
 
-    // Company permissions
-    PERMISSION_COMPANIES: 'permission_companies',
-    PERMISSION_COMPANIES_CREATE: 'permission_companies_create',
-    PERMISSION_COMPANIES_EDIT: 'permission_companies_edit',
-    PERMISSION_COMPANIES_DELETE: 'permission_companies_delete',
-    PERMISSION_COMPANIES_VIEW: 'permission_companies_view',
+    // Customer permissions
+    PERMISSION_CUSTOMERS: 'permission_customers',
+    PERMISSION_CUSTOMERS_CREATE: 'permission_customers_create',
+    PERMISSION_CUSTOMERS_EDIT: 'permission_customers_edit',
+    PERMISSION_CUSTOMERS_DELETE: 'permission_customers_delete',
+    PERMISSION_CUSTOMERS_VIEW: 'permission_customers_view',
 
-    // Document permissions
-    PERMISSION_DOCUMENTS: 'permission_documents',
-    PERMISSION_DOCUMENTS_CREATE: 'permission_documents_create',
-    PERMISSION_DOCUMENTS_EDIT: 'permission_documents_edit',
-    PERMISSION_DOCUMENTS_DELETE: 'permission_documents_delete',
-    PERMISSION_DOCUMENTS_VIEW: 'permission_documents_view',
+    // Customer Group permissions
+    PERMISSION_CUSTOMER_GROUPS: 'permission_customer_groups',
+    PERMISSION_CUSTOMER_GROUPS_CREATE: 'permission_customer_groups_create',
+    PERMISSION_CUSTOMER_GROUPS_EDIT: 'permission_customer_groups_edit',
+    PERMISSION_CUSTOMER_GROUPS_DELETE: 'permission_customer_groups_delete',
+    PERMISSION_CUSTOMER_GROUPS_VIEW: 'permission_customer_groups_view',
 
-    // Camera permissions
-    PERMISSION_CAMERAS: 'permission_cameras',
-    PERMISSION_CAMERAS_CREATE: 'permission_cameras_create',
-    PERMISSION_CAMERAS_EDIT: 'permission_cameras_edit',
-    PERMISSION_CAMERAS_DELETE: 'permission_cameras_delete',
-    PERMISSION_CAMERAS_VIEW: 'permission_cameras_view',
-    PERMISSION_CAMERAS_LIVE: 'permission_cameras_live',
+    // Customer Role permissions
+    PERMISSION_CUSTOMER_ROLES: 'permission_customer_roles',
+    PERMISSION_CUSTOMER_ROLES_CREATE: 'permission_customer_roles_create',
+    PERMISSION_CUSTOMER_ROLES_EDIT: 'permission_customer_roles_edit',
+    PERMISSION_CUSTOMER_ROLES_DELETE: 'permission_customer_roles_delete',
+    PERMISSION_CUSTOMER_ROLES_VIEW: 'permission_customer_roles_view',
 
+
+    /*
     // User management permissions
     PERMISSION_USERS: 'permission_users',
     PERMISSION_USERS_CREATE: 'permission_users_create',
@@ -64,11 +65,17 @@ export const PERMISSIONS = {
     PERMISSION_REPORTS_CREATE: 'permission_reports_create',
     PERMISSION_REPORTS_VIEW: 'permission_reports_view',
     PERMISSION_REPORTS_EXPORT: 'permission_reports_export',
+    */
 } as const
 
 export type Permission = typeof PERMISSIONS[keyof typeof PERMISSIONS]
 
+
 export const ROLES = {
+    SUPER_ADMIN: 'EMP_ROLE_SUPER_ADMIN',
+    DEVELOPER: 'EMP_ROLE_DEVELOPER',
+    TESTER: 'EMP_ROLE_TESTER',
+
     ADMIN: 'Admin',
     MANAGER: 'Manager',
     OPERATOR: 'Operator',
@@ -77,24 +84,32 @@ export const ROLES = {
 } as const
 
 export type Role = typeof ROLES[keyof typeof ROLES]
-
+/*
 // Permission groups for easier checking
 export const PERMISSION_GROUPS = {
-    DOCUMENTS: [
-        PERMISSIONS.PERMISSION_DOCUMENTS,
-        PERMISSIONS.PERMISSION_DOCUMENTS_CREATE,
-        PERMISSIONS.PERMISSION_DOCUMENTS_EDIT,
-        PERMISSIONS.PERMISSION_DOCUMENTS_DELETE,
-        PERMISSIONS.PERMISSION_DOCUMENTS_VIEW,
+    EMPLOYEES: [
+        PERMISSIONS.PERMISSION_EMPLOYEES,
+        PERMISSIONS.PERMISSION_EMPLOYEES_CREATE,
+        PERMISSIONS.PERMISSION_EMPLOYEES_EDIT,
+        PERMISSIONS.PERMISSION_EMPLOYEES_DELETE,
+        PERMISSIONS.PERMISSION_EMPLOYEES_VIEW,
     ],
-    CAMERAS: [
-        PERMISSIONS.PERMISSION_CAMERAS,
-        PERMISSIONS.PERMISSION_CAMERAS_CREATE,
-        PERMISSIONS.PERMISSION_CAMERAS_EDIT,
-        PERMISSIONS.PERMISSION_CAMERAS_DELETE,
-        PERMISSIONS.PERMISSION_CAMERAS_VIEW,
-        PERMISSIONS.PERMISSION_CAMERAS_LIVE,
+    EMPLOYEE_GROUPS: [
+        PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS,
+        PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_CREATE,
+        PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_EDIT,
+        PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_DELETE,
+        PERMISSIONS.PERMISSION_EMPLOYEE_GROUPS_VIEW,
     ],
+    EMPLOYEE_ROLES: [
+        PERMISSIONS.PERMISSION_EMPLOYEE_ROLES,
+        PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_CREATE,
+        PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_EDIT,
+        PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_DELETE,
+        PERMISSIONS.PERMISSION_EMPLOYEE_ROLES_VIEW,
+    ],
+
+
     USERS: [
         PERMISSIONS.PERMISSION_USERS,
         PERMISSIONS.PERMISSION_USERS_CREATE,
@@ -119,3 +134,4 @@ export const PERMISSION_GROUPS = {
         PERMISSIONS.PERMISSION_REPORTS_EXPORT,
     ],
 } as const
+*/

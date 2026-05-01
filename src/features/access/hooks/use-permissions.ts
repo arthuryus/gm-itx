@@ -25,8 +25,7 @@ export function usePermissions() {
   const hasRoleAll = (rolesList: Role[]): boolean =>
       rolesList.every(hasRole)
 
-  const isAdmin = (): boolean =>
-      hasRole("Admin")
+  //const isAdmin = (): boolean => hasRole("Admin")
 
   return {
     permissions,
@@ -37,7 +36,7 @@ export function usePermissions() {
     hasRole,
     hasRoleAny,
     hasRoleAll,
-    isAdmin,
+    //isAdmin,
   }
 }
 
