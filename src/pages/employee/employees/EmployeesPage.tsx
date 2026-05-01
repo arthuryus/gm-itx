@@ -48,8 +48,8 @@ export default function EmployeesPage() {
         setPage(1)
     }, [])
 
-    const handleDeleteClick = useCallback((employee: TEmployee) => {
-        setItemToDelete(employee)
+    const handleDeleteClick = useCallback((item: TEmployee) => {
+        setItemToDelete(item)
         setDeleteDialogOpen(true)
     }, [])
 
