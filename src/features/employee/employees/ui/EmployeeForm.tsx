@@ -19,8 +19,6 @@ interface EmployeeFormProps {
     isSubmitting: boolean
     onSubmit: (data: TEmployeeFormData, form:  UseFormReturn<TEmployeeFormData>) => void
     onCancel: () => void
-    onCloseSession?: () => void
-    onSendAccess?: () => void
     disabled?: boolean
 }
 
@@ -30,8 +28,6 @@ export function EmployeeForm({
     isSubmitting,
     onSubmit,
     onCancel,
-    onCloseSession,
-    onSendAccess,
     disabled = false,
 }: EmployeeFormProps) {
     const isModeCreate = mode === 'create'
@@ -212,49 +208,24 @@ export function EmployeeForm({
                     disabled={disabled}
                 />
 
-                <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-2">
-                        {!isModeCreate && !disabled && onCloseSession && onSendAccess && (
-                            <>
-                                <Button
-                                    type="button"
-                                    variant="destructive"
-                                    onClick={onCloseSession}
-                                    disabled={isSubmitting}
-                                >
-                                    Закрыть сессии
-                                </Button>
-                                <Button
-                                    type="button"
-                                    variant="secondary"
-                                    onClick={onSendAccess}
-                                    disabled={isSubmitting}
-                                >
-                                    Отправить доступ
-                                </Button>
-                            </>
-                        )}
-                    </div>
-                    <div className="flex items-center gap-2">
+                <div className="flex justify-end items-center gap-4">
+                    <Button
+                        type="button"
+                        variant="outline"
+                        onClick={onCancel}
+                        disabled={isSubmitting}
+                    >
+                        Отмена
+                    </Button>
+                    {!disabled && (
                         <Button
-                            type="button"
-                            variant="outline"
-                            onClick={onCancel}
+                            type="submit"
                             disabled={isSubmitting}
                         >
-                            Отмена
+                            {isSubmitting && <Spinner className="size-3" />}
+                            {isModeCreate ? 'Создать' : 'Сохранить'}
                         </Button>
-                        {!disabled && (
-                            <Button
-                                type="submit"
-                                disabled={isSubmitting}
-                            >
-                                {isSubmitting && <Spinner className="size-3" />}
-                                {isModeCreate ? 'Создать' : 'Сохранить'}
-                            </Button>
-                        )}
-                    </div>
-
+                    )}
                 </div>
             </FieldGroup>
         </form>

@@ -1,15 +1,17 @@
 import { useNavigate } from 'react-router-dom'
-import type { UseFormReturn } from "react-hook-form";
-import type { TEmployeeFormData } from '@/features/employees/model/employee.types.ts'
-import { EMPLOYEES_MUTATION_MESSAGES } from '@/features/employees/lib/constants'
-import { PAGE_URLS } from '@/shared/config/page-routes'
-import { EmployeeForm } from '@/features/employees/ui/EmployeeForm'
-import { useCreateEmployee } from '@/features/employees/hooks/mutations/useCreateEmployee'
+import { useMetadata } from "@/shared/config/metadata.ts"
+import type { UseFormReturn } from "react-hook-form"
+import type { TEmployeeFormData } from '@/features/employee/employees/model/employee.types.ts'
+import { EMPLOYEES_MUTATION_MESSAGES } from '@/features/employee/employees/lib/constants.ts'
+import { PAGE_URLS } from '@/shared/config/page-routes.ts'
+import { EmployeeForm } from '@/features/employee/employees/ui/EmployeeForm.tsx'
+import { useCreateEmployee } from '@/features/employee/employees/hooks/mutations/useCreateEmployee.ts'
 import { handlerError } from "@/shared/api/error/handler-error.ts"
-import { Card, CardHeader, CardTitle, CardContent } from '@/shadcn/components/ui/card'
+import { Card, CardHeader, CardTitle, CardContent } from '@/shadcn/components/ui/card.tsx'
 import { toast } from "sonner"
 
 export default function EmployeeCreatePage() {
+    const { h1 } = useMetadata()
     const navigate = useNavigate()
     const createMutation = useCreateEmployee()
 
@@ -31,7 +33,7 @@ export default function EmployeeCreatePage() {
     return (
         <Card className="max-w-2xl">
             <CardHeader>
-                <CardTitle>Создать сотрудника</CardTitle>
+                <CardTitle>{h1}</CardTitle>
             </CardHeader>
             <CardContent>
                 <EmployeeForm

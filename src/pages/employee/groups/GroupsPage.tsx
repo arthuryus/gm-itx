@@ -1,18 +1,20 @@
 import { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import type { TGroup, TGroupFilter } from '@/features/groups/model/group.types.ts'
+import { useMetadata } from "@/shared/config/metadata.ts"
+import type { TGroup, TGroupFilter } from '@/features/employee/groups/model/group.types.ts'
 import { DEFAULT_PER_PAGE } from '@/shared/constants/main.ts'
-import { PAGE_URLS } from '@/shared/config/page-routes'
-import { useGetGroups } from '@/features/groups/hooks/queries/useGetGroups.ts'
-import { useDeleteGroup } from '@/features/groups/hooks/mutations/useDeleteGroup'
+import { PAGE_URLS } from '@/shared/config/page-routes.ts'
+import { useGetGroups } from '@/features/employee/groups/hooks/queries/useGetGroups.ts'
+import { useDeleteGroup } from '@/features/employee/groups/hooks/mutations/useDeleteGroup.ts'
 import { PERMISSIONS } from '@/shared/config/permissions.ts'
 import { useAccess } from '@/features/access/hooks/use-access.ts'
-import { GroupsTable } from '@/features/groups/ui/GroupsTable'
-import { DeleteDialogBase } from '@/shared/components/ui/base/DeleteDialogBase'
-import { Button } from '@/shadcn/components/ui/button'
+import { GroupsTable } from '@/features/employee/groups/ui/GroupsTable.tsx'
+import { DeleteDialogBase } from '@/shared/components/ui/base/DeleteDialogBase.tsx'
+import { Button } from '@/shadcn/components/ui/button.tsx'
 import { Plus } from 'lucide-react'
 
 export default function GroupsPage() {
+    const { h1 } = useMetadata()
     const canCreate = useAccess({ permission: PERMISSIONS.PERMISSION_GROUPS_CREATE }, true)
 
     const [page, setPage] = useState(1)
@@ -72,7 +74,7 @@ export default function GroupsPage() {
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-bold">Группы</h1>
+                <h1 className="text-2xl font-bold">{h1}</h1>
                 {canCreate && (
                     <Button asChild>
                         <Link to={PAGE_URLS.employeeGroups.create()}>

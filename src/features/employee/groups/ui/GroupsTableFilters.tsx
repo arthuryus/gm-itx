@@ -89,7 +89,7 @@ export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFilt
                 </Select>
             </div>
 
-            <div className="flex flex-col gap-2">
+            {/*<div className="flex flex-col gap-2">
                 <label className="text-sm font-medium">Приоритет</label>
                 <InputGroup className="w-[120px]">
                     <InputGroupInput
@@ -100,7 +100,7 @@ export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFilt
                         onChange={(e) => handleNumberChange('priority', e.target.value)}
                     />
                 </InputGroup>
-            </div>
+            </div>*/}
         </div>
     )
 }

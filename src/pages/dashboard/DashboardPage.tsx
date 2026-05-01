@@ -1,4 +1,4 @@
-import { useMetadata } from "@/shared/hooks/use-metadata.ts"
+import { useMetadata } from "@/shared/config/metadata.ts"
 //import { PERMISSIONS } from "@/shared/config/permissions.ts";
 //import { usePermissions } from "@/features/access/hooks/use-permissions.ts";
 //import { useAccess, type AccessProps } from "@/features/access/hooks/use-access.ts"
@@ -9,7 +9,7 @@ import { useMetadata } from "@/shared/hooks/use-metadata.ts"
 //import { toast } from "sonner"
 
 export default function DashboardPage() {
-    const h1 = useMetadata().h1
+    const { h1 } = useMetadata()
     //const { hasPermission, hasPermissionAny, hasPermissionAll } = usePermissions()
 
     /*

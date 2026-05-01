@@ -11,16 +11,16 @@ import SetupPage from "@/pages/auth/SetupPage.tsx"
 import SignupPage from "@/pages/auth/SignupPage.tsx"
 import DashboardPage from "@/pages/dashboard/DashboardPage.tsx"
 import ProfilePage from "@/pages/account/ProfilePage.tsx";
-import EmployeesPage from "@/pages/employees/EmployeesPage.tsx";
-import EmployeeCreatePage from "@/pages/employees/EmployeeCreatePage.tsx";
-import EmployeeUpdatePage from "@/pages/employees/EmployeeUpdatePage.tsx";
-import GroupsPage from "@/pages/groups/GroupsPage.tsx";
-import GroupCreatePage from "@/pages/groups/GroupCreatePage.tsx";
-import GroupUpdatePage from "@/pages/groups/GroupUpdatePage.tsx";
-import GroupViewPage from "@/pages/groups/GroupViewPage.tsx";
-import RolesPage from "@/pages/roles/RolesPage.tsx";
-import RoleCreatePage from "@/pages/roles/RoleCreatePage.tsx";
-import RoleUpdatePage from "@/pages/roles/RoleUpdatePage.tsx";
+import EmployeesPage from "@/pages/employee/employees/EmployeesPage.tsx";
+import EmployeeCreatePage from "@/pages/employee/employees/EmployeeCreatePage.tsx";
+import EmployeeUpdatePage from "@/pages/employee/employees/EmployeeUpdatePage.tsx";
+import EmployeeGroupsPage from "@/pages/employee/groups/GroupsPage.tsx";
+import EmployeeGroupCreatePage from "@/pages/employee/groups/GroupCreatePage.tsx";
+import EmployeeGroupUpdatePage from "@/pages/employee/groups/GroupUpdatePage.tsx";
+import EmployeeGroupViewPage from "@/pages/employee/groups/GroupViewPage.tsx";
+import EmployeeRolesPage from "@/pages/employee/roles/RolesPage.tsx";
+import EmployeeRoleCreatePage from "@/pages/employee/roles/RoleCreatePage.tsx";
+import EmployeeRoleUpdatePage from "@/pages/employee/roles/RoleUpdatePage.tsx";
 import InfoPage from "@/pages/info/InfoPage.tsx";
 import NotFoundPage from "@/pages/errors/NotFoundPage.tsx"
 import ForbiddenPage from "@/pages/errors/ForbiddenPage.tsx"
@@ -94,7 +94,7 @@ export function Router() {
                     path={PAGE_PATHS.employeeGroups.list}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_GROUPS}>
-                            <GroupsPage />
+                            <EmployeeGroupsPage />
                         </AccessRoute>
                     }
                 />
@@ -102,7 +102,7 @@ export function Router() {
                     path={PAGE_PATHS.employeeGroups.create}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_GROUPS_CREATE}>
-                            <GroupCreatePage />
+                            <EmployeeGroupCreatePage />
                         </AccessRoute>
                     }
                 />
@@ -110,7 +110,7 @@ export function Router() {
                     path={PAGE_PATHS.employeeGroups.update}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_GROUPS_EDIT}>
-                            <GroupUpdatePage />
+                            <EmployeeGroupUpdatePage />
                         </AccessRoute>
                     }
                 />
@@ -118,7 +118,7 @@ export function Router() {
                     path={PAGE_PATHS.employeeGroups.view}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_GROUPS_VIEW}>
-                            <GroupViewPage />
+                            <EmployeeGroupViewPage />
                         </AccessRoute>
                     }
                 />
@@ -128,7 +128,7 @@ export function Router() {
                     path={PAGE_PATHS.employeeRoles.list}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_ROLES}>
-                            <RolesPage />
+                            <EmployeeRolesPage />
                         </AccessRoute>
                     }
                 />
@@ -136,7 +136,7 @@ export function Router() {
                     path={PAGE_PATHS.employeeRoles.create}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_ROLES_CREATE}>
-                            <RoleCreatePage />
+                            <EmployeeRoleCreatePage />
                         </AccessRoute>
                     }
                 />
@@ -144,7 +144,7 @@ export function Router() {
                     path={PAGE_PATHS.employeeRoles.update}
                     element={
                         <AccessRoute permission={PERMISSIONS.PERMISSION_ROLES_EDIT}>
-                            <RoleUpdatePage />
+                            <EmployeeRoleUpdatePage />
                         </AccessRoute>
                     }
                 />

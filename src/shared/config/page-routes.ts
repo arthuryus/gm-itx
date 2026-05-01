@@ -84,7 +84,7 @@ export const PAGE_URLS = {
 } as const
 
 
-type TPagePath = {
+export type TPagePath = {
     list: string
     create: string
     update: string
