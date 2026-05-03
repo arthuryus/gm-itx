@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useNavigate } from "react-router-dom"
 import type { TGroupsListParams, TGroupsListResponse } from '../../model/group.types.ts'
 import { groupsApi } from '../../api/groups-api.ts'
@@ -29,4 +29,38 @@ export function useGetGroups(params: TGroupsListParams = {}) {
     }, [error, navigate])
 
     return UseQuery
+}
+
+export function useGetGroupsList(params: TGroupsListParams = {}) {
+    const defaultParams = {
+        page: 1,
+        perPage: 100,
+        sort: [],
+        filter: undefined,
+    }
+
+    /**
+     * Получение списка групп
+     */
+    const query = useGetGroups({
+        ...defaultParams,
+        ...params,
+    })
+
+    /**
+     * Обработка списка групп
+     */
+    const options = useMemo(() => {
+        if (!query.data) return []
+
+        return query.data.items.map((group) => ({
+            value: String(group.id),
+            label: group.name,
+        }))
+    }, [query.data])
+
+    return {
+        ...query,
+        options,
+    }
 }

@@ -1,7 +1,6 @@
-import {useMemo} from 'react'
 import {Controller, useFieldArray, type UseFormReturn} from 'react-hook-form'
 import type {TCustomerFormData} from '../model/customer.types.ts'
-import {useGetGroups} from '@/features/customer/groups/hooks/queries/useGetGroups.ts'
+import {useGetGroupsList} from '@/features/customer/groups/hooks/queries/useGetGroups.ts'
 import {useGetRolesList} from '@/features/customer/roles/hooks/queries/useGetRoles.ts'
 import {Field, FieldError, FieldGroup, FieldLabel} from '@/shadcn/components/ui/field.tsx'
 import {Skeleton} from '@/shadcn/components/ui/skeleton.tsx'
@@ -25,24 +24,7 @@ export function CustomerFormMemberships({
     /**
      * Получение списка групп
      */
-    const {data: dataGroups, isLoading: isLoadingGroups} = useGetGroups({
-        page: 1,
-        perPage: 100,
-        sort: [],
-        filter: undefined,
-    })
-
-    /**
-     * Обработка списка групп
-     */
-    const optionsGroups = useMemo(() => {
-        if (!dataGroups) return []
-
-        return dataGroups.items.map((group) => ({
-            value: String(group.id),
-            label: group.name,
-        }))
-    }, [dataGroups])
+    const {options: optionsGroups, isLoading: isLoadingGroups} = useGetGroupsList()
 
 
     /**
