@@ -29,12 +29,11 @@ export interface TEmployee {
 
 export interface TEmployeeFilter {
     id?: number
-    firstName?: string
-    lastName?: string
-    middleName?: string
+    name?: string
     email?: string
     phone?: string
     status?: TStatus
+    roleIds?: string[]
 }
 
 export interface TEmployeeSort {

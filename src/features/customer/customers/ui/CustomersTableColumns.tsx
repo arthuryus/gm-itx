@@ -65,6 +65,27 @@ export function getCustomersTableColumns({
             cell: ({ row }) => <div className="font-medium">{row.getValue<string>('phone')}</div>,
         },
         {
+            accessorKey: 'roleIds',
+            header: ({ column }) => (
+                <TableColumnHeaderSortBase column={column} label="Роли" />
+            ),
+            cell: ({ row }) => {
+                const memberships = row.original.memberships
+
+                return (
+                    <div className="flex flex-col gap-1">
+                        {memberships.map((membership) => (
+                            <div key={membership.groupId} className="flex flex-col gap-1">
+                                {membership.roles.map((role) => (
+                                    <Badge key={role.id} variant="secondary">{role.title}</Badge>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                )
+            },
+        },
+        {
             accessorKey: 'status',
             header: ({ column }) => (
                 <TableColumnHeaderSortBase column={column} label="Статус" />

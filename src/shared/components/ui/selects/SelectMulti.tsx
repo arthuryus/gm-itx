@@ -215,7 +215,7 @@ export const SelectMulti = React.forwardRef<
 
                 <PopoverContent
                     align="start"
-                    className="w-[var(--radix-popover-trigger-width)] p-0"
+                    className="min-w-[var(--radix-popover-trigger-width)] w-auto p-0"
                 >
                     <Command>
                         {searchable && (

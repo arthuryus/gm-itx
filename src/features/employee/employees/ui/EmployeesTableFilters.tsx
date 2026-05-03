@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react'
+import {useState, useEffect} from 'react'
 import type { TEmployeeFilter } from '../model/employee.types.ts'
-import { type TStatus, STATUS_SELECT } from '@/shared/constants/main.ts'
+import { STATUS_SELECT } from '@/shared/constants/main.ts'
+import { useGetRolesList } from '@/features/employee/roles/hooks/queries/useGetRoles.ts'
 import { InputGroup, InputGroupInput } from '@/shadcn/components/ui/input-group'
 import { Input } from '@/shadcn/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shadcn/components/ui/select'
+import { SelectMulti } from "@/shared/components/ui/selects/SelectMulti.tsx";
 
 interface EmployeesTableFiltersProps {
     filters: TEmployeeFilter
@@ -11,6 +13,7 @@ interface EmployeesTableFiltersProps {
 }
 
 export function EmployeesTableFilters({ filters, onFiltersChange }: EmployeesTableFiltersProps) {
+    const {options: optionsRoles, isLoading: isLoadingRoles} = useGetRolesList()
     const [localFilters, setLocalFilters] = useState<TEmployeeFilter>(filters)
 
     useEffect(() => {
@@ -21,21 +24,25 @@ export function EmployeesTableFilters({ filters, onFiltersChange }: EmployeesTab
         return () => clearTimeout(timeoutId)
     }, [localFilters, onFiltersChange])
 
-    const handleStringChange = (name: string, value: string) => {
+    const handleStringChange = (name: keyof TEmployeeFilter, value: string) => {
         setLocalFilters((prev) => ({ ...prev, [name]: value || undefined }))
     }
 
-    const handleNumberChange = (name: string, value: string) => {
+    const handleNumberChange = (name: keyof TEmployeeFilter, value: string) => {
         const numValue = value === '' ? undefined : parseInt(value, 10)
         setLocalFilters((prev) => ({ ...prev, [name]: numValue }))
     }
 
-    const handleStatusChange = (name: string, value: TStatus | 'all') => {
-        setLocalFilters((prev) => ({ ...prev, [name]: value === 'all' ? undefined : value, }))
+    const handleSelectMultiChange = (name: keyof TEmployeeFilter, value: string[]) => {
+        setLocalFilters((prev) => ({ ...prev, [name]: value.length > 0 ? value : undefined }))
+    }
+
+    const handleSelectChange = (name: keyof TEmployeeFilter, value: string | '_all_') => {
+        setLocalFilters((prev) => ({ ...prev, [name]: value === '_all_' ? undefined : value, }))
     }
 
     return (
-        <div className="flex flex-wrap items-end gap-4 p---4">
+        <div className="flex flex-wrap items-end gap-4">
             <div className="flex flex-col gap-2">
                 <label className="text-sm font-medium">ID</label>
                     <Input
@@ -48,43 +55,21 @@ export function EmployeesTableFilters({ filters, onFiltersChange }: EmployeesTab
             </div>
 
             <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">Имя</label>
+                <label className="text-sm font-medium">ФИО</label>
                 <InputGroup className="w-[200px]">
                     <InputGroupInput
-                        placeholder="Поиск по имени..."
-                        value={localFilters.firstName || ''}
-                        onChange={(e) => handleStringChange('firstName', e.target.value)}
+                        placeholder="Поиск по ФИО"
+                        value={localFilters.name || ''}
+                        onChange={(e) => handleStringChange('name', e.target.value)}
                     />
                 </InputGroup>
             </div>
-
-            <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">Фамилия</label>
-                <InputGroup className="w-[200px]">
-                    <InputGroupInput
-                        placeholder="Поиск по фамилии..."
-                        value={localFilters.lastName || ''}
-                        onChange={(e) => handleStringChange('lastName', e.target.value)}
-                    />
-                </InputGroup>
-            </div>
-
-            {/*<div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">Отчество</label>
-                <InputGroup className="w-[200px]">
-                    <InputGroupInput
-                        placeholder="Поиск по отчеству..."
-                        value={localFilters.middleName || ''}
-                        onChange={(e) => handleStringChange('middleName', e.target.value)}
-                    />
-                </InputGroup>
-            </div>*/}
 
             <div className="flex flex-col gap-2">
                 <label className="text-sm font-medium">Email</label>
                 <InputGroup className="w-[200px]">
                     <InputGroupInput
-                        placeholder="Поиск по Email..."
+                        placeholder="Поиск по Email"
                         value={localFilters.email || ''}
                         onChange={(e) => handleStringChange('email', e.target.value)}
                     />
@@ -95,7 +80,7 @@ export function EmployeesTableFilters({ filters, onFiltersChange }: EmployeesTab
                 <label className="text-sm font-medium">Телефон</label>
                 <InputGroup className="w-[200px]">
                     <InputGroupInput
-                        placeholder="Поиск по номеру телефона..."
+                        placeholder="Поиск по номеру телефона"
                         value={localFilters.phone || ''}
                         onChange={(e) => handleStringChange('phone', e.target.value)}
                     />
@@ -103,16 +88,26 @@ export function EmployeesTableFilters({ filters, onFiltersChange }: EmployeesTab
             </div>
 
             <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium">Ролы</label>
+                <SelectMulti
+                    value={localFilters.roleIds}
+                    onValueChange={(value) => handleSelectMultiChange('roleIds', value)}
+                    options={optionsRoles}
+                    placeholder={isLoadingRoles ? 'Загрузка' : 'Выберите роли'}
+                />
+            </div>
+
+            <div className="flex flex-col gap-2">
                 <label className="text-sm font-medium">Статус</label>
                 <Select
-                    value={localFilters.status || 'all'}
-                    onValueChange={(value) => handleStatusChange('status', value as TStatus | 'all')}
+                    value={localFilters.status || '_all_'}
+                    onValueChange={(value) => handleSelectChange('status', value as string | '_all_')}
                 >
                     <SelectTrigger className="w-[150px]">
                         <SelectValue placeholder="Все статусы" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="all">Все</SelectItem>
+                        <SelectItem value="_all_">Все</SelectItem>
                         {STATUS_SELECT.map((option) => (
                             <SelectItem key={option.value} value={option.value}>
                                 {option.label}
