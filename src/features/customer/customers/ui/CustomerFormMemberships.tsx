@@ -2,7 +2,7 @@ import {useMemo} from 'react'
 import {Controller, useFieldArray, type UseFormReturn} from 'react-hook-form'
 import type {TCustomerFormData} from '../model/customer.types.ts'
 import {useGetGroups} from '@/features/customer/groups/hooks/queries/useGetGroups.ts'
-import {useGetRoles} from '@/features/customer/roles/hooks/queries/useGetRoles.ts'
+import {useGetRolesList} from '@/features/customer/roles/hooks/queries/useGetRoles.ts'
 import {Field, FieldError, FieldGroup, FieldLabel} from '@/shadcn/components/ui/field.tsx'
 import {Skeleton} from '@/shadcn/components/ui/skeleton.tsx'
 import {Button} from '@/shadcn/components/ui/button.tsx'
@@ -48,24 +48,7 @@ export function CustomerFormMemberships({
     /**
      * Получение списка ролей
      */
-    const {data: dataRoles, isLoading: isLoadingRoles} = useGetRoles({
-        page: 1,
-        perPage: 100,
-        sort: [],
-        filter: undefined,
-    })
-
-    /**
-     * Обработка списка ролей
-     */
-    const optionsRoles = useMemo(() => {
-        if (!dataRoles) return []
-
-        return dataRoles.items.map((role) => ({
-            value: String(role.id),
-            label: role.title,
-        }))
-    }, [dataRoles])
+    const {options: optionsRoles, isLoading: isLoadingRoles} = useGetRolesList()
 
     const {fields, append, remove} = useFieldArray({
         control: form.control,

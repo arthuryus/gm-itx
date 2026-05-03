@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import type { TCustomerFilter } from '../model/customer.types.ts'
 import { STATUS_SELECT } from '@/shared/constants/main.ts'
-import { useGetRolesList } from '@/features/employee/roles/hooks/queries/useGetRoles.ts'
+import { useGetRolesList } from '@/features/customer/roles/hooks/queries/useGetRoles.ts'
 import { InputGroup, InputGroupInput } from '@/shadcn/components/ui/input-group'
 import { Input } from '@/shadcn/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shadcn/components/ui/select'
