@@ -21,17 +21,17 @@ export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFilt
         return () => clearTimeout(timeoutId)
     }, [localFilters, onFiltersChange])
 
-    const handleStringChange = (name: string, value: string) => {
+    const handleStringChange = (name: keyof TGroupFilter, value: string) => {
         setLocalFilters((prev) => ({ ...prev, [name]: value || undefined }))
     }
 
-    const handleNumberChange = (name: string, value: string) => {
+    const handleNumberChange = (name: keyof TGroupFilter, value: string) => {
         const numValue = value === '' ? undefined : parseInt(value, 10)
         setLocalFilters((prev) => ({ ...prev, [name]: numValue }))
     }
 
-    const handleStatusChange = (name: string, value: TStatus | 'all') => {
-        setLocalFilters((prev) => ({ ...prev, [name]: value === 'all' ? undefined : value, }))
+    const handleStatusChange = (name: keyof TGroupFilter, value: TStatus | '_all_') => {
+        setLocalFilters((prev) => ({ ...prev, [name]: value === '_all_' ? undefined : value, }))
     }
 
     return (
@@ -72,14 +72,14 @@ export function GroupsTableFilters({ filters, onFiltersChange }: GroupsTableFilt
             <div className="flex flex-col gap-2">
                 <label className="text-sm font-medium">Статус</label>
                 <Select
-                    value={localFilters.status || 'all'}
-                    onValueChange={(value) => handleStatusChange('status', value as TStatus | 'all')}
+                    value={localFilters.status || '_all_'}
+                    onValueChange={(value) => handleStatusChange('status', value as TStatus | '_all_')}
                 >
                     <SelectTrigger className="w-[150px]">
                         <SelectValue placeholder="Все статусы" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="all">Все</SelectItem>
+                        <SelectItem value="_all_">Все</SelectItem>
                         {STATUS_SELECT.map((option) => (
                             <SelectItem key={option.value} value={option.value}>
                                 {option.label}

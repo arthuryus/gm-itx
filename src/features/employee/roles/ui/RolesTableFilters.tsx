@@ -19,11 +19,11 @@ export function RolesTableFilters({ filters, onFiltersChange }: RolesTableFilter
         return () => clearTimeout(timeoutId)
     }, [localFilters, onFiltersChange])
 
-    const handleStringChange = (name: string, value: string) => {
+    const handleStringChange = (name: keyof TRoleFilter, value: string) => {
         setLocalFilters((prev) => ({ ...prev, [name]: value || undefined }))
     }
 
-    const handleNumberChange = (name: string, value: string) => {
+    const handleNumberChange = (name: keyof TRoleFilter, value: string) => {
         const numValue = value === '' ? undefined : parseInt(value, 10)
         setLocalFilters((prev) => ({ ...prev, [name]: numValue }))
     }
