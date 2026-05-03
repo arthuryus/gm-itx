@@ -53,5 +53,5 @@ export type TGroupFormData = z.infer<typeof groupSchema>
     priority: number
 }*/
 
-export type TCreateGroupRequest = Omit<TGroup, 'id'>
-export type TUpdateGroupRequest = Omit<TGroup, 'id'>
+export type TCreateGroupRequest = Omit<TGroup, 'id' | 'createdDate'>
+export type TUpdateGroupRequest = Omit<TGroup, 'id' | 'createdDate'>
