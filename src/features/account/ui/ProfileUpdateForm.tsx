@@ -63,7 +63,7 @@ export default function ProfileUpdateForm() {
                                         id="firstName"
                                         aria-invalid={fieldState.invalid}
                                         placeholder="Введите ваше имя"
-                                        autoComplete="off"
+                                        autoComplete="given-name"
                                     />
                                     {fieldState.invalid && (
                                         <FieldError errors={[fieldState.error]} />
@@ -83,7 +83,7 @@ export default function ProfileUpdateForm() {
                                         id="lastName"
                                         aria-invalid={fieldState.invalid}
                                         placeholder="Введите вашу фамилию"
-                                        autoComplete="off"
+                                        autoComplete="family-name"
                                     />
                                     {fieldState.invalid && (
                                         <FieldError errors={[fieldState.error]} />

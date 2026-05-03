@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { handlerError } from "@/shared/api/error/handler-error.ts"
@@ -13,9 +12,10 @@ import { Link } from "react-router-dom"
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/shadcn/components/ui/field"
 import { Button } from "@/shadcn/components/ui/button"
 import { InputGroup, InputGroupInput, InputGroupAddon, InputGroupButton } from "@/shadcn/components/ui/input-group"
+import { InputGroupPasswordInput } from "@/shared/components/ui/inputs/InputGroupPasswordInput.tsx"
 import { Spinner } from "@/shadcn/components/ui/spinner"
 import { Alert, AlertDescription } from "@/shadcn/components/ui/alert"
-import { AlertCircleIcon, Mail, Lock, EyeOffIcon, EyeIcon } from "lucide-react"
+import { AlertCircleIcon, Mail, Lock } from "lucide-react"
 
 
 export default function LoginForm() {
@@ -47,10 +47,9 @@ export default function LoginForm() {
 
     const form = useForm<LoginSchema>({
         resolver: zodResolver(loginSchema),
-        defaultValues: loginDefaultValues
+        defaultValues: loginDefaultValues,
+        mode: 'onBlur',
     })
-
-    const [isPasswordShown, setIsPasswordShown] = useState(false)
 
     return (
         <form onSubmit={form.handleSubmit(handleLogin)} noValidate>
@@ -83,7 +82,7 @@ export default function LoginForm() {
                                     id="email"
                                     aria-invalid={fieldState.invalid}
                                     placeholder="Введите email"
-                                    autoComplete="off"
+                                    autoComplete="email"
                                 />
                             </InputGroup>
                             {fieldState.invalid && (
@@ -108,30 +107,17 @@ export default function LoginForm() {
                             </div>
                             <InputGroup>
                                 <InputGroupAddon align="inline-start">
-                                    <InputGroupButton
-                                        size="icon-xs"
-                                    >
+                                    <InputGroupButton size="icon-xs">
                                         <Lock />
                                     </InputGroupButton>
                                 </InputGroupAddon>
-                                <InputGroupInput
+                                <InputGroupPasswordInput
                                     {...field}
-                                    type={isPasswordShown ? "text" : "password"}
                                     id="password"
                                     aria-invalid={fieldState.invalid}
                                     placeholder="Введите пароль"
-                                    autoComplete="off"
+                                    autoComplete="current-password"
                                 />
-                                <InputGroupAddon align="inline-end">
-                                    <InputGroupButton
-                                        size="icon-xs"
-                                        onClick={() => {
-                                            setIsPasswordShown((prev) => !prev)
-                                        }}
-                                    >
-                                        {isPasswordShown ? <EyeIcon /> : <EyeOffIcon />}
-                                    </InputGroupButton>
-                                </InputGroupAddon>
                             </InputGroup>
                             {fieldState.invalid && (
                                 <FieldError errors={[fieldState.error]} />

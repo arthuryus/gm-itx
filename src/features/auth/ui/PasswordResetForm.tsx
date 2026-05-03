@@ -25,7 +25,8 @@ export default function PasswordResetForm() {
 
     const form = useForm<PasswordResetSchema>({
         resolver: zodResolver(passwordResetSchema),
-        defaultValues: passwordResetDefaultValues
+        defaultValues: passwordResetDefaultValues,
+        mode: 'onBlur',
     })
 
     return (
@@ -67,7 +68,7 @@ export default function PasswordResetForm() {
                                     id="email"
                                     aria-invalid={fieldState.invalid}
                                     placeholder="Введите email"
-                                    autoComplete="off"
+                                    autoComplete="email"
                                 />
                             </InputGroup>
                             {fieldState.invalid && (

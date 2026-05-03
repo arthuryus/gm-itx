@@ -5,7 +5,7 @@ import { useGetRolesList } from '@/features/customer/roles/hooks/queries/useGetR
 import { InputGroup, InputGroupInput } from '@/shadcn/components/ui/input-group'
 import { Input } from '@/shadcn/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shadcn/components/ui/select'
-import { SelectMulti } from "@/shared/components/ui/selects/SelectMulti.tsx";
+import { SelectMulti } from "@/shared/components/ui/inputs/SelectMulti.tsx";
 
 interface CustomersTableFiltersProps {
     filters: TCustomerFilter

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -9,10 +8,11 @@ import {PAGE_URLS} from "@/shared/config/page-routes.ts";
 
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/shadcn/components/ui/field"
 import { Button } from "@/shadcn/components/ui/button"
-import { InputGroup, InputGroupInput, InputGroupAddon, InputGroupButton } from "@/shadcn/components/ui/input-group"
+import { InputGroup, InputGroupAddon, InputGroupButton } from "@/shadcn/components/ui/input-group"
+import { InputGroupPasswordInput } from "@/shared/components/ui/inputs/InputGroupPasswordInput.tsx"
 import { Spinner } from "@/shadcn/components/ui/spinner"
 import { Alert, AlertDescription } from "@/shadcn/components/ui/alert"
-import { AlertCircleIcon, Lock, EyeIcon, EyeOffIcon } from "lucide-react"
+import { AlertCircleIcon, Lock } from "lucide-react"
 import { toast } from "sonner"
 
 type PasswordResetConfirmFormProps = {
@@ -42,11 +42,9 @@ export default function PasswordResetConfirmForm({token}: PasswordResetConfirmFo
             newPassword: "",
             newPasswordConfirm: "",
             token: token,
-        }
+        },
+        mode: 'onBlur',
     })
-
-    const [isNewPasswordShown, setIsNewPasswordShown] = useState(false)
-    const [isNewPasswordConfirmShown, setIsNewPasswordConfirmShown] = useState(false)
 
     return (
         <form onSubmit={form.handleSubmit(handlePasswordResetConfirm)} noValidate>
@@ -73,24 +71,13 @@ export default function PasswordResetConfirmForm({token}: PasswordResetConfirmFo
                                         <Lock />
                                     </InputGroupButton>
                                 </InputGroupAddon>
-                                <InputGroupInput
+                                <InputGroupPasswordInput
                                     {...field}
-                                    type={isNewPasswordShown ? "text" : "password"}
                                     id="newPassword"
                                     aria-invalid={fieldState.invalid}
                                     placeholder="Введите новый пароль"
-                                    autoComplete="off"
+                                    autoComplete="new-password"
                                 />
-                                <InputGroupAddon align="inline-end">
-                                    <InputGroupButton
-                                        size="icon-xs"
-                                        onClick={() => {
-                                            setIsNewPasswordShown((prev) => !prev)
-                                        }}
-                                    >
-                                        {isNewPasswordShown ? <EyeIcon /> : <EyeOffIcon />}
-                                    </InputGroupButton>
-                                </InputGroupAddon>
                             </InputGroup>
                             {fieldState.invalid && (
                                 <FieldError errors={[fieldState.error]} />
@@ -112,24 +99,13 @@ export default function PasswordResetConfirmForm({token}: PasswordResetConfirmFo
                                         <Lock />
                                     </InputGroupButton>
                                 </InputGroupAddon>
-                                <InputGroupInput
+                                <InputGroupPasswordInput
                                     {...field}
-                                    type={isNewPasswordConfirmShown ? "text" : "password"}
                                     id="newPasswordConfirm"
                                     aria-invalid={fieldState.invalid}
                                     placeholder="Повторите новый пароль"
-                                    autoComplete="off"
+                                    autoComplete="new-password"
                                 />
-                                <InputGroupAddon align="inline-end">
-                                    <InputGroupButton
-                                        size="icon-xs"
-                                        onClick={() => {
-                                            setIsNewPasswordConfirmShown((prev) => !prev)
-                                        }}
-                                    >
-                                        {isNewPasswordConfirmShown ? <EyeIcon /> : <EyeOffIcon />}
-                                    </InputGroupButton>
-                                </InputGroupAddon>
                             </InputGroup>
                             {fieldState.invalid && (
                                 <FieldError errors={[fieldState.error]} />

@@ -6,7 +6,7 @@ import {Field, FieldError, FieldGroup, FieldLabel} from '@/shadcn/components/ui/
 import {Skeleton} from '@/shadcn/components/ui/skeleton.tsx'
 import {Button} from '@/shadcn/components/ui/button.tsx'
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/shadcn/components/ui/select.tsx";
-import {SelectMulti} from '@/shared/components/ui/selects/SelectMulti.tsx'
+import {SelectMulti} from '@/shared/components/ui/inputs/SelectMulti.tsx'
 import {Trash2} from 'lucide-react'
 
 interface EmployeeFormMembershipsProps {

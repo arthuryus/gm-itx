@@ -62,7 +62,7 @@ export default function EmailUpdateForm() {
                                         id="email"
                                         aria-invalid={fieldState.invalid}
                                         placeholder="Введите email"
-                                        autoComplete="off"
+                                        autoComplete="email"
                                     />
                                     {fieldState.invalid && (
                                         <FieldError errors={[fieldState.error]} />

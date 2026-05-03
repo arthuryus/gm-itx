@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { handlerError } from "@/shared/api/error/handler-error.ts"
@@ -9,10 +8,11 @@ import { useAuthStore } from "@/features/auth/store/auth-store.ts"
 import { Card, CardContent, CardHeader, CardTitle } from "@/shadcn/components/ui/card"
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/shadcn/components/ui/field"
 import { Button } from "@/shadcn/components/ui/button"
-import { InputGroup, InputGroupInput, InputGroupAddon, InputGroupButton } from "@/shadcn/components/ui/input-group"
+import { InputGroup } from "@/shadcn/components/ui/input-group"
+import { InputGroupPasswordInput } from "@/shared/components/ui/inputs/InputGroupPasswordInput.tsx"
 import { Spinner } from "@/shadcn/components/ui/spinner"
 import { Alert, AlertDescription } from "@/shadcn/components/ui/alert"
-import { AlertCircleIcon, EyeOffIcon, EyeIcon } from "lucide-react"
+import { AlertCircleIcon } from "lucide-react"
 
 
 export default function LoginForm() {
@@ -32,10 +32,6 @@ export default function LoginForm() {
         resolver: zodResolver(passwordUpdateSchema),
         defaultValues: passwordUpdateDefaultValues
     })
-
-    const [isCurrentPasswordShown, setIsCurrentPasswordShown] = useState(false)
-    const [isNewPasswordShown, setIsNewPasswordShown] = useState(false)
-    const [isNewPasswordConfirmShown, setIsNewPasswordConfirmShown] = useState(false)
 
     return (
         <Card className="w-full max-w-2xl">
@@ -60,24 +56,13 @@ export default function LoginForm() {
                                 <Field data-invalid={fieldState.invalid}>
                                     <FieldLabel htmlFor="currentPassword">Текущий пароль</FieldLabel>
                                     <InputGroup>
-                                        <InputGroupInput
+                                        <InputGroupPasswordInput
                                             {...field}
-                                            type={isCurrentPasswordShown ? "text" : "password"}
                                             id="currentPassword"
                                             aria-invalid={fieldState.invalid}
                                             placeholder="Введите текущий пароль"
-                                            autoComplete="off"
+                                            autoComplete="current-password"
                                         />
-                                        <InputGroupAddon align="inline-end">
-                                            <InputGroupButton
-                                                size="icon-xs"
-                                                onClick={() => {
-                                                    setIsCurrentPasswordShown((prev) => !prev)
-                                                }}
-                                            >
-                                                {isCurrentPasswordShown ? <EyeIcon /> : <EyeOffIcon />}
-                                            </InputGroupButton>
-                                        </InputGroupAddon>
                                     </InputGroup>
                                     {fieldState.invalid && (
                                         <FieldError errors={[fieldState.error]} />
@@ -92,24 +77,13 @@ export default function LoginForm() {
                                 <Field data-invalid={fieldState.invalid}>
                                     <FieldLabel htmlFor="newPassword">Новый пароль</FieldLabel>
                                     <InputGroup>
-                                        <InputGroupInput
+                                        <InputGroupPasswordInput
                                             {...field}
-                                            type={isNewPasswordShown ? "password" : "text"}
                                             id="newPassword"
                                             aria-invalid={fieldState.invalid}
                                             placeholder="Введите новый пароль"
-                                            autoComplete="off"
+                                            autoComplete="new-password"
                                         />
-                                        <InputGroupAddon align="inline-end">
-                                            <InputGroupButton
-                                                size="icon-xs"
-                                                onClick={() => {
-                                                    setIsNewPasswordShown((prev) => !prev)
-                                                }}
-                                            >
-                                                {isNewPasswordShown ? <EyeOffIcon /> : <EyeIcon />}
-                                            </InputGroupButton>
-                                        </InputGroupAddon>
                                     </InputGroup>
                                     {fieldState.invalid && (
                                         <FieldError errors={[fieldState.error]} />
@@ -124,24 +98,13 @@ export default function LoginForm() {
                                 <Field data-invalid={fieldState.invalid}>
                                     <FieldLabel htmlFor="newPasswordConfirm">Подтвердите новый пароль</FieldLabel>
                                     <InputGroup>
-                                        <InputGroupInput
+                                        <InputGroupPasswordInput
                                             {...field}
-                                            type={isNewPasswordConfirmShown ? "password" : "text"}
                                             id="newPasswordConfirm"
                                             aria-invalid={fieldState.invalid}
                                             placeholder="Повторите новый пароль"
-                                            autoComplete="off"
+                                            autoComplete="new-password"
                                         />
-                                        <InputGroupAddon align="inline-end">
-                                            <InputGroupButton
-                                                size="icon-xs"
-                                                onClick={() => {
-                                                    setIsNewPasswordConfirmShown((prev) => !prev)
-                                                }}
-                                            >
-                                                {isNewPasswordConfirmShown ? <EyeOffIcon /> : <EyeIcon />}
-                                            </InputGroupButton>
-                                        </InputGroupAddon>
                                     </InputGroup>
                                     {fieldState.invalid && (
                                         <FieldError errors={[fieldState.error]} />
