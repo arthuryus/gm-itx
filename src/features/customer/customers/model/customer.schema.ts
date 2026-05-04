@@ -7,7 +7,7 @@ export const customerSchema = z.object({
     lastName: z.string().min(1, 'Фамилия обязательна'),
     middleName: z.string(),
     email: z.string().min(1, 'Email обязателен').email('Некорректный email'),
-    phone: z.string(),
+    phone: z.string().regex(/^\+7\d{10}$/, "Некорректный номер телефона").optional().or(z.literal("")),
     status: z.enum(Object.values(STATUS) as [TStatus, ...TStatus[]]),
     memberships: z.array(
         z.object({
