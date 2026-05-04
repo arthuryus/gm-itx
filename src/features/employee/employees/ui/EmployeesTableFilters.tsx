@@ -88,7 +88,7 @@ export function EmployeesTableFilters({ filters, onFiltersChange }: EmployeesTab
             </div>
 
             <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium">Ролы</label>
+                <label className="text-sm font-medium">Роли</label>
                 <SelectMulti
                     value={localFilters.roleIds}
                     onValueChange={(value) => handleSelectMultiChange('roleIds', value)}
