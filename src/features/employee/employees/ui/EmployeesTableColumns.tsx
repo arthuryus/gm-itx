@@ -41,27 +41,6 @@ export function getEmployeesTableColumns({
             ),
             cell: ({ row }) => <div className="font-medium">{getFullName(row.original)}</div>,
         },
-        /*{
-            accessorKey: 'firstName',
-            header: ({ column }) => (
-                <TableColumnHeaderSortBase column={column} label="Имя" />
-            ),
-            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('firstName')}</div>,
-        },
-        {
-            accessorKey: 'lastName',
-            header: ({ column }) => (
-                <TableColumnHeaderSortBase column={column} label="Фамилия" />
-            ),
-            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('lastName')}</div>,
-        },
-        {
-            accessorKey: 'middleName',
-            header: ({ column }) => (
-                <TableColumnHeaderSortBase column={column} label="Отчество" />
-            ),
-            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('middleName')}</div>,
-        },*/
         {
             accessorKey: 'email',
             header: ({ column }) => (

@@ -10,9 +10,9 @@ export function TableColumnHeaderSortBase<TData>({
     label: string
 }) {
     return (
-        <Button
-            variant="ghost"
+        <button
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className="flex items-center gap-1"
         >
             {label}
             {column.getIsSorted() ? (
@@ -24,7 +24,7 @@ export function TableColumnHeaderSortBase<TData>({
             ) : (
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             )}
-        </Button>
+        </button>
     )
 }
 
