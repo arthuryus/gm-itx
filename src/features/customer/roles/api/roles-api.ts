@@ -17,33 +17,33 @@ import type {
 export const rolesApi = {
     getList: async (params: TGetRolesRequest = {}): Promise<TGetRolesResponse> => {
         const queryString = buildTableFilterQueryParams(params)
-        const url = queryString ? `/employees/roles?${queryString}` : '/employees/roles'
+        const url = queryString ? `/customers/roles?${queryString}` : '/customers/roles'
         const response = await api.get<TGetRolesResponse>(url)
 
         return response.data
     },
 
     getById: async ({ id }: TGetRoleRequest): Promise<TGetRoleResponse> => {
-        const response = await api.get<TGetRoleResponse>(`/employees/roles/${id}`)
+        const response = await api.get<TGetRoleResponse>(`/customers/roles/${id}`)
         return response.data
     },
 
     create: async (data: TCreateRoleRequestWithoutId): Promise<TCreateRoleResponse> => {
-        const response = await api.post<TCreateRoleResponse>('/employees/roles', data)
+        const response = await api.post<TCreateRoleResponse>('/customers/roles', data)
         return response.data
     },
 
     update: async ({ id, data }: TUpdateRoleRequestWithId): Promise<TUpdateRoleResponse> => {
-        const response = await api.put<TUpdateRoleResponse>(`/employees/roles/${id}`, data)
+        const response = await api.put<TUpdateRoleResponse>(`/customers/roles/${id}`, data)
         return response.data
     },
 
     delete: async ({ id }: TDeleteRoleRequest): Promise<TDeleteRoleResponse> => {
-        await api.delete(`/employees/roles/${id}`)
+        await api.delete(`/customers/roles/${id}`)
     },
 
     getPermissions: async (): Promise<TGetRolePermissionsResponse> => {
-        const url = `/employees/roles/permissions`
+        const url = `/customers/roles/permissions`
         const response = await api.get<TGetRolePermissionsResponse>(url)
 
         return response.data
