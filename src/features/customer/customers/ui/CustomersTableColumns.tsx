@@ -76,9 +76,7 @@ export function getCustomersTableColumns({
         },
         {
             accessorKey: 'roleIds',
-            header: ({ column }) => (
-                <TableColumnHeaderSortBase column={column} label="Роли" />
-            ),
+            header: 'Роли',
             cell: ({ row }) => {
                 const memberships = row.original.memberships
 

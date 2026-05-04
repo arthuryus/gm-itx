@@ -43,9 +43,7 @@ export function getRolesTableColumns({
         },
         {
             accessorKey: 'description',
-            header: ({ column }) => (
-                <TableColumnHeaderSortBase column={column} label="Описание" />
-            ),
+            header: 'Описание',
             cell: ({ row }) => {
                 const description = row.getValue<string>('description')
                 return (
