@@ -8,7 +8,7 @@ export default function PasswordResetPage() {
         <Card className="w-full max-w-md">
             <CardHeader className="text-center">
                 <CardTitle className="text-2xl">Восстановление пароля</CardTitle>
-                <CardDescription>Введите ваш email для получения инструкций по востанавлению пароля</CardDescription>
+                <CardDescription>Введите ваш email для получения инструкции по восстановлению пароля</CardDescription>
             </CardHeader>
             <CardContent>
                 <PasswordResetForm />
