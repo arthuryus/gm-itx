@@ -8,15 +8,15 @@ export const setupSchema = z.object({
     currentPassword: z
         .string()
         .min(1, "Текущий пароль обязателен")
-        .min(6, "Минимум 6 символов"),
+        .min(8, "Минимум 8 символов"),
     newPassword: z
         .string()
         .min(1, "Новый пароль обязателен")
-        .min(6, "Минимум 6 символов"),
+        .min(8, "Минимум 8 символов"),
     newPasswordConfirm: z
         .string()
         .min(1, "Подтвердите новый пароль обязателен")
-        .min(6, "Минимум 6 символов"),
+        .min(8, "Минимум 8 символов"),
 
 })
 

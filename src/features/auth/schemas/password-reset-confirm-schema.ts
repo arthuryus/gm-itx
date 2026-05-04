@@ -4,11 +4,11 @@ export const passwordResetConfirmSchema = z.object({
     newPassword: z
         .string()
         .min(1, "Пароль обязателен")
-        .min(6, "Минимум 6 символов"),
+        .min(8, "Минимум 8 символов"),
     newPasswordConfirm: z
         .string()
         .min(1, "Подтвердите пароль обязателен")
-        .min(6, "Минимум 6 символов"),
+        .min(8, "Минимум 8 символов"),
     token: z
         .string()
         .min(1, "Ссылка для восстановления пароля неверная"),

@@ -102,7 +102,7 @@ export default function LoginForm() {
                                     to={PAGE_URLS.passwordReset()}
                                     className="ml-auto text-primary text-sm underline-offset-4 hover:underline"
                                 >
-                                    Забыл пароль?
+                                    Забыли пароль?
                                 </Link>
                             </div>
                             <InputGroup>

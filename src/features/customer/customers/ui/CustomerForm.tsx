@@ -53,17 +53,17 @@ export function CustomerForm({
         <form onSubmit={handleSubmit} noValidate>
             <FieldGroup>
                 <Controller
-                    name="firstName"
+                    name="lastName"
                     control={form.control}
                     render={({ field, fieldState }) => (
                         <Field data-invalid={fieldState.invalid}>
-                            <FieldLabel htmlFor="firstName">Имя</FieldLabel>
+                            <FieldLabel htmlFor="lastName">Фамилия</FieldLabel>
                             <InputGroup>
                                 <InputGroupInput
                                     {...field}
-                                    id="firstName"
+                                    id="lastName"
                                     type="text"
-                                    placeholder="Введите имя"
+                                    placeholder="Введите фамилию"
                                     aria-invalid={fieldState.invalid}
                                     disabled={isSubmitting || disabled}
                                 />
@@ -76,17 +76,17 @@ export function CustomerForm({
                 />
 
                 <Controller
-                    name="lastName"
+                    name="firstName"
                     control={form.control}
                     render={({ field, fieldState }) => (
                         <Field data-invalid={fieldState.invalid}>
-                            <FieldLabel htmlFor="lastName">Фамилия</FieldLabel>
+                            <FieldLabel htmlFor="firstName">Имя</FieldLabel>
                             <InputGroup>
                                 <InputGroupInput
                                     {...field}
-                                    id="lastName"
+                                    id="firstName"
                                     type="text"
-                                    placeholder="Введите фамилию"
+                                    placeholder="Введите имя"
                                     aria-invalid={fieldState.invalid}
                                     disabled={isSubmitting || disabled}
                                 />

@@ -7,8 +7,8 @@ export default function PasswordResetPage() {
     return (
         <Card className="w-full max-w-md">
             <CardHeader className="text-center">
-                <CardTitle className="text-2xl">Сброс пароля</CardTitle>
-                <CardDescription>Введите ваш email для получения инструкций по сбросу пароля</CardDescription>
+                <CardTitle className="text-2xl">Восстановление пароля</CardTitle>
+                <CardDescription>Введите ваш email для получения инструкций по востанавлению пароля</CardDescription>
             </CardHeader>
             <CardContent>
                 <PasswordResetForm />

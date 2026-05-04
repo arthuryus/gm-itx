@@ -11,11 +11,11 @@ export const signupSchema = z.object({
     password: z
         .string()
         .min(1, "Пароль обязателен")
-        .min(6, "Минимум 6 символов"),
+        .min(8, "Минимум 8 символов"),
     passwordRepeat: z
         .string()
         .min(1, "Подтвердите пароль обязателен")
-        .min(6, "Минимум 6 символов"),
+        .min(8, "Минимум 8 символов"),
 })
 
 export type SignupSchema = z.infer<typeof signupSchema>
