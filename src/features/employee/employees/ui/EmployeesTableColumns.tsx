@@ -71,9 +71,7 @@ export function getEmployeesTableColumns({
         },
         {
             accessorKey: 'phone',
-            header: ({ column }) => (
-                <TableColumnHeaderSortBase column={column} label="Телефон" />
-            ),
+            header: 'Телефон',
             cell: ({ row }) => <div className="font-medium">{row.original.phone ? formatPhoneFull(row.original.phone) : ''}</div>,
         },
         {

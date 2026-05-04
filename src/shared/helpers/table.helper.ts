@@ -19,7 +19,7 @@ export function buildTableFilterQueryParams(params: TTableListParams): string {
 
     if (params.sort && params.sort.length > 0) {
         params.sort.forEach((sortItem) => {
-            searchParams.append('sort[]', sortItem)
+            searchParams.append('sort', sortItem)//'sort[]'
         })
     }
 
