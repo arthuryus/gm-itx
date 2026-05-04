@@ -1,10 +1,7 @@
 import * as React from "react"
-import { InputMask, format } from "@react-input/mask"
+import { InputMask } from "@react-input/mask"
 import { InputGroupAddon, InputGroupInput, InputGroupText } from "@/shadcn/components/ui/input-group"
-
-const PHONE_PREFIX = "+7"
-const PHONE_MASK = "(___) ___-__-__"
-const PHONE_REPLACEMENT = { _: /\d/ }
+import { PHONE_PREFIX, PHONE_MASK, PHONE_REPLACEMENT, normalizePhone, formatPhone } from "@/shared/helpers/phone.helper.ts"
 
 type InputGroupPhoneInputProps = Omit<React.ComponentPropsWithoutRef<"input">, "type" | "inputMode" | "value" | "onChange"> & {
     value?: string
@@ -23,7 +20,7 @@ export const InputGroupPhoneInput = React.forwardRef<
     },
     ref
 ) {
-    const [displayValue, setDisplayValue] = React.useState(() => formatPhoneDisplay(value))
+    const [displayValue, setDisplayValue] = React.useState(() => formatPhone(value))
 
     const lastEmittedValueRef = React.useRef<string | null>(null)
 
@@ -32,7 +29,7 @@ export const InputGroupPhoneInput = React.forwardRef<
             return
         }
 
-        setDisplayValue(formatPhoneDisplay(value))
+        setDisplayValue(formatPhone(value))
     }, [value])
 
     return (
@@ -53,7 +50,7 @@ export const InputGroupPhoneInput = React.forwardRef<
                 placeholder={placeholder}
                 onChange={(event) => {
                     const nextDisplayValue = event.target.value
-                    const normalizedValue = normalizePhoneValue(nextDisplayValue)
+                    const normalizedValue = normalizePhone(nextDisplayValue)
 
                     setDisplayValue(nextDisplayValue)
                     lastEmittedValueRef.current = normalizedValue
@@ -80,36 +77,3 @@ export const InputGroupPhoneInput = React.forwardRef<
         </>
     )
 })
-
-function getPhoneDigits(value: string) {
-    const digits = value.replace(/\D/g, "")
-
-    if (digits.length > 10 && (digits.startsWith("7") || digits.startsWith("8"))) {
-        return digits.slice(1, 11)
-    }
-
-    return digits.slice(0, 10)
-}
-
-function normalizePhoneValue(value: string) {
-    const digits = getPhoneDigits(value)
-
-    if (!digits) {
-        return ""
-    }
-
-    return `${PHONE_PREFIX}${digits}`
-}
-
-function formatPhoneDisplay(value: string) {
-    const digits = getPhoneDigits(value)
-
-    if (!digits) {
-        return ""
-    }
-
-    return format(digits, {
-        mask: PHONE_MASK,
-        replacement: PHONE_REPLACEMENT,
-    })
-}

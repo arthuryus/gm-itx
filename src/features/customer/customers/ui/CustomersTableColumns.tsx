@@ -1,6 +1,7 @@
 import type { ColumnDef } from '@tanstack/react-table'
 import type { TCustomer } from '../model/customer.types.ts'
 import { type TStatus, STATUS, STATUS_LABEL } from '@/shared/constants/main.ts'
+import { formatPhoneFull } from '@/shared/helpers/phone.helper.ts'
 import {TableColumnHeaderSortBase, TableColumnCellActionsBase} from "@/shared/components/ui/base/table/TableColumnsBase.tsx";
 import { Badge } from '@/shadcn/components/ui/badge'
 
@@ -62,7 +63,7 @@ export function getCustomersTableColumns({
             header: ({ column }) => (
                 <TableColumnHeaderSortBase column={column} label="Телефон" />
             ),
-            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('phone')}</div>,
+            cell: ({ row }) => <div className="font-medium">{row.original.phone ? formatPhoneFull(row.original.phone) : ''}</div>,
         },
         {
             accessorKey: 'roleIds',
