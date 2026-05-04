@@ -22,6 +22,10 @@ export function getEmployeesTableColumns({
     canEdit,
     canDelete,
 }: EmployeesTableColumnsProps): ColumnDef<TEmployee>[] {
+    const getFullName = (rowOriginal: TEmployee) => {
+        return [rowOriginal.lastName, rowOriginal.firstName, rowOriginal.middleName].filter(Boolean).join(' ')
+    }
+
     return [
         {
             accessorKey: 'id',
@@ -31,6 +35,13 @@ export function getEmployeesTableColumns({
             cell: ({ row }) => <div className="font-medium">{row.getValue('id')}</div>,
         },
         {
+            accessorKey: 'name',
+            header: ({ column }) => (
+                <TableColumnHeaderSortBase column={column} label="ФИО" />
+            ),
+            cell: ({ row }) => <div className="font-medium">{getFullName(row.original)}</div>,
+        },
+        /*{
             accessorKey: 'firstName',
             header: ({ column }) => (
                 <TableColumnHeaderSortBase column={column} label="Имя" />
@@ -50,7 +61,7 @@ export function getEmployeesTableColumns({
                 <TableColumnHeaderSortBase column={column} label="Отчество" />
             ),
             cell: ({ row }) => <div className="font-medium">{row.getValue<string>('middleName')}</div>,
-        },
+        },*/
         {
             accessorKey: 'email',
             header: ({ column }) => (
