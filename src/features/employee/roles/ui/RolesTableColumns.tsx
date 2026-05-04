@@ -25,21 +25,21 @@ export function getRolesTableColumns({
             header: ({ column }) => (
                 <TableColumnHeaderSortBase column={column} label="ID" />
             ),
-            cell: ({ row }) => <div className="font-medium">{row.getValue('id')}</div>,
+            cell: ({ row }) => <div>{row.getValue('id')}</div>,
         },
         {
             accessorKey: 'title',
             header: ({ column }) => (
                 <TableColumnHeaderSortBase column={column} label="Название" />
             ),
-            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('title')}</div>,
+            cell: ({ row }) => <div>{row.getValue<string>('title')}</div>,
         },
         {
             accessorKey: 'code',
             header: ({ column }) => (
                 <TableColumnHeaderSortBase column={column} label="Идентификатор" />
             ),
-            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('code')}</div>,
+            cell: ({ row }) => <div>{row.getValue<string>('code')}</div>,
         },
         {
             accessorKey: 'description',

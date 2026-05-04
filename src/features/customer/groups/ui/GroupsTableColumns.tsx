@@ -27,14 +27,14 @@ export function getGroupsTableColumns({
             header: ({ column }) => (
                 <TableColumnHeaderSortBase column={column} label="ID" />
             ),
-            cell: ({ row }) => <div className="font-medium">{row.getValue('id')}</div>,
+            cell: ({ row }) => <div>{row.getValue('id')}</div>,
         },
         {
             accessorKey: 'name',
             header: ({ column }) => (
                 <TableColumnHeaderSortBase column={column} label="Название" />
             ),
-            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('name')}</div>,
+            cell: ({ row }) => <div>{row.getValue<string>('name')}</div>,
             /*cell: ({ row }) => {
                 const item = row.original
                 return (

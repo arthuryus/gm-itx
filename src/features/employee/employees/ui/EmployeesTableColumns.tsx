@@ -32,26 +32,26 @@ export function getEmployeesTableColumns({
             header: ({ column }) => (
                 <TableColumnHeaderSortBase column={column} label="ID" />
             ),
-            cell: ({ row }) => <div className="font-medium">{row.getValue('id')}</div>,
+            cell: ({ row }) => <div>{row.getValue('id')}</div>,
         },
         {
             accessorKey: 'name',
             header: ({ column }) => (
                 <TableColumnHeaderSortBase column={column} label="ФИО" />
             ),
-            cell: ({ row }) => <div className="font-medium">{getFullName(row.original)}</div>,
+            cell: ({ row }) => <div>{getFullName(row.original)}</div>,
         },
         {
             accessorKey: 'email',
             header: ({ column }) => (
                 <TableColumnHeaderSortBase column={column} label="Email" />
             ),
-            cell: ({ row }) => <div className="font-medium">{row.getValue<string>('email')}</div>,
+            cell: ({ row }) => <div>{row.getValue<string>('email')}</div>,
         },
         {
             accessorKey: 'phone',
             header: 'Телефон',
-            cell: ({ row }) => <div className="font-medium">{row.original.phone ? formatPhoneFull(row.original.phone) : ''}</div>,
+            cell: ({ row }) => <div>{row.original.phone ? formatPhoneFull(row.original.phone) : ''}</div>,
         },
         {
             accessorKey: 'roleIds',
