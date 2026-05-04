@@ -119,17 +119,20 @@ export function getEmployeesTableColumns({
         {
             id: 'actions',
             header: 'Действия',
-            cell: ({ row }) => (
-                <TableColumnCellActionsBase
-                    item={row.original}
-                    onView={onView}
-                    onEdit={onEdit}
-                    onDelete={onDelete}
-                    canView={canView}
-                    canEdit={canEdit}
-                    canDelete={canDelete}
-                />
-            ),
+            cell: ({ row }) => {
+                const canDeleteImmutable = canDelete && !row.original?.immutable
+                return (
+                    <TableColumnCellActionsBase
+                        item={row.original}
+                        onView={onView}
+                        onEdit={onEdit}
+                        onDelete={onDelete}
+                        canView={canView}
+                        canEdit={canEdit}
+                        canDelete={canDeleteImmutable}
+                    />
+                )
+            },
         },
     ]
 }
