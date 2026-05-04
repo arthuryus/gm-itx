@@ -24,7 +24,7 @@ export default function EmployeeUpdatePage() {
     const navigate = useNavigate()
     const itemId = Number(id)
 
-    const { data: item, isLoading: isLoadingGroup } = useGetCustomer(itemId)
+    const { data: item, isLoading: isLoading } = useGetCustomer(itemId)
     const updateMutation = useUpdateCustomer()
     const closeSessionMutation = useCloseSessionCustomer()
     const sendAccessMutation = useSendAccessCustomer()
@@ -64,7 +64,7 @@ export default function EmployeeUpdatePage() {
         }
     }
 
-    if (isLoadingGroup) {
+    if (isLoading) {
         return (
             <Card className="max-w-2xl">
                 <CardHeader>
@@ -86,7 +86,8 @@ export default function EmployeeUpdatePage() {
         )
     }
 
-    const isSubmitting = updateMutation.isPending || closeSessionMutation.isPending || sendAccessMutation.isPending
+    const isSubmitting = updateMutation.isPending
+    const isSending = closeSessionMutation.isPending || sendAccessMutation.isPending
     const disabled = !!item?.immutable
 
     return (
@@ -127,6 +128,7 @@ export default function EmployeeUpdatePage() {
                     isSubmitting={isSubmitting}
                     onSubmit={handleSubmit}
                     onCancel={handleCancel}
+                    isSending={isSending}
                     disabled={disabled}
                 />
             </CardContent>

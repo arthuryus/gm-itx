@@ -20,6 +20,7 @@ interface CustomerFormProps {
     isSubmitting: boolean
     onSubmit: (data: TCustomerFormData, form:  UseFormReturn<TCustomerFormData>) => void
     onCancel: () => void
+    isSending?: boolean
     disabled?: boolean
 }
 
@@ -29,6 +30,7 @@ export function CustomerForm({
     isSubmitting,
     onSubmit,
     onCancel,
+    isSending = false,
     disabled = false,
 }: CustomerFormProps) {
     const isModeCreate = mode === 'create'
@@ -65,7 +67,7 @@ export function CustomerForm({
                                     type="text"
                                     placeholder="Введите фамилию"
                                     aria-invalid={fieldState.invalid}
-                                    disabled={isSubmitting || disabled}
+                                    disabled={isSubmitting || isSending || disabled}
                                 />
                             </InputGroup>
                             {fieldState.invalid && (
@@ -88,7 +90,7 @@ export function CustomerForm({
                                     type="text"
                                     placeholder="Введите имя"
                                     aria-invalid={fieldState.invalid}
-                                    disabled={isSubmitting || disabled}
+                                    disabled={isSubmitting || isSending || disabled}
                                 />
                             </InputGroup>
                             {fieldState.invalid && (
@@ -111,7 +113,7 @@ export function CustomerForm({
                                     type="text"
                                     placeholder="Введите отчество"
                                     aria-invalid={fieldState.invalid}
-                                    disabled={isSubmitting || disabled}
+                                    disabled={isSubmitting || isSending || disabled}
                                 />
                             </InputGroup>
                             {fieldState.invalid && (
@@ -134,7 +136,7 @@ export function CustomerForm({
                                     type="text"
                                     placeholder="Введите email"
                                     aria-invalid={fieldState.invalid}
-                                    disabled={isSubmitting || disabled}
+                                    disabled={isSubmitting || isSending || disabled}
                                 />
                             </InputGroup>
                             {fieldState.invalid && (
@@ -155,7 +157,7 @@ export function CustomerForm({
                                     {...field}
                                     id="phone"
                                     aria-invalid={fieldState.invalid}
-                                    disabled={isSubmitting || disabled}
+                                    disabled={isSubmitting || isSending || disabled}
                                 />
                             </InputGroup>
                             {fieldState.invalid && (
@@ -177,7 +179,7 @@ export function CustomerForm({
                                 onValueChange={(value) =>
                                     field.onChange(value as TStatus)
                                 }
-                                disabled={isSubmitting || disabled}
+                                disabled={isSubmitting || isSending || disabled}
                             >
                                 <SelectTrigger
                                     id="status"
@@ -203,7 +205,7 @@ export function CustomerForm({
 
                 <CustomerFormMemberships
                     form={form}
-                    isSubmitting={isSubmitting}
+                    isSubmitting={isSubmitting || isSending}
                     disabled={disabled}
                 />
 
@@ -212,14 +214,14 @@ export function CustomerForm({
                         type="button"
                         variant="outline"
                         onClick={onCancel}
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || isSending}
                     >
                         Отмена
                     </Button>
                     {!disabled && (
                         <Button
                             type="submit"
-                            disabled={isSubmitting}
+                            disabled={isSubmitting || isSending}
                         >
                             {isSubmitting && <Spinner className="size-3" />}
                             {isModeCreate ? 'Создать' : 'Сохранить'}
