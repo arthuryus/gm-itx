@@ -1,4 +1,4 @@
-import {Controller, useFieldArray, type UseFormReturn} from 'react-hook-form'
+import {Controller, useFieldArray, useWatch, type UseFormReturn} from 'react-hook-form'
 import type {TEmployeeFormData} from '../model/employee.types.ts'
 import {useGetGroupsList} from '@/features/employee/groups/hooks/queries/useGetGroups.ts'
 import {useGetRolesList} from '@/features/employee/roles/hooks/queries/useGetRoles.ts'
@@ -36,7 +36,22 @@ export function EmployeeFormMemberships({
         name: 'memberships',
     })
 
+    const memberships = useWatch({
+        control: form.control,
+        name: 'memberships',
+    })
+
+    const selectedGroupIds = memberships
+        ?.map((membership) => membership.groupId)
+        .filter(Boolean) ?? []
+
+    const canAddMembership = fields.length < optionsGroups.length
+
     const handleAdd = () => {
+        if (!canAddMembership) {
+            return
+        }
+
         append({groupId: '', roleIds: []})
     }
 
@@ -71,11 +86,16 @@ export function EmployeeFormMemberships({
                                             <SelectValue placeholder="Выберите группу" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {optionsGroups.map((option) => (
-                                                <SelectItem key={option.value} value={option.value}>
-                                                    {option.label}
-                                                </SelectItem>
-                                            ))}
+                                            {optionsGroups
+                                                .filter((option) => (
+                                                    option.value === field.value
+                                                    || !selectedGroupIds.includes(option.value)
+                                                ))
+                                                .map((option) => (
+                                                    <SelectItem key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </SelectItem>
+                                                ))}
                                         </SelectContent>
                                     </Select>
                                     {fieldState.invalid && (
@@ -136,7 +156,7 @@ export function EmployeeFormMemberships({
                     type="button"
                     variant="outline"
                     onClick={handleAdd}
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !canAddMembership}
                 >
                     Добавить
                 </Button>
