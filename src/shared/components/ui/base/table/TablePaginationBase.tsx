@@ -70,7 +70,7 @@ export function TablePaginationBase({
                         value={perPage.toString()}
                         onValueChange={(value) => onPerPageChange(Number(value))}
                     >
-                        <SelectTrigger className="h-8 w-[70px]">
+                        <SelectTrigger className="h-8 w-[80px]">
                             <SelectValue />
                         </SelectTrigger>
 
