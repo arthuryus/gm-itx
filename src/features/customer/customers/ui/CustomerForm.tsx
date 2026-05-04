@@ -9,6 +9,7 @@ import { CustomerFormMemberships } from './CustomerFormMemberships.tsx'
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/shadcn/components/ui/field'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shadcn/components/ui/select'
 import { InputGroup, InputGroupInput } from '@/shadcn/components/ui/input-group'
+import { InputGroupPhoneInput } from '@/shared/components/ui/inputs/InputGroupPhoneInput.tsx'
 import { Button } from '@/shadcn/components/ui/button'
 import { Spinner } from '@/shadcn/components/ui/spinner'
 
@@ -150,11 +151,9 @@ export function CustomerForm({
                         <Field data-invalid={fieldState.invalid}>
                             <FieldLabel htmlFor="phone">Телефон</FieldLabel>
                             <InputGroup>
-                                <InputGroupInput
+                                <InputGroupPhoneInput
                                     {...field}
                                     id="phone"
-                                    type="text"
-                                    placeholder="Введите номер телефона"
                                     aria-invalid={fieldState.invalid}
                                     disabled={isSubmitting || disabled}
                                 />
