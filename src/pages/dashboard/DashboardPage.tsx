@@ -29,13 +29,15 @@ export default function DashboardPage() {
 
     const doMe400 = async () => {
         await authApi.me400()
-    }
+    }*/
 
-    const doToast = () => {
+    /*const doToast = () => {
         //toast("Hello world!")
-        toast.error("Hello world!")
-    }
-    */
+        toast.error("Hello world!", {
+            description: "Monday, January 3rd at 6:00pm",
+        })
+    }*/
+
 
     return (
         <div className="space-y-6">
@@ -58,6 +60,9 @@ export default function DashboardPage() {
                     <Button onClick={doCameras} disabled={!useAccess({permission: PERMISSIONS.PERMISSION_CAMERAS})}>Cameras</Button>
                     <Button onClick={doMe400}>Me 400</Button>
                     <Button onClick={doToast} disabled={!useAccess({permissions: [PERMISSIONS.PERMISSION_DOCUMENTS, PERMISSIONS.PERMISSION_DOCUMENTS_CREATE], requireAll: true})}>Toast</Button>
+                </p>
+                <p>
+                    <Button onClick={doToast}>Show Toast</Button>
                 </p>*/}
             </div>
         </div>

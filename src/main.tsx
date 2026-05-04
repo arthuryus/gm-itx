@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                         <Router />
                     </BrowserRouter>
                 </AppInitializer>
-                <Toaster />
+                <Toaster richColors />
             </QueryProvider>
         </ErrorBoundary>
 
